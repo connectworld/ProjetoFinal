@@ -1,0 +1,179 @@
+// LINK DO GITHUB
+	https://github.com/connectworld/connectwolrd.git
+
+//SENHA E LOGIN
+	connectworld.ltda@gmail.com
+	connectworld123
+
+------------------------------------------------------
+
+#BANCO DE DADOS TESTE
+
+//DELETANDO DATABASE PARA FAZER OUTRA
+	drop database projeto_final
+
+//CRIANDO  DATABASE CASO NAO EXISTA
+	create database projeto_final
+
+-----------------------------------------------------------
+//criado tabela PRODUTO
+
+	create table produtos (
+		cod_produto int primary key auto_increment,
+		nome varchar(50) not null,
+		descricao varchar(50) not null,
+		preco_venda real not null,
+		quantidade int not null,
+		imagem varchar(100) not null
+	);
+	//ADICIONADO MAIS UM CAMPO
+	  alter table produtos add user_cadastrante int;
+-------------------------------------------------------------
+//CRIANDO TABELA SERVICOS
+
+	CREATE TABLE servicos ( 
+	    cod_servico INT PRIMARY KEY AUTO_INCREMENT, 
+	    descricao VARCHAR (50) not null, 
+	    nome VARCHAR (50) NOT NULL,
+	    garantia date not null, 
+	    preco REAL 
+	  );
+	  
+	  //ADICIONADO MAIS UM CAMPO
+	  alter table servicos add user_cadastrante int;
+-------------------------------------------------------------
+//CRIANDO TABELA NIVEL_USUARIO
+	
+	create table nivel_user (
+		cod_nivel int primary key auto_increment,
+		nome varchar(50) not null,
+		descricao varchar(50) not null
+	);
+------------------------------------------------------------	
+//CRIANDO TABELA DE USU�RIO
+
+    CREATE TABLE usuarios ( 
+	    cod_usuario INT PRIMARY KEY AUTO_INCREMENT, 
+	    nome VARCHAR (50) not null, 
+	    login VARCHAR (50) not NULL, 
+	    senha varchar(100) not null,
+	    telefone varchar (20),
+	    foto varchar(100),
+	    email varchar(50) not null,
+	    nivel_usuario int not null,
+	    foreign key (nivel_usuario) references nivel_user(cod_nivel)
+    );
+----------------------------------------------------------------------
+// CRIANDO TABELA DE TELAS
+
+ 	create table telas (
+ 		cod_tela int primary key auto_increment,
+ 		url varchar(50) not null,
+ 		descricao varchar(50) not null);
+-----------------------------------------------------------------	
+//TABELA DE RELACIONAMENTO ENTRE NIVEL_USUARIO E TELAS
+
+	create table valida_url( 
+		cod_valida int PRIMARY key AUTO_INCREMENT,
+		cod_nivelUsuario int not null,
+		cod_telaUsuario int not null,
+		FOREIGN KEY (cod_nivelUsuario) REFERENCES nivel_user(cod_nivel),
+		FOREIGN KEY (cod_telaUsuario) REFERENCES telas(cod_tela);
+	); 		
+-------------------------------------------------------------
+//TABELA DE CLIENTE
+	
+	create table cliente (
+		cod_cliente int primary key auto_increment,
+		nome varchar(50) not null,
+		cpf varchar(15)  not null,
+		email varchar(50) not null,
+		contato1 varchar(15) not null,
+		contato2 varchar(15),
+		cep varchar(10) not null,
+		rua varchar(50) not null,
+		bairro varchar(50) not null,
+		uf varchar(3) not null,
+		cidade varchar(50) not null,
+		numero varchar(10) not null,
+		ibge int not null
+	);
+-------------------------------------------------------------
+//Tabela de Pedido
+
+	create table pedido (
+		cod_pedido int primary key auto_increment,
+		cliente int not null,
+		situacao varchar(1) not null,
+		data_pedido date,
+		valor_total real,
+		FOREIGN KEY (cliente) REFERENCES cliente(cod_cliente)
+	);
+-------------------------------------------------------------
+//Tabela Itens Pedido
+
+	create table itens_pedido(
+		cod_itensPedido int primary key auto_increment,
+		valor_unitario real,
+		valor_total real,
+		quantidade int,
+		cod_servicoItens int not null,
+		cod_produtoItens int not null,
+		pedido int not null,
+		FOREIGN KEY (cod_servicoItens) REFERENCES servicos(cod_servico),
+		FOREIGN KEY (cod_produtoItens) REFERENCES produtos(cod_produto),
+		FOREIGN KEY (pedido) REFERENCES pedido(cod_pedido)
+	);
+-------------------------------------------------------------
+//tigger 
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `pedido_produto_before_insert` AFTER INSERT ON `pedido_produto` FOR EACH ROW BEGIN
+	insert into movimento_pedido_produto (cod_ped_produto,produto,preco, 
+	quantidade, valor_pedido, data_pedido) values (new.cod, new.nome, new.preco,
+	 new.quantidade, (new.quantidade * new.preco), CURRENT_DATE());
+END
+
+BEGIN
+	insert into movimento_pedido_produto (cod_ped_produto,produto,preco, 
+	quantidade, valor_pedido, data_pedido) values (new.cod, new.nome, new.preco,
+	 new.quantidade, (new.quantidade * new.preco), CURRENT_DATE());
+END
+
+
+
+
+## URLS PARA BLOQUEIO
+_____________________
+cadastrarNivelUsuario - CADASTRO DE NIVEL DE USUARIO
+listarNivelUsuario - LISTAGEM DE NIVEL DE USUARIO
+editarNivelUsuario - EDITAR NIVEL DE USU�RIO
+deletarNivelUsuario - DELETAR NIVEL DE USUARIO
+
+chamaCadastrarProduto - CADASTRO DE  PRODUTO
+listarProduto - LISTAR PRODUTO
+editarProduto - EDITAR PRODUTO
+deletarProduto - DELETAR PRODUTO
+
+cadastrarServico - CADASTRO DE SERVICO
+listarServico - LISTAR SERVICO
+editarServico - EDITAR SERVICO
+deletarServico - DELETAR SERVICO
+
+cadastrarUsuario - CADASTRO DE USU�RIO
+listarUsuario - LISTAR USU�RIO
+editarUsuario - EDITAR USU�RIO
+deletarUsuario - DELETAR USU�RIO
+
+Links 
+
+http://alexanmtz.github.io/bootstrap/components.html
+http://alexanmtz.github.io/bootstrap/components.html
+
+http://www.w3schools.com/jsref/met_win_print.asp
+https://nakupanda.github.io/bootstrap3-dialog/
+http://www.arquivodecodigos.net/dicas/javascript-como-usar-o-metodo-getelementbyid-do-objeto-document-para-localizar-um-elemento-html-baseado-em-seu-id-3309.html
+http://www.linhadecodigo.com.br/artigo/3567/mysql-basico-triggers.aspx
+http://www.rafaelwendel.com/2011/06/funcao-javascript-para-validar-cpf/
+http://wbruno.com.br/html/validando-formularios-apenas-com-html5/
+https://viacep.com.br/exemplo/javascript/
+

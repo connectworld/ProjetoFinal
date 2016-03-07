@@ -1,0 +1,109 @@
+package br.com.connectWorld.projeto.controller;
+
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import br.com.connectWorld.projeto.dao.NivelUsuarioDao;
+import br.com.connectWorld.projeto.dao.UsuarioDao;
+import br.com.connectWorld.projeto.model.NivelUsuario;
+import br.com.connectWorld.projeto.model.Usuario;
+import br.com.connectWorld.projeto.util.Util;
+
+@Controller
+public class UsuarioController {
+
+	@RequestMapping("/cadastrarUsuario")
+	public String cadastrarUsuario(Model model) {
+		NivelUsuarioDao dao = new NivelUsuarioDao();
+		List<NivelUsuario> listaNivelUsuario = dao.listar();
+		model.addAttribute("listaNivelUsuario", listaNivelUsuario);
+		return "usuario/cadastrarUsuario";
+	}
+
+	@RequestMapping("salvarUsuario")
+	public String salvarUsuario(Usuario usuario, @RequestParam("img") MultipartFile imagem, Model model)
+			throws SQLException {
+
+		if (Util.fazerUploadImagem(imagem)) {
+			usuario.setFoto(Calendar.getInstance().getTime() + " - " + imagem.getOriginalFilename());
+		}
+		UsuarioDao dao = new UsuarioDao();
+		dao.salvar(usuario);
+		model.addAttribute("mensagem", "Usuario Incluido com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarUsuario";
+	}
+
+	@RequestMapping("/listarUsuario")
+	public String listarUsuario(Model model) throws SQLException {
+		UsuarioDao dao = new UsuarioDao();
+		List<Usuario> listaUsuario = dao.listar();
+		model.addAttribute("listaUsuario", listaUsuario);
+		dao.fecharBanco();
+		return "usuario/listarUsuario";
+	}
+
+	@RequestMapping("/editarUsuario")
+	public String editarUsuario(int cod, Model model) throws SQLException {
+		UsuarioDao dao = new UsuarioDao();
+		NivelUsuarioDao dao2 = new NivelUsuarioDao();
+		List<NivelUsuario> listaNivelUsuario = dao2.listar();
+		model.addAttribute("listaNivelUsuario", listaNivelUsuario);
+		model.addAttribute("usuario", dao.buscarPorCod(cod));
+		dao.fecharBanco();
+		return "usuario/editarUsuario";
+	}
+
+	@RequestMapping("/deletarUsuario")
+	public String deletarUsuario(Usuario usuario, Model model) throws SQLException {
+		UsuarioDao dao = new UsuarioDao();
+		dao.deletar(usuario);
+		model.addAttribute("mensagem", "Usuário Removido com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarUsuario";
+	}
+
+	@RequestMapping("atualizarUsuario")
+	public String atualizarUsuario(Usuario usuario, Model model) throws SQLException {
+
+		UsuarioDao dao = new UsuarioDao();
+		dao.atualizarUsuario(usuario);
+		model.addAttribute("mensagem", "Usuário atualizado com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarUsuario";
+	}
+
+	@RequestMapping("efetuarLogin")
+	public String efetuarLogin(Usuario usuario, HttpSession session, Model model) {
+		UsuarioDao dao = new UsuarioDao();
+		Usuario usuarioLogado = dao.buscarUsuario(usuario);
+		if (usuarioLogado != null) {
+			session.setAttribute("usuarioLogado", usuarioLogado);
+			model.addAttribute("mensagem", "Bem vindo");
+			return "forward:listarUsuario";
+		}
+		model.addAttribute("msg", "Não foi encontrado um usuário com o login e senha informados.");
+		return "admin";
+	}
+
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "admin";
+	}
+
+	@RequestMapping("login")
+	public String login() {
+
+		return "admin";
+	}
+}

@@ -175,5 +175,5 @@ http://www.arquivodecodigos.net/dicas/javascript-como-usar-o-metodo-getelementby
 http://www.linhadecodigo.com.br/artigo/3567/mysql-basico-triggers.aspx
 http://www.rafaelwendel.com/2011/06/funcao-javascript-para-validar-cpf/
 http://wbruno.com.br/html/validando-formularios-apenas-com-html5/
-https://viacep.com.br/exemplo/javascript/
 
+Deus é fiel

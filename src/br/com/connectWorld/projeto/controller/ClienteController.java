@@ -65,7 +65,6 @@ public class ClienteController {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
 			return "principal/pedidoWeb";
-		}
-		
+		}	
 	}
 }

@@ -17,6 +17,7 @@ public class PedidoDao {
 	public PedidoDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -36,14 +37,14 @@ public class PedidoDao {
 			stmt.setString(4, pedido.getSituacao());
 			// EXUCUTANDO O SQL
 			stmt.execute();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	public Pedido obterUltimoPedido() {
 		try {
-			PreparedStatement stmt = conexao.prepareStatement("SELECT cod_pedido from pedido order by cod_pedido desc");
+			PreparedStatement stmt = conexao.prepareStatement("SELECT * from pedido order by cod_pedido desc");
 			ResultSet rs = stmt.executeQuery();
 
 			Pedido pedido= null;
@@ -52,7 +53,7 @@ public class PedidoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return pedido;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -74,8 +75,7 @@ public class PedidoDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
-
+			
 			return listarPedido;
 
 		} catch (SQLException e) {
@@ -94,7 +94,7 @@ public class PedidoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return pedido;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -112,7 +112,7 @@ public class PedidoDao {
 			
 			param.execute();
 			param.close();
-			conexao.close();
+			
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -125,7 +125,7 @@ public class PedidoDao {
 			stmt.setInt(1, pedido.getCod());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -141,7 +141,7 @@ public class PedidoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return pedido;
 			
 		} catch (SQLException e) {
@@ -159,7 +159,7 @@ public class PedidoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return pedidoConsu;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -175,12 +175,14 @@ public class PedidoDao {
 		int cod = rs.getInt("cliente");
 		ClienteDao dao = new ClienteDao();
 		Cliente cliente= dao.buscarPorCod(cod);
-		pedido.setCliente(cliente);		
-		conexao.close();
+		pedido.setCliente(cliente);	
+		dao.fecharBanco();
+		
 		return pedido;
 	}
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 }

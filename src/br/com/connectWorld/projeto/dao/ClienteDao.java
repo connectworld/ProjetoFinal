@@ -18,6 +18,7 @@ public class ClienteDao {
 	public ClienteDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -46,7 +47,7 @@ public class ClienteDao {
 			stmt.setInt(12, cliente.getIbge());
 			// EXUCUTANDO O SQL
 			stmt.execute();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -65,7 +66,7 @@ public class ClienteDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return cliente;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -85,7 +86,7 @@ public class ClienteDao {
 			stmt.setDouble(3, pedido.getValor());
 			// EXUCUTANDO O SQL
 			stmt.execute();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -108,7 +109,7 @@ public class ClienteDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listarCliente;
 
 		} catch (SQLException e) {
@@ -129,7 +130,7 @@ public class ClienteDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return cliente;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -149,7 +150,7 @@ public class ClienteDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return clienteResul;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -178,7 +179,7 @@ public class ClienteDao {
 
 			param.execute();
 			param.close();
-			conexao.close();
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -192,7 +193,7 @@ public class ClienteDao {
 			stmt.setInt(1, cliente.getCod());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -210,7 +211,7 @@ public class ClienteDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return cliente;
 
 		} catch (SQLException e) {
@@ -230,7 +231,7 @@ public class ClienteDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return clienteConsu;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -259,6 +260,7 @@ public class ClienteDao {
 
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 }

@@ -18,6 +18,7 @@ public class ValidarUrlDao {
 	public ValidarUrlDao() {
 		try {
 			conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -37,7 +38,7 @@ public class ValidarUrlDao {
 
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return listaValidaUrl;
 
 		} catch (SQLException e) {
@@ -55,7 +56,7 @@ public class ValidarUrlDao {
 		dao.fecharBanco();
 		TelasDao dao2 = new TelasDao();
 		validaUrl.setTela(dao2.buscarPorCod(rs.getInt("cod_telaUsuario")));
-		dao.fecharBanco();
+		dao2.fecharBanco();
 		return validaUrl;
 	}
 
@@ -75,7 +76,7 @@ public class ValidarUrlDao {
 
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return false;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -85,6 +86,7 @@ public class ValidarUrlDao {
 
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 

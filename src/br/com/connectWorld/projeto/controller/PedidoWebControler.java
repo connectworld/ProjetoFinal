@@ -1,5 +1,6 @@
 package br.com.connectWorld.projeto.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,11 @@ import br.com.connectWorld.projeto.model.Servico;
 public class PedidoWebControler {
 	
 	@RequestMapping("/chamaPedidoWeb")
-	public String chamaPedido(Model model) {
+	public String chamaPedido(Model model) throws SQLException {
 		ServicoDao dao = new ServicoDao();
 		List <Servico> listaServico = dao.listar();
 		model.addAttribute("listaServico",listaServico);
+		dao.fecharBanco();
 		return "principal/pedidoServicoWeb";
 	}
 	

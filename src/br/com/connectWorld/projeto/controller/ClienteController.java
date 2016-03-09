@@ -1,5 +1,6 @@
 package br.com.connectWorld.projeto.controller;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import br.com.connectWorld.projeto.model.Servico;
 public class ClienteController {
 	
 	@RequestMapping("/salvarClientePedido")
-	public String salvarClientePedido(Model model, PedidoWebDTO pedidoWeb){
+	public String salvarClientePedido(Model model, PedidoWebDTO pedidoWeb) throws SQLException{
 		PedidoDao pedidoDao = new PedidoDao();
 		Pedido pedido = new Pedido();
 		ClienteDao clienteDao = new ClienteDao();
@@ -31,17 +32,20 @@ public class ClienteController {
 			pedido.setCliente(clientePesquisado);
 			Date date = new Date();
 			pedido.setData(date);
-			pedidoDao.salvar(pedido);
 			pedido.setSituacao("A");
+			pedidoDao.salvar(pedido);
+			
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoDao itens = new ItensPedidoDao();
 			for (Servico servico: pedidoWeb.getServico()) {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
 			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
+			pedidoDao.fecharBanco();
+			clienteDao.fecharBanco();
+			itens.fecharBanco();
 			return "principal/pedidoWeb";
-		}
-		else {
+		}else {
 			cliente.setNome(pedidoWeb.getNome());
 			cliente.setCpf(pedidoWeb.getCpf());
 			cliente.setEmail(pedidoWeb.getEmail());
@@ -64,7 +68,12 @@ public class ClienteController {
 			for (Servico servico: pedidoWeb.getServico()) {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
+			
+			pedidoDao.fecharBanco();
+			clienteDao.fecharBanco();
+			itens.fecharBanco();
 			return "principal/pedidoWeb";
-		}	
+		}
+		
 	}
 }

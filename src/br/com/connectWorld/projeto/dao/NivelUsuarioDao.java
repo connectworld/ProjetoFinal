@@ -19,6 +19,7 @@ public class NivelUsuarioDao {
 	public NivelUsuarioDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -41,7 +42,7 @@ public class NivelUsuarioDao {
 			for (Telas tela : nivelUsuario.getTelas()) {
 				salvarValidaUrl(codNivel, tela);
 			}
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -60,7 +61,7 @@ public class NivelUsuarioDao {
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -77,7 +78,7 @@ public class NivelUsuarioDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return codNivel;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -99,7 +100,7 @@ public class NivelUsuarioDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listarNivelUsuario;
 
 		} catch (SQLException e) {
@@ -118,7 +119,7 @@ public class NivelUsuarioDao {
 
 			param.execute();
 			param.close();
-			conexao.close();
+			
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -132,7 +133,7 @@ public class NivelUsuarioDao {
 			stmt.setInt(1, nivelUsuario.getCod());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -149,7 +150,7 @@ public class NivelUsuarioDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return nivelUsuario;
 			
 		} catch (SQLException e) {
@@ -170,7 +171,7 @@ public class NivelUsuarioDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return nivelUsuario;
 			
 		} catch (SQLException e) {
@@ -190,5 +191,6 @@ public class NivelUsuarioDao {
 
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 	}
 }

@@ -18,6 +18,7 @@ public class ProdutoDao {
 	public ProdutoDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -40,7 +41,7 @@ public class ProdutoDao {
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 
@@ -64,7 +65,7 @@ public class ProdutoDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listarProduto;
 
 		} catch (SQLException e) {
@@ -89,7 +90,7 @@ public class ProdutoDao {
 
 			param.execute();
 			param.close();
-			conexao.close();
+			
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -104,7 +105,7 @@ public class ProdutoDao {
 			stmt.setInt(1, produto.getCod());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -116,7 +117,7 @@ public class ProdutoDao {
 			stmt.setString(1, produto.getDescricao());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -134,7 +135,7 @@ public class ProdutoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return produto;
 			
 		} catch (SQLException e) {
@@ -156,7 +157,7 @@ public class ProdutoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return produto;
 			
 		} catch (SQLException e) {
@@ -174,16 +175,18 @@ public class ProdutoDao {
 		produto.setQuantidade(rs.getInt("quantidade"));
 		produto.setImagem(rs.getString("imagem"));
 
-		// MONTANODO USUÁRIO
+		// MONTANODO USUï¿½RIO
 		int cod = rs.getInt("user_cadastrante");
 		UsuarioDao dao = new UsuarioDao();
 		Usuario usuario = dao.buscarPorCod(cod);
 		produto.setUsuario(usuario);
+		dao.fecharBanco();
 		
 		return produto;
 	}
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 	}
 
 }

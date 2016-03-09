@@ -17,10 +17,13 @@ public class TelasDao {
 	public TelasDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	
 	
 	public Telas buscarPorCod(int cod) {
 		try {
@@ -35,7 +38,7 @@ public class TelasDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return tela;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -59,7 +62,7 @@ public class TelasDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listarTelas;
 
 		} catch (SQLException e) {
@@ -77,5 +80,6 @@ public class TelasDao {
 	}
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 	}
 }

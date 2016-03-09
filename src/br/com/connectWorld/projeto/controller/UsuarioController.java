@@ -22,10 +22,11 @@ import br.com.connectWorld.projeto.util.Util;
 public class UsuarioController {
 
 	@RequestMapping("/cadastrarUsuario")
-	public String cadastrarUsuario(Model model) {
+	public String cadastrarUsuario(Model model) throws SQLException {
 		NivelUsuarioDao dao = new NivelUsuarioDao();
 		List<NivelUsuario> listaNivelUsuario = dao.listar();
 		model.addAttribute("listaNivelUsuario", listaNivelUsuario);
+		dao.fecharBanco();
 		return "usuario/cadastrarUsuario";
 	}
 
@@ -67,7 +68,7 @@ public class UsuarioController {
 	public String deletarUsuario(Usuario usuario, Model model) throws SQLException {
 		UsuarioDao dao = new UsuarioDao();
 		dao.deletar(usuario);
-		model.addAttribute("mensagem", "Usuário Removido com Sucesso");
+		model.addAttribute("mensagem", "Usuï¿½rio Removido com Sucesso");
 		dao.fecharBanco();
 		return "forward:listarUsuario";
 	}
@@ -77,21 +78,23 @@ public class UsuarioController {
 
 		UsuarioDao dao = new UsuarioDao();
 		dao.atualizarUsuario(usuario);
-		model.addAttribute("mensagem", "Usuário atualizado com Sucesso");
+		model.addAttribute("mensagem", "Usuï¿½rio atualizado com Sucesso");
 		dao.fecharBanco();
 		return "forward:listarUsuario";
 	}
 
 	@RequestMapping("efetuarLogin")
-	public String efetuarLogin(Usuario usuario, HttpSession session, Model model) {
+	public String efetuarLogin(Usuario usuario, HttpSession session, Model model) throws SQLException {
 		UsuarioDao dao = new UsuarioDao();
 		Usuario usuarioLogado = dao.buscarUsuario(usuario);
+		dao.fecharBanco();
 		if (usuarioLogado != null) {
 			session.setAttribute("usuarioLogado", usuarioLogado);
 			model.addAttribute("mensagem", "Bem vindo");
 			return "forward:listarUsuario";
 		}
-		model.addAttribute("msg", "Não foi encontrado um usuário com o login e senha informados.");
+		model.addAttribute("msg", "Nï¿½o foi encontrado um usuï¿½rio com o login e senha informados.");
+		dao.fecharBanco();
 		return "admin";
 	}
 

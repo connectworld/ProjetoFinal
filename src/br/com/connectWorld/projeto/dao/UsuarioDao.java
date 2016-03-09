@@ -20,6 +20,7 @@ public class UsuarioDao {
 	public UsuarioDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -44,7 +45,7 @@ public class UsuarioDao {
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -66,7 +67,7 @@ public class UsuarioDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 
 			return listarUsuario;
 
@@ -88,7 +89,7 @@ public class UsuarioDao {
 
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return usuario;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -111,7 +112,7 @@ public class UsuarioDao {
 			param.setInt(8, usuario.getCod());
 			param.execute();
 			param.close();
-			conexao.close();
+			
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -125,7 +126,7 @@ public class UsuarioDao {
 			stmt.setInt(1, usuario.getCod());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -138,7 +139,7 @@ public class UsuarioDao {
 			stmt.setString(1, usuario.getLogin());
 			stmt.execute();
 			stmt.close();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -156,7 +157,7 @@ public class UsuarioDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return usuario;
 			
 		} catch (SQLException e) {
@@ -175,7 +176,7 @@ public class UsuarioDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return usuarioConsultado;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -197,12 +198,14 @@ public class UsuarioDao {
 		NivelUsuarioDao dao = new NivelUsuarioDao();
 		NivelUsuario nivelUsuario = dao.buscarPorCod(cod);
 		usuario.setNivelUsuario(nivelUsuario);
+		dao.fecharBanco();
 
 		return usuario;
 	}
 
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 

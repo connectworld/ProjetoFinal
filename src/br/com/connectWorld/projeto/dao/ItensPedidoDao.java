@@ -19,6 +19,7 @@ public class ItensPedidoDao {
 	public ItensPedidoDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -39,25 +40,25 @@ public class ItensPedidoDao {
 			stmt.setDouble(5, itensPedido.getValorTotal());
 			// EXUCUTANDO O SQL
 			stmt.execute();
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
-public void salvarItens(int cliente, Servico servico) {
+public void salvarItens(int pedido, Servico servico) {
 		
-		String insert = "INSERT INTO itens_pedido (cod_pedidoItens,cod_servicoItens,valor_unitario) VALUES (?,?,?)";
+		String insert = "INSERT INTO itens_pedido (pedido,cod_servicoItens,valor_unitario) VALUES (?,?,?)";
 		PreparedStatement stmt;
 		try {
 			stmt = conexao.prepareStatement(insert);
 			// INSERINDO OS DADOS DENTR DA VARIAVEL STMT
-			stmt.setInt(1, cliente);
+			stmt.setInt(1, pedido);
 			stmt.setInt(2, servico.getCod());
 			stmt.setDouble(3, servico.getPreco());
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
-			conexao.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -75,7 +76,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 		// EXUCUTANDO O SQL
 		stmt.execute();
 		// FECHANDO CONEXAO
-		conexao.close();
+		
 	} catch (SQLException e) {
 		throw new RuntimeException(e);
 	}
@@ -96,7 +97,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listaritensPedido;
 
 		} catch (SQLException e) {
@@ -115,7 +116,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return itensPedido;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -135,7 +136,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 			
 			param.execute();
 			param.close();
-			conexao.close();
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -162,7 +163,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return itensPedido;
 			
 		} catch (SQLException e) {
@@ -180,7 +181,7 @@ public void salvarItenProduto(int cliente, Produto produto) {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return itensPedidoConsu;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -200,18 +201,22 @@ public void salvarItenProduto(int cliente, Produto produto) {
 		ServicoDao dao = new ServicoDao();
 		Servico servico= dao.buscarPorCod(codServico);
 		itenPedido.setServico(servico);
+		dao.fecharBanco();
 		
 		ProdutoDao dao2 = new ProdutoDao();
 		Produto produto= dao2.buscarPorCod(codProduto);
 		itenPedido.setProduto(produto);
+		dao2.fecharBanco();
 		
 		PedidoDao dao3 = new PedidoDao();
 		Pedido pedido = dao3.buscarPorCod(codPedido);
 		itenPedido.setPedido(pedido);
+		dao3.fecharBanco();
 		return itenPedido;
 	}
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 }

@@ -27,7 +27,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			ValidarUrlDao dao = new ValidarUrlDao();
 			List<ValidaUrl> lista = dao.obterTelasUsuario(usuario.getNivelUsuario().getCod());
-			
+			dao.fecharBanco();
 			for (ValidaUrl validaUrl : lista) {
 				if (uri.endsWith(validaUrl.getTela().getUrl())) {
 					acesso = true;

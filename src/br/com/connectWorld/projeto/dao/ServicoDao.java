@@ -19,6 +19,7 @@ public class ServicoDao {
 	public ServicoDao() {
 		try {
 			this.conexao = new ConexaoComBanco().getConnection();
+			System.out.println(1);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -41,7 +42,7 @@ public class ServicoDao {
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
-			conexao.close();
+			
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -66,7 +67,7 @@ public class ServicoDao {
 			}
 			param.close();
 			stmt.close();
-			conexao.close();
+			
 			return listarServico;
 
 		} catch (SQLException e) {
@@ -88,7 +89,7 @@ public class ServicoDao {
 
 			param.execute();
 			param.close();
-			conexao.close();
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -121,7 +122,7 @@ public class ServicoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return servico;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -142,7 +143,7 @@ public class ServicoDao {
 			}
 			rs.close();
 			stmt.close();
-			conexao.close();
+			
 			return servico;
 			
 		} catch (SQLException e) {
@@ -165,10 +166,12 @@ public class ServicoDao {
 		UsuarioDao dao = new UsuarioDao();
 		Usuario usuario = dao.buscarPorCod(cod);
 		servico.setUsuario(usuario);
+		dao.fecharBanco();
 		return servico;
 	}
 	public void fecharBanco() throws SQLException {
 		conexao.close();
+		System.out.println(2);
 
 	}
 

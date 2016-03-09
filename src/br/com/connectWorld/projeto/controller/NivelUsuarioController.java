@@ -16,10 +16,11 @@ import br.com.connectWorld.projeto.model.Telas;
 public class NivelUsuarioController {
 	
 	@RequestMapping("/cadastrarNivelUsuario")
-	public String cadastrarNivelUsuario(Model model) {
+	public String cadastrarNivelUsuario(Model model) throws SQLException {
 		TelasDao dao = new TelasDao();
 		List<Telas> listaTelas = dao.listar();
 		model.addAttribute("listaTelas", listaTelas);
+		dao.fecharBanco();
 		return "nivelUsuario/cadastrarNivelUsuario";
 		}
 	@RequestMapping("salvarNivelUsuario")

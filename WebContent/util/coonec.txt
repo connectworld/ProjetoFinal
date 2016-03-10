@@ -1,5 +1,5 @@
 // LINK DO GITHUB
-	https://github.com/connectworld/connectwolrd.git
+	https://github.com/connectworld/ProjetoFinal.git
 
 //SENHA E LOGIN
 	connectworld.ltda@gmail.com
@@ -24,9 +24,10 @@
 		descricao varchar(50) not null,
 		preco_venda real not null,
 		quantidade int not null,
-		imagem varchar(100) not null
+		imagem varchar(100) not null,
+		user_cadastrante int not null
 	);
-	//ADICIONADO MAIS UM CAMPO
+	//ADICIONADO MAIS UM CAMPO,CASO NÃO TENHA CRIADO
 	  alter table produtos add user_cadastrante int;
 -------------------------------------------------------------
 //CRIANDO TABELA SERVICOS
@@ -36,10 +37,11 @@
 	    descricao VARCHAR (50) not null, 
 	    nome VARCHAR (50) NOT NULL,
 	    garantia date not null, 
-	    preco REAL 
+	    preco REAL,
+	    user_cadastrante int not nul
 	  );
 	  
-	  //ADICIONADO MAIS UM CAMPO
+	  //ADICIONADO MAIS UM CAMPO, CASO NÃO TENHA CRIADO
 	  alter table servicos add user_cadastrante int;
 -------------------------------------------------------------
 //CRIANDO TABELA NIVEL_USUARIO
@@ -110,6 +112,31 @@
 		FOREIGN KEY (cliente) REFERENCES cliente(cod_cliente)
 	);
 -------------------------------------------------------------
+//CRIANDO TABELA DE ITENS DE SERVIVO
+	
+	create table itens_servico (
+		cod_recno int primary key auto_increment,
+		cod_pedidoServico int not null,
+		item_servico int not null,
+		valor_unitario real not null,
+		FOREIGN KEY (cod_pedidoServico) REFERENCES pedido(cod_pedido),
+		FOREIGN KEY (item_servico) REFERENCES servicos(cod_servico)
+	);
+		
+-------------------------------------------------------------
+	//TABELA ITENS PRODUTO
+	
+	create table itens_produto (
+		cod_recno int primary key auto_increment,
+		cod_pedidoProduto int not null,
+		cod_itemProduto int not null,
+		quantidade int not null,
+		valor_unitario real not null,
+		FOREIGN KEY (cod_pedidoProduto) REFERENCES pedido(cod_pedido),
+		FOREIGN KEY (cod_itemProduto) REFERENCES produtos(cod_produto)
+	);
+-------------------------------------------------------------
+//ATENÇÃO ESTA TABELA NÃO EXISTE
 //Tabela Itens Pedido
 
 	create table itens_pedido(

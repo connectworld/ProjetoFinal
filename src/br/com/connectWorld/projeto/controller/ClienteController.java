@@ -2,14 +2,16 @@ package br.com.connectWorld.projeto.controller;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.connectWorld.projeto.dao.ClienteDao;
-import br.com.connectWorld.projeto.dao.ItensPedidoDao;
+import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
+import br.com.connectWorld.projeto.dao.ServicoDao;
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
 import br.com.connectWorld.projeto.model.PedidoWebDTO;
@@ -33,10 +35,11 @@ public class ClienteController {
 			Date date = new Date();
 			pedido.setData(date);
 			pedido.setSituacao("A");
+			pedido.setValor(0);
 			pedidoDao.salvar(pedido);
 			
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
-			ItensPedidoDao itens = new ItensPedidoDao();
+			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
 			for (Servico servico: pedidoWeb.getServico()) {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
@@ -44,7 +47,7 @@ public class ClienteController {
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
 			itens.fecharBanco();
-			return "principal/pedidoWeb";
+			return "principal/pedidoServicoWeb";
 		}else {
 			cliente.setNome(pedidoWeb.getNome());
 			cliente.setCpf(pedidoWeb.getCpf());
@@ -59,21 +62,34 @@ public class ClienteController {
 			cliente.setIbge(pedidoWeb.getIbge());
 			cliente.setUf(pedidoWeb.getUf());
 			clienteDao.salvar(cliente);
+			
+			cliente = clienteDao.obterUltimoCliente();
+			
 			pedido.setCliente(cliente);
 			Date date = new Date();
 			pedido.setData(date);
 			pedido.setSituacao("A");
+			pedido.setValor(0);
+			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
-			ItensPedidoDao itens = new ItensPedidoDao();
+			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
 			for (Servico servico: pedidoWeb.getServico()) {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
-			
+			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
 			itens.fecharBanco();
-			return "principal/pedidoWeb";
+			return "forward:retornaPedidoWeb";
 		}
 		
+	}
+	@RequestMapping("/retornaPedidoWeb")
+	public String retornaPedidoWeb(Model model) throws SQLException {
+		ServicoDao dao = new ServicoDao();
+		List <Servico> listaServico = dao.listar();
+		model.addAttribute("listaServico",listaServico);
+		dao.fecharBanco();
+		return "principal/pedidoServicoWeb";
 	}
 }

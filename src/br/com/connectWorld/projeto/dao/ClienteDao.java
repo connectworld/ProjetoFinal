@@ -54,7 +54,6 @@ public class ClienteDao {
 	}
 
 	public Cliente obterUltimoCliente() {
-
 		try {
 			PreparedStatement stmt = conexao
 					.prepareStatement("SELECT * from cliente order by cod_cliente desc");

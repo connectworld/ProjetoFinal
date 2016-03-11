@@ -97,7 +97,8 @@ public class ClienteDao {
 			// SER APRESENTADOS
 			List<Cliente> listarCliente = new ArrayList<Cliente>();
 			PreparedStatement stmt = this.conexao
-					.prepareStatement("select * from cliente");
+					.prepareStatement("select * from cliente where exclusao_logica = ?");
+					stmt.setInt(1, 0);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -187,16 +188,34 @@ public class ClienteDao {
 
 	public void deletar(Cliente cliente) {
 		try {
-			PreparedStatement stmt = conexao
-					.prepareStatement("DELETE FROM cliente WHERE cod_cliente= ?");
-			stmt.setInt(1, cliente.getCod());
-			stmt.execute();
-			stmt.close();
-			
+			PedidoDao pedidoDao= new PedidoDao();
+			List<Pedido> listaPedido = pedidoDao.buscarClientePedido(cliente);
+			pedidoDao.fecharBanco();
+			if (listaPedido.size() == 0) {
+				PreparedStatement stmt = conexao
+						.prepareStatement("update cliente set exclusao_logica = ? where cod_cliente = ?");
+				stmt.setInt(1, 1);
+				stmt.setInt(2, cliente.getCod());
+				stmt.execute();
+				stmt.close();
+			}
+			else if (listaPedido.size() != 0) {
+				PreparedStatement stmt = conexao
+						.prepareStatement("update pedido set situacao = ? where cliente = ?;"
+								+ "update cliente set exclusao_logica = ? where cod_cliente = ?;");
+				stmt.setString(1, "C");
+				stmt.setInt(2, cliente.getCod());
+				stmt.setInt(3,1);
+				stmt.setInt(4, cliente.getCod());
+				stmt.execute();
+				stmt.close();
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
+	
 
 	public Cliente buscarPorNome(String nome) {
 		try {
@@ -256,7 +275,6 @@ public class ClienteDao {
 
 		return cliente;
 	}
-
 	public void fecharBanco() throws SQLException {
 		conexao.close();
 		System.out.println(2);

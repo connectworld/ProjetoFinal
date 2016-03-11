@@ -37,8 +37,8 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 			if(!acesso){
 				
 				if (uri.endsWith("salvarNivelUsuario") || uri.endsWith("salvarUsuario") || uri.endsWith("salvarProduto") || uri.endsWith("salvarServico") 
-					|| uri.endsWith("atualizarNivelUsuario")
-					|| uri.endsWith("atualizarUsuario") || uri.endsWith("atualizarProduto") || uri.endsWith("atualizarServico") || uri.endsWith("salvarNivelUsuario"))  {
+					|| uri.endsWith("atualizarNivelUsuario") || uri.endsWith("atualizarUsuario") || uri.endsWith("atualizarProduto") 
+					|| uri.endsWith("atualizarServico") || uri.endsWith("homeAdmin") )  {
 					
 					acesso = true;						
 				}
@@ -51,8 +51,8 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		} else {
 
 			if (request.getSession().getAttribute("usuarioLogado") != null) {
-				request.getSession().setAttribute("mensagem", "Voc� n�o tem permiss�o");
-				response.sendRedirect("/Projeto_Final/chamaHome");
+				request.getSession().setAttribute("mensagem", "VOCE NAO TEM PERMISSAO");
+				response.sendRedirect("/Projeto_Final/homeAdmin");
 			} else {
 				response.sendRedirect("/Projeto_Final/");
 			}	

@@ -91,9 +91,12 @@ public class UsuarioController {
 		if (usuarioLogado != null) {
 			session.setAttribute("usuarioLogado", usuarioLogado);
 			model.addAttribute("mensagem", "Bem vindo");
-			return "forward:listarUsuario";
+			return "homeAdmin";
 		}
-		model.addAttribute("msg", "N�o foi encontrado um usu�rio com o login e senha informados.");
+		else if (usuario.getSenha() == null  && usuario.getLogin() == null) {
+			return "admin";
+		}
+		model.addAttribute("msg", "LOGIN OU SENHA INVALIDOS.");
 		dao.fecharBanco();
 		return "admin";
 	}
@@ -106,7 +109,10 @@ public class UsuarioController {
 
 	@RequestMapping("login")
 	public String login() {
-
 		return "admin";
+	}
+	@RequestMapping("homeAdmin")
+	public String homeAdmin() {
+		return "homeAdmin";
 	}
 }

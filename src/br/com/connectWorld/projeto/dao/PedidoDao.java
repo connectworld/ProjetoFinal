@@ -165,6 +165,29 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List <Pedido> buscarClientePedido(Cliente cliente){
+		try {
+			PreparedStatement stmt = this.conexao
+					.prepareStatement("select * from pedido where cliente =? and situacao = ?");
+			stmt.setInt(1, cliente.getCod());
+			stmt.setString(2, "A");
+			ResultSet rs = stmt.executeQuery();
+			Pedido pedido= null;
+			List <Pedido> listaPedido = new ArrayList<Pedido>();
+			if (rs.next()) {
+				pedido = montarObjeto(rs);
+				listaPedido.add(pedido);
+			}
+			rs.close();
+			stmt.close();
+			
+			return listaPedido;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
 	private Pedido montarObjeto(ResultSet rs) throws SQLException {
 
 		Pedido pedido = new Pedido();

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
-
 import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
@@ -108,9 +106,32 @@ public class ClienteController {
 			return "principal/pedidoServicoWebPreechido";
 		}
 		else {
-			model.addAttribute("mensagem", "Desculpa, você ainda não realizou nenhum tipo de compra conosco");
+			model.addAttribute("mensagem", "Desculpa, voce ainda nao realizou nenhum tipo de compra conosco");
 			return "principal/pedidoServicoWeb";
-		}
-		
+		}	
+	}
+	@RequestMapping("/listarCliente")
+	public String listarCliente(Model model, Cliente cliente) throws SQLException {
+		ClienteDao dao = new ClienteDao();
+		List <Cliente> listaCliente = dao.listar();
+		model.addAttribute("listaCliente",listaCliente);
+		dao.fecharBanco();
+		return "cliente/listarCliente";
+	}
+	@RequestMapping("/deletarCliente")
+	public String deletarCliente(Model model, Cliente cliente) throws SQLException {
+		ClienteDao dao = new ClienteDao();
+		dao.deletar(cliente);
+		model.addAttribute("mensagem","Cliente deletado com Sucesso");
+		dao.fecharBanco();
+		return "cliente/listarCliente";
+	}
+	@RequestMapping("/editarCliente")
+	public String editarCliente(Model model, Cliente cliente) throws SQLException {
+		ClienteDao dao = new ClienteDao();
+		Cliente clienteConsultado = dao.buscarPorCpf(cliente);
+		model.addAttribute("clienteConsultado",clienteConsultado);
+		dao.fecharBanco();
+		return "cliente/editarCliente";
 	}
 }

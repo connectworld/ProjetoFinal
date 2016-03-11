@@ -45,11 +45,10 @@
 					<th class="tabelaGeral">CPF</th>
 					<th class="tabelaGeral">EMAIL</th>
 					<th class="tabelaGeral">CONTATO 1</th>
-					<th class="tabelaGeral">CONTATO 2</th>
 					<th class="tabelaGeral">CEP</th>
 					<th class="tabelaGeral">BAIRRO</th>
-					<th>EDITAR</th>
-					<th>DELETAR</th>
+					<th class="thMenor">EDITAR</th>
+					<th class="thMenor">DELETAR</th>
 				</tr>
 			</thead> 
 			<c:forEach var="cliente" items="${listaCliente}" varStatus="id">
@@ -57,14 +56,13 @@
 						<td>${cliente.cod }</td>
 						<td>${cliente.nome}</td>
 						<td>${cliente.cpf}</td>
-						<td>${cliente.contato1}</td>
+						<td>${cliente.email}</td>
 						<td>${cliente.contato2}</td>
-						<td>${produto.cep}</td>
-						<td>${produto.bairro}</td>
-						<td><a href="editarCliente?cod=${cliente.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Ver Dados</a></td>
+						<td>${cliente.cep}</td>
+						<td>${cliente.bairro}</td>
+						<td><a href="verDadosCliente?cod=${cliente.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Ver Dados</a></td>
 						<td><a class="btn icon-btn btn-danger" href="deletarCliente?cod=${cliente.cod}"><span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Deletar</a></td>
 					</tr>
-				
 			</c:forEach>	
 		</table>
 	</div>

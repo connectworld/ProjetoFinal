@@ -120,8 +120,9 @@ public class ClienteDao {
 	public Cliente buscarPorCod(int cod) {
 		try {
 			PreparedStatement stmt = conexao
-					.prepareStatement("SELECT * FROM cliente WHERE cod_cliente= ?");
+					.prepareStatement("SELECT * FROM cliente WHERE cod_cliente= ? and exclusao_logica = ?");
 			stmt.setInt(1, cod);
+			stmt.setInt(2,0);
 			ResultSet rs = stmt.executeQuery();
 
 			Cliente cliente = null;

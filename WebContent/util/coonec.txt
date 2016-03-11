@@ -191,6 +191,11 @@ listarUsuario - LISTAR USU�RIO
 editarUsuario - EDITAR USU�RIO
 deletarUsuario - DELETAR USU�RIO
 
+listarCliente - Listar Cliente
+verDados - Ver dados do Cliente
+deletar - Deletar cliente
+
+
 Links 
 
 http://alexanmtz.github.io/bootstrap/components.html

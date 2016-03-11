@@ -47,7 +47,7 @@ public class ClienteController {
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
 			itens.fecharBanco();
-			return "principal/pedidoServicoWeb";
+			return "forward:chamaPedidoWeb";
 		}else {
 			cliente.setNome(pedidoWeb.getNome());
 			cliente.setCpf(pedidoWeb.getCpf());
@@ -80,12 +80,12 @@ public class ClienteController {
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
 			itens.fecharBanco();
-			return "forward:retornaPedidoWeb";
+			return "forward:chamaPedidoWeb";
 		}
 		
 	}
-	@RequestMapping("/retornaPedidoWeb")
-	public String retornaPedidoWeb(Model model) throws SQLException {
+	@RequestMapping("/chamaPedidoWeb")
+	public String chamaPedido(Model model) throws SQLException {
 		ServicoDao dao = new ServicoDao();
 		List <Servico> listaServico = dao.listar();
 		model.addAttribute("listaServico",listaServico);
@@ -133,5 +133,13 @@ public class ClienteController {
 		model.addAttribute("clienteConsultado",clienteConsultado);
 		dao.fecharBanco();
 		return "cliente/editarCliente";
+	}
+	@RequestMapping("/verDadosCliente")
+	public String verDados(Model model, Cliente cliente) throws SQLException {
+		ClienteDao dao = new ClienteDao();
+		Cliente clienteConsultado = dao.buscarPorCod(cliente.getCod());
+		model.addAttribute("clienteConsultado",clienteConsultado);
+		dao.fecharBanco();
+		return "cliente/verDados";
 	}
 }

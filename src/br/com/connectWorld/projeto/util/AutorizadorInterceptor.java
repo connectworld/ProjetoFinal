@@ -19,7 +19,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		String uri = request.getRequestURI();
 		if (uri.contains("/view/bootstrap") || uri.contains("/view/css") || uri.contains("/view/img")
 				|| uri.contains("/view/js") || uri.endsWith("/Projeto_Final/") || uri.endsWith("efetuarLogin") || uri.endsWith("logout")
-				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb")|| uri.endsWith("salvarClientePedido"))  {
+				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb") || uri.endsWith("salvarClientePedido") || uri.endsWith("buscarCpf")) {
 			return true;
 		}
 		boolean acesso = false;
@@ -33,14 +33,26 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 					acesso = true;
 				}
 			}
+
+			if(!acesso){
+				
+				if (uri.endsWith("salvarNivelUsuario") || uri.endsWith("salvarUsuario") || uri.endsWith("salvarProduto") || uri.endsWith("salvarServico") 
+					|| uri.endsWith("atualizarNivelUsuario")
+					|| uri.endsWith("atualizarUsuario") || uri.endsWith("atualizarProduto") || uri.endsWith("atualizarServico") || uri.endsWith("salvarNivelUsuario"))  {
+					
+					acesso = true;						
+				}
+			}
+
+
 		}
 		if (acesso) {
 			return acesso;
 		} else {
-			
+
 			if (request.getSession().getAttribute("usuarioLogado") != null) {
 				request.getSession().setAttribute("mensagem", "Voc� n�o tem permiss�o");
-				response.sendRedirect("/Projeto_Final/listarProduto");
+				response.sendRedirect("/Projeto_Final/chamaHome");
 			} else {
 				response.sendRedirect("/Projeto_Final/");
 			}	

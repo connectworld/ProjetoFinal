@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
+
 import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
@@ -91,5 +93,24 @@ public class ClienteController {
 		model.addAttribute("listaServico",listaServico);
 		dao.fecharBanco();
 		return "principal/pedidoServicoWeb";
+	}
+	@RequestMapping("/buscarCpf")
+	public String buscarCpf(Model model,Cliente cliente) throws SQLException {
+		ClienteDao clienteDao = new ClienteDao();
+		Cliente clienteConsultado = clienteDao.buscarPorCpf(cliente);
+		clienteDao.fecharBanco();
+		if (clienteConsultado != null) {
+			ServicoDao dao = new ServicoDao();
+			List <Servico> listaServico = dao.listar();
+			dao.fecharBanco();
+			model.addAttribute("listaServico",listaServico);
+			model.addAttribute("clienteConsultado", clienteConsultado);
+			return "principal/pedidoServicoWebPreechido";
+		}
+		else {
+			model.addAttribute("mensagem", "Desculpa, você ainda não realizou nenhum tipo de compra conosco");
+			return "principal/pedidoServicoWeb";
+		}
+		
 	}
 }

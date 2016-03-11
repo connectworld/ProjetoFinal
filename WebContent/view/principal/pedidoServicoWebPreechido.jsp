@@ -97,16 +97,16 @@ function pesquisacep(valor) {
 			</div>
 		</c:when>
 	</c:choose>
-	<form action="buscarCpf">
+	<!-- <form action="buscarCpf">
 		<h4>
 			Caso ja seja cliente, digite seu cpf para fazer pedido
 		</h4>
 		
 		<label for="CPF"> CPF:</label>
-		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf2" maxlength="11" onblur="return verificarCPF(this.value)">
+		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf" maxlength="11" onblur="return verificarCPF(this.value)">
 		<input type="submit" value="Buscar" name="submit">
 		
-	</form>
+	</form> -->
 	<form action="salvarClientePedido" method="post" id="contactFrm">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 			<div style="float: left; width: 30%;">
@@ -117,15 +117,15 @@ function pesquisacep(valor) {
        							<h4 class="heading"><strong>Pedido de Serviço</strong>  <span></span></h4>
            						<div class="form">
                						<label for="nome"> Nome:</label>
-                   					<input type="text" required="" placeholder="Nome Completo" name="nome" class="txt" >
+                   					<input type="text" required="" placeholder="Nome Completo" name="nome" class="txt" value="${clienteConsultado.nome}">
                    					<label for="CPF"> CPF:</label>
-		                    		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf" class="txt" maxlength="11" onblur="return verificarCPF(this.value)">
+		                    		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf" class="txt" value="${clienteConsultado.cpf}" maxlength="11" onblur="return verificarCPF(this.value)">
 		                    		<label for="E-mail"> E-mail:</label>
-		                    		<input type="text" required="" placeholder="Email" name="email" class="txt" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+		                    		<input type="text" required="" placeholder="Email" name="email" class="txt" value="${clienteConsultado.email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 		                    		<label for="Contato1"> Contato 1:</label>
-		                    		<input type="text" required="" placeholder="Contato" name="contato1" id="contato1" class="txt">
+		                    		<input type="text" required="" placeholder="Contato" name="contato1" id="contato1" value="${clienteConsultado.contato1}" class="txt">
 		                    		<label for="Contato2"> Contato 2:</label>
-		                    		<input type="text" required="" placeholder="Contato Alternativo" name="contato2" id="contato2" class="txt">
+		                    		<input type="text" required="" placeholder="Contato Alternativo" value="${clienteConsultado.contato2}" name="contato2" id="contato2" class="txt">
 		                    		<label for="Servico">Servico:</label> <br>
 		                    		 <select name="servico" multiple="multiple" class="form-control" required="required">
 		                    			<option value="">Teste</option>
@@ -147,19 +147,19 @@ function pesquisacep(valor) {
 	       					<h4 class="heading"><strong>Endereco </strong>  <span></span></h4>
 	           					<div class="form">
 			                    	<label for="Cep"> Cep:</label>
-			                    	<input type="text" required="" placeholder="Cep" name="cep" id="cep" class="txt" onblur="pesquisacep(this.value);">
+			                    	<input type="text" required="" placeholder="Cep"  name="cep" id="cep" class="txt" value="${clienteConsultado.cep}" onblur="pesquisacep(this.value);">
 			                    	<label for="rua"> Rua:</label>
-			                    	 <input type="text" required="" placeholder="Rua" name="rua" id="rua" class="txt" >
+			                    	 <input type="text" required="" placeholder="Rua" name="rua" id="rua" class="txt" value="${clienteConsultado.rua}">
 			                    	<label for="bairro"> Bairro:</label>
-			                    	<input type="text" required="" placeholder="Bairro" name="bairro" id="bairro" class="txt" >
+			                    	<input type="text" required="" placeholder="Bairro" name="bairro" id="bairro" class="txt" value="${clienteConsultado.bairro}">
 			                    	<label for="cidade">Cidade:</label>
-			                    	<input type="text" required="" placeholder="Cidade" name="cidade" id="cidade" class="txt" >
+			                    	<input type="text" required="" placeholder="Cidade" name="cidade" id="cidade" class="txt" value="${clienteConsultado.cidade}">
 			                    	<label for="uf">UF:</label>
-			                    	<input type="text" required="" placeholder="UF" name="uf"  id="uf" class="txt" >
+			                    	<input type="text" required="" placeholder="UF" name="uf"  id="uf" class="txt" value="${clienteConsultado.uf}">
 			                    	<label for="Numero">Numero</label>
-			                    	<input type="text" required="" placeholder="Numero" size="2" name="numero"  id="numero" class="txt" >
+			                    	<input type="text" required="" placeholder="Numero" size="2" name="numero"  id="numero" class="txt" value="${clienteConsultado.numero}">
 			                    	<label for="ibge">IBGE</label>
-			                    	<input type="text" name="ibge" id="ibge" class="txt" readonly="readonly">			       	
+			                    	<input type="text" name="ibge" id="ibge" class="txt" readonly="readonly" value="${clienteConsultado.ibge}">			       	
 	           					</div>
 	           				</div>
 	           			</div> 	           			
@@ -174,7 +174,6 @@ function pesquisacep(valor) {
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#cpf").mask("999.999.999-99");
-			$("#cpf2").mask("999.999.999-99");
 			$("#cep").mask("99999-999");
 			$("#contato1").mask("(99)99999-9999");
 			$("#contato2").mask("(99)99999-9999");

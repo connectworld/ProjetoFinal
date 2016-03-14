@@ -128,9 +128,11 @@ function pesquisacep(valor) {
 		                    		<input type="text" required="" placeholder="Contato Alternativo" name="contato2" id="contato2" class="txt">
 		                    		<label for="Servico">Servico:</label> <br>
 		                    		 <select name="servico" multiple="multiple" class="form-control" required="required">
-		                    			<option value="">Teste</option>
-                            				<c:forEach items="${listaServico}" var="servico">
-												<option value="${servico.cod}">${servico.nome}-R$-${servico.preco} </option>
+		                    			<option value="">Selecione</option>
+                            				<c:forEach items="${listaServico}" var="listaServico">
+												<option value="${listaServico.cod}"
+												<c:if test="${listaServico.cod eq servico.cod}"> selected="selected"</c:if>>
+												${nivel.nome}</option>
 											</c:forEach>
 		                    		</select> 
            						</div>

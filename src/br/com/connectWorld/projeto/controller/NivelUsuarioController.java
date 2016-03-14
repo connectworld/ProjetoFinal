@@ -47,25 +47,21 @@ public class NivelUsuarioController {
 	}
 
 	@RequestMapping("/editarNivelUsuario")
-	public String editarNivelUsuario(int cod, Model model) throws SQLException {
-
-		NivelUsuarioDao dao = new NivelUsuarioDao();
-		model.addAttribute("nivelUsuario", dao.buscarPorCod(cod));
-		dao.fecharBanco();
-		return "nivelUsuario/editarNivelUsuario";
+	public String editarNivelUsuario(int cod,@RequestParam("compara") String compara, Model model, NivelUsuario nivelUsuario) throws SQLException {
+		if(compara.equals("salvar")){
+			NivelUsuarioDao dao = new NivelUsuarioDao();
+			dao.atualizarNivelUsuario(nivelUsuario);
+			model.addAttribute("mensagem", "Nivel atualizado com Sucesso");
+			dao.fecharBanco();
+			return "forward:listarNivelUsuario";
+		}
+		else{
+			NivelUsuarioDao dao = new NivelUsuarioDao();
+			model.addAttribute("nivelUsuario", dao.buscarPorCod(cod));
+			dao.fecharBanco();
+			return "nivelUsuario/editarNivelUsuario";
+		}
 	}
-
-	@RequestMapping("atualizarNivelUsuario")
-	public String atualizarNivelUsuario(NivelUsuario nivelUsuario, Model model)
-			throws SQLException {
-
-		NivelUsuarioDao dao = new NivelUsuarioDao();
-		dao.atualizarNivelUsuario(nivelUsuario);
-		model.addAttribute("mensagem", "Nivel atualizado com Sucesso");
-		dao.fecharBanco();
-		return "forward:listarNivelUsuario";
-	}
-
 	@RequestMapping("/deletarNivelUsuario")
 	public String deletarNivelUsuario(NivelUsuario nivelUsuario, Model model)
 			throws SQLException {

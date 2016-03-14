@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/03/2016 às 21:29
+-- Tempo de geração: 14/03/2016 às 21:43
 -- Versão do servidor: 5.6.26
 -- Versão do PHP: 5.5.28
 
@@ -226,10 +226,10 @@ CREATE TABLE IF NOT EXISTS `telas` (
 --
 
 INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
-(1, 'chamaCadastrarProduto', 'Tela de Cadastro de Produto'),
+(1, 'salvarProduto', 'Tela de Cadastro de Produto'),
 (2, 'ListarProduto', 'Listar Produto'),
-(3, 'chamaServico', 'tela de Servico'),
-(4, 'cadastrarNivelUsuario', 'Cadastro de nivel de Usuario'),
+(3, 'salvarServico', 'tela de Servico'),
+(4, 'salvarNivelUsuario', 'Cadastro de nivel de Usuario'),
 (5, 'listarNivelUsuario', 'Listar Nivel de Usuário'),
 (6, 'editarNivelUsuario', 'Editar nivel de Usuário'),
 (7, 'deletarNivelUsuario', 'Deletar Nivel Usuário'),
@@ -238,7 +238,7 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (10, 'listarServico', 'Listar Servico'),
 (11, 'editarServico', 'Editar Servico'),
 (12, 'deletarServico', 'Deletar Servico'),
-(13, 'cadastrarUsuario', 'Cadastrar Usuario'),
+(13, 'salvarUsuario', 'Cadastrar Usuario'),
 (14, 'listarUsuario', 'Listar Usuario'),
 (15, 'editarUsuario', 'Editar Usuario'),
 (16, 'deletarUsuario', 'Deletar Usuario'),
@@ -262,15 +262,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `telefone` varchar(20) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `nivel_usuario` int(11) NOT NULL
+  `nivel_usuario` int(11) NOT NULL,
+  `user_cadastrante` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `foto`, `email`, `nivel_usuario`) VALUES
-(2, 'leandro', 'leandro', '81dc9bdb52d04dc20036dbd8313ed055', '8888', '888888', '888888', 1);
+INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `foto`, `email`, `nivel_usuario`, `user_cadastrante`) VALUES
+(2, 'leandro', 'leandro', '81dc9bdb52d04dc20036dbd8313ed055', '8888', '888888', '888888', 1, NULL);
 
 -- --------------------------------------------------------
 

@@ -19,7 +19,8 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		String uri = request.getRequestURI();
 		if (uri.contains("/view/bootstrap") || uri.contains("/view/css") || uri.contains("/view/img")
 				|| uri.contains("/view/js") || uri.endsWith("/Projeto_Final/") || uri.endsWith("efetuarLogin") || uri.endsWith("logout")
-				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb") || uri.endsWith("salvarClientePedido") || uri.endsWith("buscarCpf")) {
+				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb") || uri.endsWith("salvarClientePedido") || uri.endsWith("buscarCpf")
+				|| uri.endsWith("servicos") || uri.endsWith("chamaServico")) {
 			return true;
 		}
 		boolean acesso = false;
@@ -33,18 +34,6 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 					acesso = true;
 				}
 			}
-
-			if(!acesso){
-				
-				if (uri.endsWith("salvarNivelUsuario") || uri.endsWith("salvarUsuario") || uri.endsWith("salvarProduto") || uri.endsWith("salvarServico") 
-					|| uri.endsWith("atualizarNivelUsuario") || uri.endsWith("atualizarUsuario") || uri.endsWith("atualizarProduto") 
-					|| uri.endsWith("atualizarServico") || uri.endsWith("homeAdmin") )  {
-					
-					acesso = true;						
-				}
-			}
-
-
 		}
 		if (acesso) {
 			return acesso;

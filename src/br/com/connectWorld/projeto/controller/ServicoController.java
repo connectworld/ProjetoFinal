@@ -43,17 +43,17 @@ public class ServicoController {
 	public String editarServico(int cod,@RequestParam("compara") String compara,Servico servico, Model model) throws SQLException {
 		if (compara.equals("salvar")) {
 			ServicoDao dao = new ServicoDao();
-			dao.atualizarServico(servico);
-			model.addAttribute("mensagem", "Serviço atualizado com Sucesso");
-			dao.fecharBanco();
-			return "forward:listarServico";
-		}
-		else {
-			ServicoDao dao = new ServicoDao();
 			model.addAttribute("servico", dao.buscarPorCod(cod));
 			dao.fecharBanco();
 			return "servico/editarServico";
 		}
+		else {
+			ServicoDao dao = new ServicoDao();
+			dao.atualizarServico(servico);
+			model.addAttribute("mensagem", "Serviço atualizado com Sucesso");
+			dao.fecharBanco();
+			return "forward:listarServico";
+	}
 	}
 
 	@RequestMapping("/deletarServico")

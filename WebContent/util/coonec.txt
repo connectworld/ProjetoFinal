@@ -63,6 +63,7 @@
 	    foto varchar(100),
 	    email varchar(50) not null,
 	    nivel_usuario int not null,
+	    user_cadastrante int not null,
 	    foreign key (nivel_usuario) references nivel_user(cod_nivel)
     );
 ----------------------------------------------------------------------

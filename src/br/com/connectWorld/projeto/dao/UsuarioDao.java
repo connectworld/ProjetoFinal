@@ -28,7 +28,7 @@ public class UsuarioDao {
 
 	public void salvar(Usuario usuario) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO usuarios (nome,login,email,telefone,senha,nivel_usuario,foto) VALUES (?,?,?,?,md5(?),?,?)";
+		String insert = "INSERT INTO usuarios (nome,login,email,telefone,senha,nivel_usuario,foto,user_cadastrante) VALUES (?,?,?,?,md5(?),?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -42,6 +42,7 @@ public class UsuarioDao {
 			stmt.setString(5, usuario.getSenha());
 			stmt.setInt(6, usuario.getNivelUsuario().getCod());
 			stmt.setString(7, usuario.getFoto());
+			stmt.setInt(8, usuario.getUsuario().getCod());
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
@@ -97,7 +98,7 @@ public class UsuarioDao {
 	}
 
 	public void atualizarUsuario(Usuario usuario) {
-		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?, senha=?, nivel_usuario=?, foto=?"
+		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?, senha=?, nivel_usuario=?, foto=?,user_cadastrante = ?"
 				+ "where cod_usuario=?";
 
 		try {
@@ -109,7 +110,8 @@ public class UsuarioDao {
 			param.setString(5, usuario.getSenha());
 			param.setInt(6, usuario.getNivelUsuario().getCod());
 			param.setString(7, usuario.getFoto());
-			param.setInt(8, usuario.getCod());
+			param.setInt(8, usuario.getUsuario().getCod());
+			param.setInt(9, usuario.getCod());
 			param.execute();
 			param.close();
 			
@@ -199,6 +201,12 @@ public class UsuarioDao {
 		NivelUsuario nivelUsuario = dao.buscarPorCod(cod);
 		usuario.setNivelUsuario(nivelUsuario);
 		dao.fecharBanco();
+		
+		int userCadastrante = rs.getInt("user_cadastrante");
+		UsuarioDao dao2 = new UsuarioDao();
+		Usuario usuarioCadas = dao2.buscarPorCod(userCadastrante);
+		usuario.setUsuario(usuarioCadas);
+		dao2.fecharBanco();
 
 		return usuario;
 	}

@@ -23,6 +23,7 @@
         <div class="col-sm-offset-4 col-sm-4">
             <form method="post" action="salvarServico" enctype="multipart/form-data">
             <input type="hidden" name="usuario" value="${usuarioLogado.cod }">
+            <input type="hidden" name="compara" value="salvar">
             <h3 class="labelsEdit">Cadastro de Servico</h3>
 				<div class="form-group">
         			<label for="nome" class="labelsEdit">Nome:</label>

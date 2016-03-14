@@ -4,7 +4,14 @@ public class Usuario {
 	private int cod;
 	private String nome,email,foto,telefone,senha,login;
 	private NivelUsuario nivelUsuario;
+	private Usuario usuario;
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public int getCod() {
 		return cod;
 	}

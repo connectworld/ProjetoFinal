@@ -26,7 +26,7 @@ public class NivelUsuarioDao {
 	}
 	public void salvar(NivelUsuario nivelUsuario) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO nivel_user (nome,descricao) VALUES (?,?)";
+		String insert = "INSERT INTO nivel_user (nome,descricao,user_cadastrante) VALUES (?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -35,6 +35,7 @@ public class NivelUsuarioDao {
 			// INSERINDO OS DADOS DENTR DA VARIAVEL STMT
 			stmt.setString(1, nivelUsuario.getNome());
 			stmt.setString(2, nivelUsuario.getDescricao());
+			stmt.setInt(3, nivelUsuario.getUsuario().getCod());
 
 			// EXUCUTANDO O SQL
 			stmt.execute();
@@ -110,12 +111,14 @@ public class NivelUsuarioDao {
 
 	// METODO QUE ATUALIZA CONTATOS DO BANCO DE DADOS
 	public void atualizarNivelUsuario(NivelUsuario nivelUsuario) {
-		String sql = "update nivel_user set nome = ?, descricao=? where cod_nivel = ?";
+		String sql = "update nivel_user set nome = ?, descricao=? where cod_nivel = ?, user_cadastrante = ?";
 		try {
 			PreparedStatement param = conexao.prepareStatement(sql);
 			param.setString(1, nivelUsuario.getNome());
 			param.setString(2, nivelUsuario.getDescricao());
-			param.setInt(3, nivelUsuario.getCod());
+			param.setInt(3, nivelUsuario.getUsuario().getCod());
+			param.setInt(4, nivelUsuario.getCod());
+			
 
 			param.execute();
 			param.close();

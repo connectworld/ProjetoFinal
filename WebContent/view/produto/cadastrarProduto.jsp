@@ -24,6 +24,7 @@
             <form method="post" action="salvarProduto" enctype="multipart/form-data">
             <h3 class="labelsEdit">Cadastro de Produto</h3>
             <input type="hidden" name="usuario" value="${usuarioLogado.cod}">
+            <input type="hidden" name="compara" value="salvar">
 				<div class="form-group">
         			<label for="nome" class="labelsEdit">Nome:</label>
 					<div class="input-group">

@@ -48,6 +48,7 @@
 					<th class="tabelaGeral">EMAIL</th>
 					<th class="tabelaGeral">FONE</th>
 					<th class="tabelaGeral">IMAGEM</th>
+					<th class="tabelaGeral">CADASTRANTE</th>
 					<th>EDITAR</th>
 					<th>DELETAR</th>
 				</tr>
@@ -61,6 +62,7 @@
 						<!-- <td>${usuario.senha }</td> -->
 						<td>${usuario.email }</td>
 						<td>${usuario.telefone}</td>
+						<td>${usuario.usuario.nome}</td>
 						<td>
 							<img alt="img" src="view/img/${usuario.foto}" style="width: 30%;" />
 						</td>

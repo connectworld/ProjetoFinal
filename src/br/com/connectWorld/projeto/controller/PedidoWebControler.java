@@ -1,14 +1,12 @@
 package br.com.connectWorld.projeto.controller;
 
-import java.sql.SQLException;
-import java.util.List;
+
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.connectWorld.projeto.dao.ServicoDao;
-import br.com.connectWorld.projeto.model.Servico;
 
 @Controller
 public class PedidoWebControler {

@@ -21,6 +21,8 @@
         <div class="col-sm-offset-4 col-sm-4">
             <form method="post" action="atualizarProduto" enctype="multipart/form-data">
             <input type="hidden" name="cod" value="${produto.cod}">
+            <input type="hidden" name="usuario" value="${usuarioLogado.cod}">
+            <input type="hidden" name="compara" value="salvar">
             <h2 class="labelsEdit">Editar Produto</h2>
 				<div class="form-group">
         			<label for="nome" class="labelsEdit">Nome:</label>

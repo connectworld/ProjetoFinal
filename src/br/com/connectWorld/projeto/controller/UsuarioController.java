@@ -54,14 +54,23 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/editarUsuario")
-	public String editarUsuario(int cod, Model model) throws SQLException {
-		UsuarioDao dao = new UsuarioDao();
-		NivelUsuarioDao dao2 = new NivelUsuarioDao();
-		List<NivelUsuario> listaNivelUsuario = dao2.listar();
-		model.addAttribute("listaNivelUsuario", listaNivelUsuario);
-		model.addAttribute("usuario", dao.buscarPorCod(cod));
-		dao.fecharBanco();
+	public String editarUsuario(int cod,@RequestParam("compara") String compara,Usuario usuario, Model model) throws SQLException {
+		if (compara.equals("salvar")) {
+			UsuarioDao dao = new UsuarioDao();
+			NivelUsuarioDao dao2 = new NivelUsuarioDao();
+			List<NivelUsuario> listaNivelUsuario = dao2.listar();
+			model.addAttribute("listaNivelUsuario", listaNivelUsuario);
+			model.addAttribute("usuario", dao.buscarPorCod(cod));
+			dao.fecharBanco();
 		return "usuario/editarUsuario";
+		}
+		else{
+			UsuarioDao dao = new UsuarioDao();
+			dao.atualizarUsuario(usuario);
+			model.addAttribute("mensagem", "Usu�rio atualizado com Sucesso");
+			dao.fecharBanco();
+			return "forward:listarUsuario";
+		}
 	}
 
 	@RequestMapping("/deletarUsuario")
@@ -70,17 +79,6 @@ public class UsuarioController {
 		UsuarioDao dao = new UsuarioDao();
 		dao.deletar(usuario);
 		model.addAttribute("mensagem", "Usu�rio Removido com Sucesso");
-		dao.fecharBanco();
-		return "forward:listarUsuario";
-	}
-
-	@RequestMapping("atualizarUsuario")
-	public String atualizarUsuario(Usuario usuario, Model model)
-			throws SQLException {
-
-		UsuarioDao dao = new UsuarioDao();
-		dao.atualizarUsuario(usuario);
-		model.addAttribute("mensagem", "Usu�rio atualizado com Sucesso");
 		dao.fecharBanco();
 		return "forward:listarUsuario";
 	}

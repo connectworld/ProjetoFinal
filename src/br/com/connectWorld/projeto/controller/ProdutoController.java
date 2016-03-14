@@ -48,11 +48,20 @@ public class ProdutoController {
 	}
 
 	@RequestMapping("/editarProduto")
-	public String editarProduto(int cod, Model model) throws SQLException {
-		ProdutoDao dao = new ProdutoDao();
-		model.addAttribute("produto", dao.buscarPorCod(cod));
-		dao.fecharBanco();
+	public String editarProduto(int cod,@RequestParam("compara") String compara, Model model,Produto produto) throws SQLException {
+		if (compara.equals("salvar")) {
+			ProdutoDao dao = new ProdutoDao();
+			dao.atualizarProduto(produto);
+			model.addAttribute("mensagem", "Produto atualizado com Sucesso");
+			dao.fecharBanco();
+			return "forward:listarProduto";
+		}
+		else{
+			ProdutoDao dao = new ProdutoDao();
+			model.addAttribute("produto", dao.buscarPorCod(cod));
+			dao.fecharBanco();
 		return "produto/editarProduto";
+		}
 	}
 
 	@RequestMapping("/deletarProduto")
@@ -64,16 +73,4 @@ public class ProdutoController {
 		dao.fecharBanco();
 		return "forward:listarProduto";
 	}
-
-	@RequestMapping("atualizarProduto")
-	public String atualizarProduto(Produto produto, Model model)
-			throws SQLException {
-
-		ProdutoDao dao = new ProdutoDao();
-		dao.atualizarProduto(produto);
-		model.addAttribute("mensagem", "Produto atualizado com Sucesso");
-		dao.fecharBanco();
-		return "forward:listarProduto";
-	}
-
 }

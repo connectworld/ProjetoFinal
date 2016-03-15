@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listar Produto</title>
+<title>Listar Usuario</title>
 	<link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 	<script src="view/bootstrap/js/bootstrap.min.js"></script>
@@ -47,8 +47,8 @@
 					<!-- <th class="tabelaGeral">SENHA</th> -->
 					<th class="tabelaGeral">EMAIL</th>
 					<th class="tabelaGeral">FONE</th>
-					<th class="tabelaGeral">IMAGEM</th>
 					<th class="tabelaGeral">CADASTRANTE</th>
+					<th class="tabelaGeral">IMAGEM</th>
 					<th>EDITAR</th>
 					<th>DELETAR</th>
 				</tr>

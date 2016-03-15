@@ -48,11 +48,16 @@
                                 <li><a href="listarServico">Listar Servico</a></li>
                             </ul>
                         </li>
-                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatorios<span class="caret"></span></a>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Servico<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="listarCliente">Clientes</a></li>
-                                <li><a href="listarPedidoServico">Pedidos Servico</a></li>
-                                <li><a href="listarPedidoProduto">Pedido Produto</a></li>
+                                <li><a href="pedidoServicoAdmin">Realizar Pedido</a></li>
+                                <li><a href="listarPedidoServico">Listar Pedido</a></li>
+                            </ul>
+                        </li>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Produto<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="listarPedidoProduto">Realizar Pedido</a></li>
+                                <li><a href="listarPedidoProduto">Listar Pedidos</a></li>
                             </ul>
                         </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produtos<span class="caret"></span></a>

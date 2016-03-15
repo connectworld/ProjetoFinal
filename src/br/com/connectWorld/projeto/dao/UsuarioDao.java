@@ -98,9 +98,9 @@ public class UsuarioDao {
 	}
 
 	public void atualizarUsuario(Usuario usuario) {
-		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?,senha = ?, nivel_usuario=?, foto=?,user_cadastrante = ?"
-				+ "where cod_usuario= ?";
-
+		//String sql = "update usuarios set nome=?, login = ?, email = ? where cod_usuario = ?";
+		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?, senha = ?, nivel_usuario=?, foto=?, user_cadastrante = ?"
+				+ " where cod_usuario = ?";
 		try {
 			PreparedStatement param = conexao.prepareStatement(sql);
 			param.setString(1, usuario.getNome());
@@ -114,12 +114,9 @@ public class UsuarioDao {
 			param.setInt(9, usuario.getCod());
 			param.execute();
 			param.close();
-			
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 	public void deletar(Usuario usuario) {
 

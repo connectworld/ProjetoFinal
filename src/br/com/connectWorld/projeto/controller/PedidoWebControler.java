@@ -22,7 +22,6 @@ public class PedidoWebControler {
 	
 	@RequestMapping("/salvarPedidoWeb")
 	public String salvarPedidoWeb (Model model ){
-		
 		return "principal/pedidoServicoWeb";
 	}
 }

@@ -6,33 +6,36 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.connectWorld.projeto.dao.NivelUsuarioDao;
 import br.com.connectWorld.projeto.dao.TelasDao;
+import br.com.connectWorld.projeto.dao.ValidarUrlDao;
 import br.com.connectWorld.projeto.model.NivelUsuario;
 import br.com.connectWorld.projeto.model.Telas;
+import br.com.connectWorld.projeto.model.ValidaUrl;
+
 
 @Controller
 public class NivelUsuarioController {
+
+	@RequestMapping("/cadastrarNivelUsuario")
+	public String cadastrarUsuario(Model model) throws SQLException {
+		TelasDao dao = new TelasDao();
+		List<Telas> listaTelas = dao.listar();
+		model.addAttribute("listaTelas", listaTelas);
+		dao.fecharBanco();
+		return "nivelUsuario/cadastrarNivelUsuario";
+	}
+
 	@RequestMapping("salvarNivelUsuario")
-	public String salvarNivelUsuario(NivelUsuario nivelUsuario,
-			@RequestParam("compara") String compara, Model model)
-			throws SQLException {
-		if (compara.equals("salvar")) {
-			NivelUsuarioDao dao = new NivelUsuarioDao();
-			dao.salvar(nivelUsuario);
-			model.addAttribute("mensagem",
-					"Nivel de usuario Incluido com Sucesso");
-			dao.fecharBanco();
-			return "forward:listarNivelUsuario";
-		} else {
-			TelasDao dao = new TelasDao();
-			List<Telas> listaTelas = dao.listar();
-			model.addAttribute("listaTelas", listaTelas);
-			dao.fecharBanco();
-			return "nivelUsuario/cadastrarNivelUsuario";
-		}
+	public String salvarNivelUsuario(NivelUsuario nivelUsuario, Model model) throws SQLException {
+
+		NivelUsuarioDao dao = new NivelUsuarioDao();
+		dao.salvar(nivelUsuario);
+		model.addAttribute("mensagem", "Nivel de usuario Incluido com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarNivelUsuario";
+
 	}
 
 	@RequestMapping("/listarNivelUsuario")
@@ -45,26 +48,35 @@ public class NivelUsuarioController {
 		return "nivelUsuario/listarNivelUsuario";
 
 	}
-
+	
 	@RequestMapping("/editarNivelUsuario")
-	public String editarNivelUsuario(int cod,@RequestParam("compara") String compara, Model model, NivelUsuario nivelUsuario) throws SQLException {
-		if(compara.equals("salvar")){
-			NivelUsuarioDao dao = new NivelUsuarioDao();
-			dao.atualizarNivelUsuario(nivelUsuario);
-			model.addAttribute("mensagem", "Nivel atualizado com Sucesso");
-			dao.fecharBanco();
-			return "forward:listarNivelUsuario";
-		}
-		else{
-			NivelUsuarioDao dao = new NivelUsuarioDao();
-			model.addAttribute("nivelUsuario", dao.buscarPorCod(cod));
-			dao.fecharBanco();
-			return "nivelUsuario/editarNivelUsuario";
-		}
+	public String editarNivelUsuario(int cod, Model model) throws SQLException {
+
+		NivelUsuarioDao dao = new NivelUsuarioDao();
+		NivelUsuario nivelUsuario = dao.buscarPorCod(cod);
+		ValidarUrlDao validaUrlDao = new ValidarUrlDao();
+		List <ValidaUrl> listaTelasUsuario = validaUrlDao.obterTelasUsuario(nivelUsuario.getCod());
+		TelasDao telasDao = new TelasDao();
+		List <Telas> listaTelas = telasDao.listar();
+		model.addAttribute("nivelUsuario", nivelUsuario);
+		model.addAttribute("listaTelasUsuario", listaTelasUsuario);
+		model.addAttribute("listaTelas", listaTelas);
+
+		
+		dao.fecharBanco();
+		validaUrlDao.fecharBanco();
+		return "nivelUsuario/editarNivelUsuario";
+	}
+	@RequestMapping("/atualizarNivelUsuario")
+	public String atualizarUsuario(NivelUsuario nivelUsuario, Model model) throws SQLException {
+		NivelUsuarioDao dao = new NivelUsuarioDao();
+		dao.atualizarNivelUsuario(nivelUsuario);
+		model.addAttribute("mensagem", "Nivel atualizado com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarNivelUsuario";
 	}
 	@RequestMapping("/deletarNivelUsuario")
-	public String deletarNivelUsuario(NivelUsuario nivelUsuario, Model model)
-			throws SQLException {
+	public String deletarNivelUsuario(NivelUsuario nivelUsuario, Model model) throws SQLException {
 
 		NivelUsuarioDao dao = new NivelUsuarioDao();
 		dao.deletar(nivelUsuario);

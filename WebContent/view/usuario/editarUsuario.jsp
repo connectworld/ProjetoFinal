@@ -28,6 +28,7 @@
 						enctype="multipart/form-data">
 						<input type="hidden" name="cod" value="${usuario.cod}">
 						<input type="hidden" name="senha" value="${usuario.senha}">
+						 <input type="hidden" name="usuario" value="${usuarioLogado.cod }">
 						<h3 class="labelsEdit">Editando Usuário</h3>
 						<div class="form-group">
 							<label for="nome" class="labelsEdit">Nome:</label>

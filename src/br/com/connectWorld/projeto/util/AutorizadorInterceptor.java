@@ -34,6 +34,9 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 					acesso = true;
 				}
 			}
+			if (!acesso && request.getSession().getAttribute("usuarioLogado") != null && uri.endsWith("chamaHomeAdmin") ) {
+				acesso = true;
+			}
 		}
 		if (acesso) {
 			return acesso;

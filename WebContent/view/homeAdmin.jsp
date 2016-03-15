@@ -32,7 +32,7 @@
               <i class="fa fa-user fa-5x"></i><br/>
             	Servico <br><br> Tela de Cadastro de Servico
             </a>
-            <a href="chamaCadastrarProduto" class="btn btn-sq-lg btn-warning" style="margin-left: 2%;">
+            <a href="cadastrarProduto" class="btn btn-sq-lg btn-warning" style="margin-left: 2%;">
               <i class="fa fa-user fa-5x"></i><br/>
               Produto <br> <br> Tela de Cadastro de Produto
             </a>

@@ -16,26 +16,23 @@ import br.com.connectWorld.projeto.util.Util;
 
 @Controller
 public class ProdutoController {
+	@RequestMapping("/cadastrarProduto")
+	public String cadastrarProduto(Model model) throws SQLException {
+		return "produto/cadastrarProduto";
+	}
 
 	@RequestMapping("salvarProduto")
-	public String salvarProduto(Produto produto,
-			@RequestParam("img") MultipartFile imagem,
-			@RequestParam("compara") String compara, Model model)
+	public String salvarProduto(Produto produto, @RequestParam("img") MultipartFile imagem, Model model)
 			throws SQLException {
 
-		if (compara.equals("salvar")) {
-			if (Util.fazerUploadImagem(imagem)) {
-				produto.setImagem(Calendar.getInstance().getTime() + " - "
-						+ imagem.getOriginalFilename());
-			}
-			ProdutoDao dao = new ProdutoDao();
-			dao.salvar(produto);
-			model.addAttribute("mensagem", "Produto Incluido com Sucesso");
-			dao.fecharBanco();
-			return "forward:listarProduto";
-		} else {
-			return "produto/cadastrarProduto";
+		if (Util.fazerUploadImagem(imagem)) {
+			produto.setImagem(Calendar.getInstance().getTime() + " - " + imagem.getOriginalFilename());
 		}
+		ProdutoDao dao = new ProdutoDao();
+		dao.salvar(produto);
+		model.addAttribute("mensagem", "Produto Incluido com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarProduto";
 	}
 
 	@RequestMapping("/listarProduto")
@@ -48,25 +45,26 @@ public class ProdutoController {
 	}
 
 	@RequestMapping("/editarProduto")
-	public String editarProduto(int cod,@RequestParam("compara") String compara, Model model,Produto produto) throws SQLException {
-		if (compara.equals("salvar")) {
-			ProdutoDao dao = new ProdutoDao();
-			dao.atualizarProduto(produto);
-			model.addAttribute("mensagem", "Produto atualizado com Sucesso");
-			dao.fecharBanco();
-			return "forward:listarProduto";
-		}
-		else{
-			ProdutoDao dao = new ProdutoDao();
-			model.addAttribute("produto", dao.buscarPorCod(cod));
-			dao.fecharBanco();
+	public String editarProduto(int cod, Model model)
+			throws SQLException {
+
+		ProdutoDao dao = new ProdutoDao();
+		model.addAttribute("produto", dao.buscarPorCod(cod));
+		dao.fecharBanco();
 		return "produto/editarProduto";
-		}
+	}
+
+	@RequestMapping("/atualizarProduto")
+	public String atualizarProduto(Produto produto, Model model) throws SQLException {
+		ProdutoDao dao = new ProdutoDao();
+		dao.atualizarProduto(produto);
+		model.addAttribute("mensagem", "Produto atualizado com Sucesso");
+		dao.fecharBanco();
+		return "forward:listarProduto";
 	}
 
 	@RequestMapping("/deletarProduto")
-	public String deletarProduto(Produto produto, Model model)
-			throws SQLException {
+	public String deletarProduto(Produto produto, Model model) throws SQLException {
 		ProdutoDao dao = new ProdutoDao();
 		dao.deletar(produto);
 		model.addAttribute("mensagem", "Produto Removido com Sucesso");

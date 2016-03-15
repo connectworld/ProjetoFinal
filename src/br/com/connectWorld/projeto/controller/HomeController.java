@@ -13,6 +13,10 @@ import br.com.connectWorld.projeto.model.Servico;
 @Controller
 public class HomeController {
 	
+	@RequestMapping("/chamaHomeAdmin")
+	public String chamaHomeAdmin() {
+		return "homeAdmin";
+	}
 	@RequestMapping("/chamaHome")
 	public String chamaHome() {
 		return "principal/home";

@@ -98,8 +98,8 @@ public class UsuarioDao {
 	}
 
 	public void atualizarUsuario(Usuario usuario) {
-		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?, senha=?, nivel_usuario=?, foto=?,user_cadastrante = ?"
-				+ "where cod_usuario=?";
+		String sql = "update usuarios set nome=?, login=?, email=?, telefone=?,senha = ?, nivel_usuario=?, foto=?,user_cadastrante = ?"
+				+ "where cod_usuario= ?";
 
 		try {
 			PreparedStatement param = conexao.prepareStatement(sql);

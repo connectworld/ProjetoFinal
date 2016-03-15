@@ -37,6 +37,22 @@
 						<span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
 					</div>
 				</div>
+				<div class="form-group">
+            		<label for="telas" class="labelsEdit">Telas de Permissões:</label>
+					<div class="input-group">
+                        <select class="form-control" name="telas" multiple="multiple" id="validate-select"  required>
+                 			<option value="">Selecione</option>
+									<c:forEach items="${listaTelas}" var="listaTelas">
+										<c:forEach items="${listaTelasUsuario}" var="listarTelasUsuario">
+										<option value="${listaTelas.cod}"
+											<c:if test="${listaTelas.cod eq listarTelasUsuario}">selected="selected"</c:if>>
+											${telaTelas.descricao}</option>
+											</c:forEach>
+									</c:forEach>
+                        </select>
+						<span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+					</div>
+				</div>
                 <button class="btn btn-lg btn-success btn-block" type="submit">Atualizar</button>
             </form>
         </div>

@@ -2,10 +2,10 @@
 -- version 4.4.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Tempo de geração: 14/03/2016 às 21:43
+-- Host: localhost
+-- Tempo de geração: 15/03/2016 às 01:22
 -- Versão do servidor: 5.6.26
--- Versão do PHP: 5.5.28
+-- Versão do PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `servicos` (
   `garantia` date NOT NULL,
   `preco` double DEFAULT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `servicos`
@@ -207,7 +207,8 @@ CREATE TABLE IF NOT EXISTS `servicos` (
 
 INSERT INTO `servicos` (`cod_servico`, `descricao`, `nome`, `garantia`, `preco`, `user_cadastrante`) VALUES
 (1, 'manuntençã de Arcondiciona', 'Manuntenção', '2015-10-10', 5.24, NULL),
-(2, 'manuntençã de Arcondiciona', 'Manuntenção', '2017-01-12', 300, 2);
+(2, 'manuntençã de Arcondiciona', 'Manuntenção', '2017-01-12', 300, 2),
+(3, 'teste2', '2teste', '2016-06-06', 50, 2);
 
 -- --------------------------------------------------------
 
@@ -219,17 +220,17 @@ CREATE TABLE IF NOT EXISTS `telas` (
   `cod_tela` int(11) NOT NULL,
   `url` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `telas`
 --
 
 INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
-(1, 'salvarProduto', 'Tela de Cadastro de Produto'),
-(2, 'ListarProduto', 'Listar Produto'),
-(3, 'salvarServico', 'tela de Servico'),
-(4, 'salvarNivelUsuario', 'Cadastro de nivel de Usuario'),
+(1, 'cadastrarProduto', 'Tela de Cadastro de Produto'),
+(2, 'listarProduto', 'Listar Produto'),
+(3, 'cadastrarServico', 'Tela de Servico'),
+(4, 'cadastrarNivelUsuario', 'Tela nivel de Usuario'),
 (5, 'listarNivelUsuario', 'Listar Nivel de Usuário'),
 (6, 'editarNivelUsuario', 'Editar nivel de Usuário'),
 (7, 'deletarNivelUsuario', 'Deletar Nivel Usuário'),
@@ -238,7 +239,7 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (10, 'listarServico', 'Listar Servico'),
 (11, 'editarServico', 'Editar Servico'),
 (12, 'deletarServico', 'Deletar Servico'),
-(13, 'salvarUsuario', 'Cadastrar Usuario'),
+(13, 'cadastrarUsuario', 'Cadastrar Usuario'),
 (14, 'listarUsuario', 'Listar Usuario'),
 (15, 'editarUsuario', 'Editar Usuario'),
 (16, 'deletarUsuario', 'Deletar Usuario'),
@@ -246,7 +247,15 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (18, 'verDadosCliente', 'Ver Dados do Cliente'),
 (19, 'deletarCliente', 'Deletar Cliente'),
 (20, 'listarPedidoServico', 'Pedidos de Servico'),
-(21, 'listarPedidoProduto', 'Pedidos de Produto');
+(21, 'listarPedidoProduto', 'Pedidos de Produto'),
+(22, 'atualizarNivelUsuario', 'Atualizar Nivel de Usuario'),
+(23, 'atualizarUsuario', 'Atualizar Usuario'),
+(24, 'atualizarProduto', 'Atualizar Produto'),
+(25, 'atualizarServico', 'Atualizar Servico'),
+(26, 'salvarProduto', 'Salvar Produto'),
+(27, 'salvarServico', 'Salvar Servico'),
+(28, 'salvarNivelUsuario', 'Salvar Nivel Usuario'),
+(29, 'salvarUsuario', 'Salvar Usuario');
 
 -- --------------------------------------------------------
 
@@ -264,14 +273,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(50) NOT NULL,
   `nivel_usuario` int(11) NOT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `foto`, `email`, `nivel_usuario`, `user_cadastrante`) VALUES
-(2, 'leandro', 'leandro', '81dc9bdb52d04dc20036dbd8313ed055', '8888', '888888', '888888', 1, NULL);
+(2, 'leandro', 'leandro', '81dc9bdb52d04dc20036dbd8313ed055', '8888', '888888', '888888', 1, NULL),
+(3, 'jorge', 'jorge', '81dc9bdb52d04dc20036dbd8313ed055', '(081)98645-2028', 'Mon Mar 14 21:10:47 BRT 2016 - CEFTP.jpeg', 'jorgebatista_7@hotmail.com', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -283,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `valida_url` (
   `cod_valida` int(11) NOT NULL,
   `cod_nivelUsuario` int(11) NOT NULL,
   `cod_telaUsuario` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `valida_url`
@@ -310,7 +320,16 @@ INSERT INTO `valida_url` (`cod_valida`, `cod_nivelUsuario`, `cod_telaUsuario`) V
 (26, 1, 19),
 (27, 1, 18),
 (28, 1, 20),
-(29, 1, 21);
+(29, 1, 21),
+(30, 1, 23),
+(31, 1, 22),
+(32, 1, 24),
+(33, 1, 25),
+(34, 1, 26),
+(35, 1, 26),
+(36, 1, 27),
+(37, 1, 28),
+(38, 1, 29);
 
 --
 -- Índices de tabelas apagadas
@@ -423,22 +442,22 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `servicos`
 --
 ALTER TABLE `servicos`
-  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de tabela `telas`
 --
 ALTER TABLE `telas`
-  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de tabela `valida_url`
 --
 ALTER TABLE `valida_url`
-  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- Restrições para dumps de tabelas
 --

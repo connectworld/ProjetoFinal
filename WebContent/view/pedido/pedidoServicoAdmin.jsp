@@ -197,10 +197,9 @@ function pesquisacep(valor) {
 		</div>
 	</form>
 	<a class="btn icon-btn btn-info" href="voltar"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
-	<br><br>
   <div class="tabelas">
 	<h3>Servicos Selecionados</h3>
-		<table class="table" id="servicoSelecionado">
+		<table class="table" id="servicoSelecionado" style="padding: 10%;">
 			<thead>
 				<tr>
 					<th>COD</th>

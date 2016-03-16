@@ -124,6 +124,7 @@ function pesquisacep(valor) {
 	</div>
 	</div>
 	<form action="salvarPedidoServicoAdmin" method="post" id="contactFrm">
+	<input type="hidden" name="codigo" value="${usuarioLogado.cod }">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 			<div style="float: left; width: 30%;">
 				<div class="container">
@@ -180,6 +181,31 @@ function pesquisacep(valor) {
 		<input type="submit" value="Enviar" name="submit" class="txt2">
 	</div>
 	</form>
+	<div class="tabelas">
+	<h3>Servicos Selecionados</h3>
+		<table class="table" id="servicoSelecionado" style="padding: 10%;">
+			<thead>
+				<tr>
+					<th>COD</th>
+					<th>NOME</th>
+					<th>DESCRIÇÃO</th>
+					<th>PRECO</th>
+					<th>GARANTIA</th>
+				</tr>
+			</thead> 
+			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
+					<tr>
+						<td>${servicoAdd.cod }</td>
+						<td>${servicoAdd.nome}</td>
+						<td>${servicoAdd.descricao}</td>
+						<td>${servicoAdd.preco}</td>
+						<td>
+							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
+						</td>
+					</tr>	
+			</c:forEach>	
+		</table>
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#cpf").mask("999.999.999-99");

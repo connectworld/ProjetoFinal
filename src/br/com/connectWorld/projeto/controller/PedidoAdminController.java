@@ -14,10 +14,11 @@ import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
 import br.com.connectWorld.projeto.dao.ServicoDao;
+import br.com.connectWorld.projeto.dao.UsuarioDao;
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
-import br.com.connectWorld.projeto.model.PedidoWebDTO;
 import br.com.connectWorld.projeto.model.Servico;
+import br.com.connectWorld.projeto.model.Usuario;
 
 @Controller
 public class PedidoAdminController {
@@ -123,33 +124,66 @@ public class PedidoAdminController {
 	public String clienteSelecionado(Model model, int cod ) throws SQLException{
 		ClienteDao dao = new ClienteDao();
 		Cliente clienteConsultado = dao.buscarPorCod(cod);
+		model.addAttribute("listaServicoAdd", listaServicoArray);
 		model.addAttribute("clienteConsultado", clienteConsultado);
 		dao.fecharBanco();
 		return "pedido/pedidoServicoAdminPreenchido";
 	}
 	@RequestMapping("/salvarPedidoServicoAdmin")
-	public String salvarPedidoServicoAdmin(Model model, PedidoWebDTO pedidoWebDTO) throws SQLException{
-		ClienteDao dao = new ClienteDao();
-		Cliente clienteConsultado = dao.buscarPorCod(pedidoWebDTO.getCod());
+	public String salvarPedidoServicoAdmin(Model model, Cliente cliente, @RequestParam("codigo") int codigo) throws SQLException{
 		PedidoDao pedidoDao = new PedidoDao();
 		Pedido pedido = new Pedido();
-		pedido.setCliente(clienteConsultado);
-		Date date = new Date();
-		pedido.setData(date);
-		pedido.setData(date);
-		pedido.setSituacao("A");
-		pedido.setValor(0);
-		pedidoDao.salvar(pedido);
-		Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
-		ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
-		for (Servico servico: listaServicoArray) {
-			itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
+		ClienteDao clienteDao = new ClienteDao();
+		Cliente clientePesquisado = clienteDao.buscarPorCpf(cliente);
+		UsuarioDao usuarioDao = new UsuarioDao();
+		Usuario usuario = usuarioDao.buscarPorCod(codigo);
+		
+		if (clientePesquisado != null) {
+			pedido.setCliente(clientePesquisado);
+			Date date = new Date();
+			pedido.setData(date);
+			pedido.setSituacao("A");
+			pedido.setValor(0);
+			pedidoDao.salvar(pedido);
+			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
+			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
+			for (Servico servico: listaServicoArray) {
+				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
+			}
+			//model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
+			Pedido exibirPedido = pedidoDao.buscarPorcod(ultimoPedidoSalvo);
+			model.addAttribute("pedido", exibirPedido);
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("listaServicoAdd", listaServicoArray);
+			//model.addAttribute("cliente", clientePesquisado);
+			pedidoDao.fecharBanco();
+			itens.fecharBanco();
+			usuarioDao.fecharBanco();
+			pedidoDao.fecharBanco();
+			clienteDao.fecharBanco();
+			return "pedido/impressao";
 		}
-		model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
-		pedidoDao.fecharBanco();
-		itens.fecharBanco();
-		dao.fecharBanco();
-		return "pedido/pedidoServicoAdminPreenchido";
+		else {
+			clienteDao.salvar(cliente);
+			pedido.setCliente(cliente);
+			Date date = new Date();
+			pedido.setData(date);
+			pedido.setSituacao("A");
+			pedido.setValor(0);
+			pedidoDao.salvar(pedido);
+			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
+			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
+			for (Servico servico: listaServicoArray) {
+				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
+			}
+			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
+			pedidoDao.fecharBanco();
+			clienteDao.fecharBanco();
+			itens.fecharBanco();
+			return "forward: pesquisarServico";
+		}
+		
+		
 	}
 	@RequestMapping("/buscarCpfAdmin")
 	public String buscarCpf(Model model,Cliente cliente) throws SQLException {
@@ -157,10 +191,12 @@ public class PedidoAdminController {
 		Cliente clienteConsultado = clienteDao.buscarPorCpf(cliente);
 		clienteDao.fecharBanco();
 		if (clienteConsultado != null) {
+			model.addAttribute("listaServicoAdd", listaServicoArray);
 			model.addAttribute("clienteConsultado", clienteConsultado);
-			return "principal/pedidoServicoAdminPreechido";
+			return "pedido/pedidoServicoAdminPreenchido";
 		}
 		else {
+			model.addAttribute("listaServicoAdd", listaServicoArray);
 			model.addAttribute("mensagem", "Cliente não encontrado");
 			return "principal/pedidoServicoAdmin";
 		}	

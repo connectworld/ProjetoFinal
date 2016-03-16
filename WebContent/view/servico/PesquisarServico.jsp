@@ -8,9 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listar Servico</title>
+<title>Selecionar Servico</title>
 	<link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="view/js/jquery.alphanumeric.js"></script>
 	<script src="view/bootstrap/js/bootstrap.min.js"></script>
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.8/css/jquery.dataTables.css">
@@ -22,19 +23,26 @@
 </head>
 <body>
 <c:import url="../menu.jsp"></c:import>
-
-	
-	<div class="tabelas">
-	
 	<c:choose>
 		<c:when test="${not empty mensagem}">
 			<div class="alert alert-success">
-  				<button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove"></span></button>
+  				<button type="button" class="close" data-dismiss="alert">
+  					<span class="glyphicon glyphicon-remove"></span>
+  				</button>
   				<strong>${mensagem}</strong>
 			</div>
 		</c:when>
 	</c:choose>
-	<div align="center"><h3 class="h3">Serviços</h3></div>
+	<div class="col-xs-2" style="margin-top: 5%; margin-left: 2%;">
+		<form action="addServicoPedido">
+	 		<label for="cod">Cod</label>
+	  		<input class="form-control" id="codigo" name="cod" type="text" maxlength="10">
+	  		<button type="submit"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</button>
+  		</form>
+	</div>
+	<div class="tabelas">
+	<div align="center"><h3 class="h3">PEDIDO DE SERVICO</h3></div>
+	<div align="center"><h3 class="h3">SELECIONE O SERVICO</h3></div>
 		<table id="tableProduto" class="table">
 			<thead>
 				<tr>
@@ -43,9 +51,6 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
-					<th>CADASTRANTE</th>
-					<th>EDITAR</th>
-					<th>DELETAR</th>
 				</tr>
 			</thead> 
 			<c:forEach var="servico" items="${listaServico}" varStatus="id">
@@ -57,13 +62,41 @@
 						<td>
 							<fmt:formatDate value="${servico.garantia}" pattern="dd/MM/yyyy" />
 						</td>
-						<td>${servico.usuario.nome}</td>
-						<td><a href="retornapedidoServicoAdmin?id=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
-						
-					</tr>
-				
+						<td><a href="retornapedidoServicoAdmin?cod=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
+					</tr>	
+			</c:forEach>	
+		</table>
+		<a class="btn icon-btn btn-info" href="pedidoServicoEtapa2"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próximo</a>
+		<br><br>
+		<h3>Servicos Selecionados</h3>
+		<table class="table" id="servicoSelecionado">
+			<thead>
+				<tr>
+					<th>COD</th>
+					<th>NOME</th>
+					<th>DESCRIÇÃO</th>
+					<th>PRECO</th>
+					<th>GARANTIA</th>
+				</tr>
+			</thead> 
+			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
+					<tr>
+						<td>${servicoAdd.cod }</td>
+						<td>${servicoAdd.nome}</td>
+						<td>${servicoAdd.descricao}</td>
+						<td>${servicoAdd.preco}</td>
+						<td>
+							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
+						</td>
+						<td><a class="btn icon-btn btn-warning" href="removerServicoPedido?cod=${servicoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
+					</tr>	
 			</c:forEach>	
 		</table>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#codigo').numeric();	
+		});
+	</script> 
 </body>
 </html>

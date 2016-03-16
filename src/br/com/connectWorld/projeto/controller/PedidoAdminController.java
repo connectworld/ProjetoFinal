@@ -25,6 +25,17 @@ public class PedidoAdminController {
 	List <Servico> listaServicoArray;
 	Cliente clienteTela;
 	
+	@RequestMapping("/pesquisarServico")
+	public String pesquisarServico(Model model) throws SQLException{
+		ServicoDao dao = new ServicoDao();
+		//this.clienteTela = cliente;
+		this.listaServicoArray = new ArrayList<>();
+		clienteTela = new Cliente();
+		List<Servico> listaServico = dao.listar();
+		model.addAttribute("listaServico", listaServico);
+		dao.fecharBanco();
+		return "servico/PesquisarServico";
+	}
 
 	@RequestMapping("/pedidoServicoAdmin")
 	public String pedidoServicoAdmin(Model model) throws SQLException{
@@ -38,31 +49,70 @@ public class PedidoAdminController {
 	}
 
 	@RequestMapping("/retornapedidoServicoAdmin")
-	public String retornaPedidoServico(Model model, @RequestParam("id") int id) throws SQLException{
+	public String retornaPedidoServico(Model model, @RequestParam("cod") int cod) throws SQLException{
 		ServicoDao dao = new ServicoDao();
-		Servico servico = dao.buscarPorCod(id);
-		this.listaServicoArray.add(servico);
-		model.addAttribute("listaServico", listaServicoArray);
-		model.addAttribute("cliente", this.clienteTela);
-		dao.fecharBanco();
-		return "pedido/pedidoServicoAdmin";
-	}
-
-	@RequestMapping("/pesquisarServico")
-	public String pesquisarServico(Model model, Cliente cliente) throws SQLException{
-		ServicoDao dao = new ServicoDao();
-		this.clienteTela = cliente;
 		List<Servico> listaServico = dao.listar();
+		Servico servico = dao.buscarPorCod(cod);
+		this.listaServicoArray.add(servico);
+		model.addAttribute("listaServicoAdd", listaServicoArray);
 		model.addAttribute("listaServico", listaServico);
+		//model.addAttribute("cliente", this.clienteTela);
 		dao.fecharBanco();
 		return "servico/PesquisarServico";
 	}
-
-
-
-
+	@RequestMapping("/addServicoPedido")
+	public String pedidoServicoAdmin(Servico servico, Model model) throws SQLException{
+		ServicoDao dao = new ServicoDao();
+		Servico servicoConsultado = dao.buscarPorCod(servico.getCod());
+		List<Servico> listaServico = dao.listar();
+		this.listaServicoArray.add(servicoConsultado);
+		model.addAttribute("listaServico", listaServico);
+		model.addAttribute("listaServicoAdd", listaServicoArray);
+		dao.fecharBanco();
+		return "servico/PesquisarServico";
+	}
+	@RequestMapping("/removerServicoPedido")
+	public String removerServicoPedido(Servico servico, Model model) throws SQLException{
+		ServicoDao dao = new ServicoDao();
+		Servico servicoConsultado = dao.buscarPorCod(servico.getCod());
+		Servico param = null;
+		List<Servico> listaServico = dao.listar();
+		    for(int i = 0; i < listaServicoArray.size(); i++)
+		    {
+		        param = listaServicoArray.get(i);
+		        if(param.getCod() == servicoConsultado.getCod())
+		        {
+		        	listaServicoArray.remove(param);
+		            break;
+		        }
+		    }
+		model.addAttribute("listaServico", listaServico);
+		model.addAttribute("listaServicoAdd", listaServicoArray);
+		dao.fecharBanco();
+		return "servico/PesquisarServico";
+	}
+	@RequestMapping("/pedidoServicoEtapa2")
+	public String pedidoServicoEtapa2(Model model) throws SQLException{
+		if (listaServicoArray.size() == 0) {
+			model.addAttribute("mensagem", "Você não Selecionou nenhum servico");
+			return "forward: pesquisarServico";
+		}
+		else{
+			model.addAttribute("listaServicoAdd", listaServicoArray);
+			return "pedido/pedidoServicoAdmin";
+		}
+	}
+	@RequestMapping("/voltar")
+	public String voltar(Model model) throws SQLException{
+		ServicoDao dao = new ServicoDao();
+		List<Servico> listaServico = dao.listar();
+		model.addAttribute("listaServico", listaServico);
+		model.addAttribute("listaServicoAdd", listaServicoArray);
+		dao.fecharBanco();
+		return "servico/PesquisarServico";
+	}
 	@RequestMapping("/buscarCliente")
-	public String buscarCliente (Model model ) throws SQLException{
+	public String buscarCliente (Model model) throws SQLException{
 		ClienteDao dao = new ClienteDao();
 		List<Cliente> listaCliente = dao.listar();
 		model.addAttribute("listaCliente", listaCliente);
@@ -107,16 +157,12 @@ public class PedidoAdminController {
 		Cliente clienteConsultado = clienteDao.buscarPorCpf(cliente);
 		clienteDao.fecharBanco();
 		if (clienteConsultado != null) {
-			ServicoDao dao = new ServicoDao();
-			List <Servico> listaServico = dao.listar();
-			dao.fecharBanco();
-			model.addAttribute("listaServico",listaServico);
 			model.addAttribute("clienteConsultado", clienteConsultado);
-			return "principal/pedidoServicoWebPreechido";
+			return "principal/pedidoServicoAdminPreechido";
 		}
 		else {
-			model.addAttribute("mensagem", "Desculpa, voce ainda nao realizou nenhum tipo de compra conosco");
-			return "principal/pedidoServicoWeb";
+			model.addAttribute("mensagem", "Cliente não encontrado");
+			return "principal/pedidoServicoAdmin";
 		}	
 	}
 }

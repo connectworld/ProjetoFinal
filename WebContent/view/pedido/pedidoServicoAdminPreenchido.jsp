@@ -12,6 +12,13 @@
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 	<script src="view/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.8/css/jquery.dataTables.css">
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.8/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="view/js/table.js"></script>
 	<script type="text/javascript">
 	function limpa_formulário_cep() {
         //Limpa valores do formulário de cep.
@@ -97,11 +104,10 @@ function pesquisacep(valor) {
 			</div>
 		</c:when>
 	</c:choose>
-	<c:import url="../menu.jsp"></c:import>
 	<br><br><br>
 	<div class="spacing">
 	<div align="center">
-	<form action="buscarCpf">
+	<form action="buscarCpfAdmin">
 		<h4>
 			Buscar Cliente por CFP
 		</h4>
@@ -117,7 +123,7 @@ function pesquisacep(valor) {
 	</form>
 	</div>
 	</div>
-	<form action="salvarClientePedido" method="post" id="contactFrm">
+	<form action="salvarPedidoServicoAdmin" method="post" id="contactFrm">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 			<div style="float: left; width: 30%;">
 				<div class="container">
@@ -127,22 +133,15 @@ function pesquisacep(valor) {
        							<h4 class="heading"><strong>Pedido de Serviço</strong>  <span></span></h4>
            						<div class="form">
                						<label for="nome"> Nome:</label>
-                   					<input type="text" required="" placeholder="Nome Completo" name="nome" class="txt" value="${clienteConsultado.nome}">
+                   					<input type="text" required="" placeholder="Nome Completo" name="nome" class="txt" value="${clienteConsultado.nome}" readonly="readonly">
                    					<label for="CPF"> CPF:</label>
-		                    		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf" class="txt" value="${clienteConsultado.cpf}" maxlength="11" onblur="return verificarCPF(this.value)">
+		                    		<input type="text" required="" placeholder="CPF" name="cpf" id="cpf" class="txt" value="${clienteConsultado.cpf}" readonly="readonly" maxlength="11" onblur="return verificarCPF(this.value)">
 		                    		<label for="E-mail"> E-mail:</label>
-		                    		<input type="text" required="" placeholder="Email" name="email" class="txt" value="${clienteConsultado.email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+		                    		<input type="text" required="" placeholder="Email" name="email" class="txt" value="${clienteConsultado.email}" readonly="readonly" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 		                    		<label for="Contato1"> Contato 1:</label>
-		                    		<input type="text" required="" placeholder="Contato" name="contato1" id="contato1" value="${clienteConsultado.contato1}" class="txt">
+		                    		<input type="text" required="" placeholder="Contato" name="contato1" id="contato1" value="${clienteConsultado.contato1}" readonly="readonly" class="txt">
 		                    		<label for="Contato2"> Contato 2:</label>
-		                    		<input type="text" required="" placeholder="Contato Alternativo" value="${clienteConsultado.contato2}" name="contato2" id="contato2" class="txt">
-		                    		<label for="Servico">Servico:</label> <br>
-		                    		 <select name="servico" multiple="multiple" class="form-control" required="required">
-		                    			<option value="">Teste</option>
-                            				<c:forEach items="${listaServico}" var="servico">
-												<option value="${servico.cod}">${servico.nome}-R$-${servico.preco} </option>
-											</c:forEach>
-		                    		</select> 
+		                    		<input type="text" required="" placeholder="Contato Alternativo" value="${clienteConsultado.contato2}" name="contato2" id="contato2" readonly="readonly" class="txt">		       
            						</div>
            					</div>
            				</div>
@@ -157,17 +156,17 @@ function pesquisacep(valor) {
 	       					<h4 class="heading"><strong>Endereco </strong>  <span></span></h4>
 	           					<div class="form">
 			                    	<label for="Cep"> Cep:</label>
-			                    	<input type="text" required="" placeholder="Cep"  name="cep" id="cep" class="txt" value="${clienteConsultado.cep}" onblur="pesquisacep(this.value);">
+			                    	<input type="text" required="" placeholder="Cep"  name="cep" id="cep" class="txt" readonly="readonly" value="${clienteConsultado.cep}" onblur="pesquisacep(this.value);">
 			                    	<label for="rua"> Rua:</label>
-			                    	 <input type="text" required="" placeholder="Rua" name="rua" id="rua" class="txt" value="${clienteConsultado.rua}">
+			                    	 <input type="text" required="" placeholder="Rua" name="rua" id="rua" class="txt" readonly="readonly" value="${clienteConsultado.rua}">
 			                    	<label for="bairro"> Bairro:</label>
-			                    	<input type="text" required="" placeholder="Bairro" name="bairro" id="bairro" class="txt" value="${clienteConsultado.bairro}">
+			                    	<input type="text" required="" placeholder="Bairro" name="bairro" id="bairro" class="txt" readonly="readonly" value="${clienteConsultado.bairro}">
 			                    	<label for="cidade">Cidade:</label>
-			                    	<input type="text" required="" placeholder="Cidade" name="cidade" id="cidade" class="txt" value="${clienteConsultado.cidade}">
+			                    	<input type="text" required="" placeholder="Cidade" name="cidade" id="cidade" class="txt" readonly="readonly" value="${clienteConsultado.cidade}">
 			                    	<label for="uf">UF:</label>
-			                    	<input type="text" required="" placeholder="UF" name="uf"  id="uf" class="txt" value="${clienteConsultado.uf}">
+			                    	<input type="text" required="" placeholder="UF" name="uf"  id="uf" class="txt" readonly="readonly" value="${clienteConsultado.uf}">
 			                    	<label for="Numero">Numero</label>
-			                    	<input type="text" required="" placeholder="Numero" size="2" name="numero"  id="numero" class="txt" value="${clienteConsultado.numero}">
+			                    	<input type="text" required="" placeholder="Numero" size="2" name="numero"  id="numero" class="txt" readonly="readonly" value="${clienteConsultado.numero}">
 			                    	<label for="ibge">IBGE</label>
 			                    	<input type="text" name="ibge" id="ibge" class="txt" readonly="readonly" value="${clienteConsultado.ibge}">			       	
 	           					</div>

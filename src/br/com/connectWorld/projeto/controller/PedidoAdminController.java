@@ -1,12 +1,14 @@
 package br.com.connectWorld.projeto.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
@@ -19,15 +21,46 @@ import br.com.connectWorld.projeto.model.Servico;
 
 @Controller
 public class PedidoAdminController {
+
+	List <Servico> listaServicoArray;
+	Cliente clienteTela;
 	
+
 	@RequestMapping("/pedidoServicoAdmin")
-	public String pedidoServicoAdmin(Model model ) throws SQLException{
+	public String pedidoServicoAdmin(Model model) throws SQLException{
+		//ServicoDao dao = new ServicoDao();
+		this.listaServicoArray = new ArrayList<>();
+		clienteTela = new Cliente();
+		//List<Servico> listaServico = dao.listar();
+		model.addAttribute("cliente", this.clienteTela);
+		//dao.fecharBanco();
+		return "pedido/pedidoServicoAdmin";
+	}
+
+	@RequestMapping("/retornapedidoServicoAdmin")
+	public String retornaPedidoServico(Model model, @RequestParam("id") int id) throws SQLException{
 		ServicoDao dao = new ServicoDao();
-		List<Servico> listaServico = dao.listar();
-		model.addAttribute("listaServico", listaServico);
+		Servico servico = dao.buscarPorCod(id);
+		this.listaServicoArray.add(servico);
+		model.addAttribute("listaServico", listaServicoArray);
+		model.addAttribute("cliente", this.clienteTela);
 		dao.fecharBanco();
 		return "pedido/pedidoServicoAdmin";
 	}
+
+	@RequestMapping("/pesquisarServico")
+	public String pesquisarServico(Model model, Cliente cliente) throws SQLException{
+		ServicoDao dao = new ServicoDao();
+		this.clienteTela = cliente;
+		List<Servico> listaServico = dao.listar();
+		model.addAttribute("listaServico", listaServico);
+		dao.fecharBanco();
+		return "servico/PesquisarServico";
+	}
+
+
+
+
 	@RequestMapping("/buscarCliente")
 	public String buscarCliente (Model model ) throws SQLException{
 		ClienteDao dao = new ClienteDao();
@@ -59,7 +92,7 @@ public class PedidoAdminController {
 		pedidoDao.salvar(pedido);
 		Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 		ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
-		for (Servico servico: pedidoWebDTO.getServico()) {
+		for (Servico servico: listaServicoArray) {
 			itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 		}
 		model.addAttribute("mensagem", "Pedido Realizado Com sucesso");

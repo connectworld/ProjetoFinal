@@ -193,6 +193,7 @@ public class PedidoDao {
 		Pedido pedido = new Pedido();
 		pedido.setCod(rs.getInt("cod_pedido"));
 		pedido.setValor(rs.getDouble("valor_total"));
+		pedido.setData(rs.getDate("data_pedido"));
 		
 		// MONTANODO O NIVEL USUÃ�RIO
 		int cod = rs.getInt("cliente");

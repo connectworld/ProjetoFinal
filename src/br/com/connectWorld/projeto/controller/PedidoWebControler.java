@@ -1,8 +1,5 @@
 package br.com.connectWorld.projeto.controller;
 
-
-
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,11 +14,10 @@ import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
 import br.com.connectWorld.projeto.dao.ServicoDao;
-import br.com.connectWorld.projeto.dao.UsuarioDao;
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
 import br.com.connectWorld.projeto.model.Servico;
-import br.com.connectWorld.projeto.model.Usuario;
+
 
 
 @Controller

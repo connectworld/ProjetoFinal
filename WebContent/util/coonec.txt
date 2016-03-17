@@ -210,3 +210,5 @@ http://www.rafaelwendel.com/2011/06/funcao-javascript-para-validar-cpf/
 http://wbruno.com.br/html/validando-formularios-apenas-com-html5/
 
 Deus é fiel
+
+http://webdevacademy.com.br/tutoriais/bootstrap-imagens-responsivas/

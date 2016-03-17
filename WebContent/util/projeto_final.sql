@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/03/2016 às 21:38
+-- Tempo de geração: 17/03/2016 às 21:35
 -- Versão do servidor: 5.6.26
 -- Versão do PHP: 5.5.28
 
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `itens_servico` (
   `cod_pedidoServico` int(11) NOT NULL,
   `item_servico` int(11) NOT NULL,
   `valor_unitario` double NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `itens_servico`
@@ -111,7 +111,33 @@ INSERT INTO `itens_servico` (`cod_recno`, `cod_pedidoServico`, `item_servico`, `
 (9, 8, 1, 5.24),
 (10, 9, 3, 50),
 (11, 10, 2, 300),
-(12, 11, 3, 50);
+(12, 11, 3, 50),
+(13, 12, 1, 5.24),
+(14, 13, 1, 5.24),
+(15, 14, 1, 5.24),
+(16, 15, 1, 5.24),
+(17, 16, 1, 5.24),
+(18, 17, 1, 5.24),
+(19, 18, 1, 5.24),
+(20, 19, 1, 5.24),
+(21, 20, 1, 5.24),
+(22, 21, 1, 5.24),
+(23, 22, 1, 5.24),
+(24, 23, 1, 5.24),
+(25, 24, 1, 5.24),
+(26, 25, 1, 5.24),
+(27, 26, 1, 5.24),
+(28, 27, 1, 5.24),
+(29, 28, 1, 5.24),
+(30, 29, 1, 5.24),
+(31, 30, 1, 5.24),
+(32, 31, 1, 5.24),
+(33, 32, 1, 5.24),
+(34, 33, 1, 5.24),
+(35, 34, 1, 5.24),
+(36, 35, 1, 5.24),
+(37, 36, 1, 5.24),
+(38, 37, 1, 5.24);
 
 --
 -- Gatilhos `itens_servico`
@@ -165,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `situacao` varchar(1) NOT NULL,
   `data_pedido` date DEFAULT NULL,
   `valor_total` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Fazendo dump de dados para tabela `pedido`
@@ -180,7 +206,33 @@ INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor
 (8, 3, 'A', '2016-03-16', 5.24),
 (9, 3, 'A', '2016-03-16', 50),
 (10, 3, 'A', '2016-03-16', 300),
-(11, 3, 'A', '2016-03-16', 50);
+(11, 3, 'A', '2016-03-16', 50),
+(12, 3, 'A', '2016-03-17', 5.24),
+(13, 3, 'A', '2016-03-17', 5.24),
+(14, 3, 'A', '2016-03-17', 5.24),
+(15, 3, 'A', '2016-03-17', 5.24),
+(16, 3, 'A', '2016-03-17', 5.24),
+(17, 3, 'A', '2016-03-17', 5.24),
+(18, 3, 'A', '2016-03-17', 5.24),
+(19, 3, 'A', '2016-03-17', 5.24),
+(20, 3, 'A', '2016-03-17', 5.24),
+(21, 3, 'A', '2016-03-17', 5.24),
+(22, 3, 'A', '2016-03-17', 5.24),
+(23, 3, 'A', '2016-03-17', 5.24),
+(24, 3, 'A', '2016-03-17', 5.24),
+(25, 3, 'A', '2016-03-17', 5.24),
+(26, 3, 'A', '2016-03-17', 5.24),
+(27, 3, 'A', '2016-03-17', 5.24),
+(28, 3, 'A', '2016-03-17', 5.24),
+(29, 3, 'A', '2016-03-17', 5.24),
+(30, 3, 'A', '2016-03-17', 5.24),
+(31, 3, 'A', '2016-03-17', 5.24),
+(32, 3, 'A', '2016-03-17', 5.24),
+(33, 3, 'A', '2016-03-17', 5.24),
+(34, 3, 'A', '2016-03-17', 5.24),
+(35, 3, 'A', '2016-03-17', 5.24),
+(36, 3, 'A', '2016-03-17', 5.24),
+(37, 3, 'A', '2016-03-17', 5.24);
 
 -- --------------------------------------------------------
 
@@ -196,7 +248,15 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `quantidade` int(11) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Fazendo dump de dados para tabela `produtos`
+--
+
+INSERT INTO `produtos` (`cod_produto`, `nome`, `descricao`, `preco_venda`, `quantidade`, `imagem`, `user_cadastrante`) VALUES
+(1, 'teste', 'teste', 5, 5, '1.png', 3),
+(2, 'teste2', 'teste2', 5, 10, '2.png', 3);
 
 -- --------------------------------------------------------
 
@@ -454,7 +514,7 @@ ALTER TABLE `itens_produto`
 -- AUTO_INCREMENT de tabela `itens_servico`
 --
 ALTER TABLE `itens_servico`
-  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT de tabela `nivel_user`
 --
@@ -464,12 +524,12 @@ ALTER TABLE `nivel_user`
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `cod_produto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de tabela `servicos`
 --

@@ -22,7 +22,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb") || uri.endsWith("salvarClientePedido") || uri.endsWith("buscarCpf")
 				|| uri.endsWith("servicos") || uri.endsWith("chamaServico")|| uri.endsWith("realizarPedidoWeb")
 				|| uri.endsWith("retornaPedidoServicoWeb")|| uri.endsWith("removerServicoPedidoWeb")|| uri.endsWith("pedidoServicoEtapa2Web")
-				|| uri.endsWith("voltarPedidoWeb")|| uri.endsWith("buscarCpfWeb")|| uri.endsWith("salvarServicoPedidoWeb") ) {
+				|| uri.endsWith("voltarPedidoWeb")|| uri.endsWith("buscarCpfWeb")|| uri.endsWith("salvarServicoPedidoWeb") || uri.endsWith("produtos") ) {
 			return true;
 		}
 		boolean acesso = false;

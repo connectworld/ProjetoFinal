@@ -20,7 +20,9 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 		if (uri.contains("/view/bootstrap") || uri.contains("/view/css") || uri.contains("/view/img")
 				|| uri.contains("/view/js") || uri.endsWith("/Projeto_Final/") || uri.endsWith("efetuarLogin") || uri.endsWith("logout")
 				|| uri.endsWith("chamaHome") || uri.endsWith("chamaPedidoWeb") || uri.endsWith("salvarClientePedido") || uri.endsWith("buscarCpf")
-				|| uri.endsWith("servicos") || uri.endsWith("chamaServico")) {
+				|| uri.endsWith("servicos") || uri.endsWith("chamaServico")|| uri.endsWith("realizarPedidoWeb")
+				|| uri.endsWith("retornaPedidoServicoWeb")|| uri.endsWith("removerServicoPedidoWeb")|| uri.endsWith("pedidoServicoEtapa2Web")
+				|| uri.endsWith("voltarPedidoWeb")|| uri.endsWith("buscarCpfWeb")|| uri.endsWith("salvarServicoPedidoWeb") ) {
 			return true;
 		}
 		boolean acesso = false;

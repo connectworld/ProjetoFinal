@@ -97,7 +97,7 @@ function pesquisacep(valor) {
 			</div>
 		</c:when>
 	</c:choose>
-	<form action="buscarCpf">
+	<form action="buscarCpfWeb">
 		<h4>
 			Caso ja seja cliente, digite seu cpf para fazer pedido
 		</h4>
@@ -107,7 +107,7 @@ function pesquisacep(valor) {
 		<input type="submit" value="Buscar" name="submit">
 		
 	</form>
-	<form action="salvarClientePedido" method="post" id="contactFrm">
+	<form action="salvarServicoPedidoWeb" method="post" id="contactFrm">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 			<div style="float: left; width: 30%;">
 				<div class="container">
@@ -127,14 +127,6 @@ function pesquisacep(valor) {
 		                    		<label for="Contato2"> Contato 2:</label>
 		                    		<input type="text" required="" placeholder="Contato Alternativo" name="contato2" id="contato2" class="txt">
 		                    		<label for="Servico">Servico:</label> <br>
-		                    		 <select name="servico" multiple="multiple" class="form-control" required="required">
-		                    			<option value="">Selecione</option>
-                            				<c:forEach items="${listaServico}" var="listaServico">
-												<option value="${listaServico.cod}"
-												<c:if test="${listaServico.cod eq servico.cod}"> selected="selected"</c:if>>
-												${nivel.nome}</option>
-											</c:forEach>
-		                    		</select> 
            						</div>
            					</div>
            				</div>
@@ -173,6 +165,33 @@ function pesquisacep(valor) {
 		<input type="submit" value="Enviar" name="submit" class="txt2">
 	</div>
 	</form>
+	<div class="tabelas">
+	<table class="table" id="servicoSelecionado">
+			<thead>
+				<tr>
+					<th>NOME</th>
+					<th>DESCRIÇÃO</th>
+					<th>PRECO</th>
+					<th>GARANTIA</th>
+				</tr>
+			</thead> 
+			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
+					<tr>
+						<td>${servicoAdd.nome}</td>
+						<td>${servicoAdd.descricao}</td>
+						<td>${servicoAdd.preco}</td>
+						<td>
+							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
+						</td>
+					</tr>	
+			</c:forEach>	
+		</table>
+		<br>
+		<div align="center">
+				<a class="btn icon-btn btn-info" href="voltarPedidoWeb"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar Pedido</a>
+		
+		</div>
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#cpf").mask("999.999.999-99");

@@ -10,9 +10,9 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">Servicos</a>
 						<ul class="dropdown-menu">
-							<li><a href="chamaPedidoWeb">Pedido de Servico</a></li>
-							 <li><a href="servicos">Servicos</a></li>
-							<!--<li><a href="#">Google+</a></li>
+							<li><a href="realizarPedidoWeb">Pedido de Servico</a></li>
+							<!--  <li><a href="realizarPedidoWeb">Servicos</a></li>
+							<li><a href="#">Google+</a></li> 
 							<li><a href="#">Instagram</a></li> -->
 						</ul></li>
 					<li><a href="#">About</a></li>

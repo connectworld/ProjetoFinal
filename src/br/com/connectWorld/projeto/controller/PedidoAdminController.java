@@ -156,7 +156,7 @@ public class PedidoAdminController {
 			model.addAttribute("usuario", usuario);
 			model.addAttribute("listaServicoAdd", listaServicoArray);
 			//model.addAttribute("cliente", clientePesquisado);
-			pedidoDao.fecharBanco();
+			//pedidoDao.fecharBanco();
 			itens.fecharBanco();
 			usuarioDao.fecharBanco();
 			pedidoDao.fecharBanco();
@@ -165,7 +165,8 @@ public class PedidoAdminController {
 		}
 		else {
 			clienteDao.salvar(cliente);
-			pedido.setCliente(cliente);
+			Cliente ultimoCliente = clienteDao.obterUltimoCliente();
+			pedido.setCliente(ultimoCliente);
 			Date date = new Date();
 			pedido.setData(date);
 			pedido.setSituacao("A");
@@ -176,11 +177,16 @@ public class PedidoAdminController {
 			for (Servico servico: listaServicoArray) {
 				itens.salvarItens(ultimoPedidoSalvo.getCod(), servico);
 			}
+			Pedido exibirPedido = pedidoDao.buscarPorcod(ultimoPedidoSalvo);
+			model.addAttribute("pedido", exibirPedido);
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("listaServicoAdd", listaServicoArray);
 			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
+			usuarioDao.fecharBanco();
 			itens.fecharBanco();
-			return "forward: pesquisarServico";
+			return "pedido/impressao";
 		}
 		
 		

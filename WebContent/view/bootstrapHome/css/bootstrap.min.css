@@ -64,3 +64,8 @@ form_main {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     color: #5793ef;
     transition: all 0.5s ease 0s;
+}
+.tabelas{
+	margin-top: 5%;
+	padding: 3%;
+}

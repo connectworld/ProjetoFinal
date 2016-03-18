@@ -130,18 +130,18 @@ public class PedidoProdutoAdminController {
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoProdutoDao itens = new ItensPedidoProdutoDao();
 			for (Produto produto: listaProdutoArray) {
-				itens.s(ultimoPedidoSalvo.getCod(), produto);
+				itens.salvarIten(ultimoPedidoSalvo.getCod(), produto,1);
 			}
 			Pedido exibirPedido = pedidoDao.buscarPorcod(ultimoPedidoSalvo);
 			model.addAttribute("pedido", exibirPedido);
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("listaServicoAdd", listaServicoArray);
+			model.addAttribute("listaServicoAdd", listaProdutoArray);
 			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
 			usuarioDao.fecharBanco();
 			itens.fecharBanco();
-			return "pedido/impressao";
+			return "pedido/impressaoProduto";
 		}
 		
 		

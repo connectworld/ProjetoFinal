@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/03/2016 às 21:35
--- Versão do servidor: 5.6.26
--- Versão do PHP: 5.5.28
+-- Generation Time: 18-Mar-2016 às 01:50
+-- Versão do servidor: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,16 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `projeto_final`
+-- Database: `projeto_final`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cliente`
+-- Estrutura da tabela `cliente`
 --
 
-CREATE TABLE IF NOT EXISTS `cliente` (
+CREATE TABLE `cliente` (
   `cod_cliente` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `cpf` varchar(15) NOT NULL,
@@ -41,10 +41,10 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `numero` varchar(10) NOT NULL,
   `ibge` int(11) NOT NULL,
   `exclusao_logica` int(11) DEFAULT '0' COMMENT '0 = ativo, 1 = inativo'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `cliente`
+-- Extraindo dados da tabela `cliente`
 --
 
 INSERT INTO `cliente` (`cod_cliente`, `nome`, `cpf`, `email`, `contato1`, `contato2`, `cep`, `rua`, `bairro`, `uf`, `cidade`, `numero`, `ibge`, `exclusao_logica`) VALUES
@@ -53,10 +53,10 @@ INSERT INTO `cliente` (`cod_cliente`, `nome`, `cpf`, `email`, `contato1`, `conta
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `itens_produto`
+-- Estrutura da tabela `itens_produto`
 --
 
-CREATE TABLE IF NOT EXISTS `itens_produto` (
+CREATE TABLE `itens_produto` (
   `cod_recno` int(11) NOT NULL,
   `cod_pedidoProduto` int(11) NOT NULL,
   `cod_itemProduto` int(11) NOT NULL,
@@ -65,19 +65,17 @@ CREATE TABLE IF NOT EXISTS `itens_produto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Gatilhos `itens_produto`
+-- Acionadores `itens_produto`
 --
 DELIMITER $$
-CREATE TRIGGER `atualiza_valorPedPro_Sub` AFTER DELETE ON `itens_produto`
- FOR EACH ROW BEGIN
+CREATE TRIGGER `atualiza_valorPedPro_Sub` AFTER DELETE ON `itens_produto` FOR EACH ROW BEGIN
 	update pedido p set p.valor_total = p.valor_total - old.valor_unitario
 	where p.cod_pedido = old.cod_pedidoProduto;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `atualiza_valorPedProdu_Add` AFTER INSERT ON `itens_produto`
- FOR EACH ROW BEGIN
+CREATE TRIGGER `atualiza_valorPedProdu_Add` AFTER INSERT ON `itens_produto` FOR EACH ROW BEGIN
 	update pedido p set p.valor_total = p.valor_total + new.valor_unitario
 	where p.cod_pedido = new.cod_pedidoProduto;
 END
@@ -87,18 +85,18 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `itens_servico`
+-- Estrutura da tabela `itens_servico`
 --
 
-CREATE TABLE IF NOT EXISTS `itens_servico` (
+CREATE TABLE `itens_servico` (
   `cod_recno` int(11) NOT NULL,
   `cod_pedidoServico` int(11) NOT NULL,
   `item_servico` int(11) NOT NULL,
   `valor_unitario` double NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `itens_servico`
+-- Extraindo dados da tabela `itens_servico`
 --
 
 INSERT INTO `itens_servico` (`cod_recno`, `cod_pedidoServico`, `item_servico`, `valor_unitario`) VALUES
@@ -140,19 +138,17 @@ INSERT INTO `itens_servico` (`cod_recno`, `cod_pedidoServico`, `item_servico`, `
 (38, 37, 1, 5.24);
 
 --
--- Gatilhos `itens_servico`
+-- Acionadores `itens_servico`
 --
 DELIMITER $$
-CREATE TRIGGER `atualiza_valorPedSer_Add` AFTER INSERT ON `itens_servico`
- FOR EACH ROW BEGIN
+CREATE TRIGGER `atualiza_valorPedSer_Add` AFTER INSERT ON `itens_servico` FOR EACH ROW BEGIN
 	update pedido p set p.valor_total = p.valor_total + new.valor_unitario
 	where p.cod_pedido = new.cod_pedidoServico;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `atualiza_valorPedSer_Sub` AFTER DELETE ON `itens_servico`
- FOR EACH ROW BEGIN
+CREATE TRIGGER `atualiza_valorPedSer_Sub` AFTER DELETE ON `itens_servico` FOR EACH ROW BEGIN
 	update pedido p set p.valor_total = p.valor_total - old.valor_unitario
 	where p.cod_pedido = old.cod_pedidoServico;
 END
@@ -162,17 +158,17 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `nivel_user`
+-- Estrutura da tabela `nivel_user`
 --
 
-CREATE TABLE IF NOT EXISTS `nivel_user` (
+CREATE TABLE `nivel_user` (
   `cod_nivel` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `nivel_user`
+-- Extraindo dados da tabela `nivel_user`
 --
 
 INSERT INTO `nivel_user` (`cod_nivel`, `nome`, `descricao`) VALUES
@@ -182,19 +178,19 @@ INSERT INTO `nivel_user` (`cod_nivel`, `nome`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedido`
+-- Estrutura da tabela `pedido`
 --
 
-CREATE TABLE IF NOT EXISTS `pedido` (
+CREATE TABLE `pedido` (
   `cod_pedido` int(11) NOT NULL,
   `cliente` int(11) NOT NULL,
   `situacao` varchar(1) NOT NULL,
   `data_pedido` date DEFAULT NULL,
   `valor_total` double DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `pedido`
+-- Extraindo dados da tabela `pedido`
 --
 
 INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor_total`) VALUES
@@ -237,10 +233,10 @@ INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `produtos`
+-- Estrutura da tabela `produtos`
 --
 
-CREATE TABLE IF NOT EXISTS `produtos` (
+CREATE TABLE `produtos` (
   `cod_produto` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL,
@@ -248,10 +244,10 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `quantidade` int(11) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `produtos`
+-- Extraindo dados da tabela `produtos`
 --
 
 INSERT INTO `produtos` (`cod_produto`, `nome`, `descricao`, `preco_venda`, `quantidade`, `imagem`, `user_cadastrante`) VALUES
@@ -261,20 +257,20 @@ INSERT INTO `produtos` (`cod_produto`, `nome`, `descricao`, `preco_venda`, `quan
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `servicos`
+-- Estrutura da tabela `servicos`
 --
 
-CREATE TABLE IF NOT EXISTS `servicos` (
+CREATE TABLE `servicos` (
   `cod_servico` int(11) NOT NULL,
   `descricao` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `garantia` date NOT NULL,
   `preco` double DEFAULT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `servicos`
+-- Extraindo dados da tabela `servicos`
 --
 
 INSERT INTO `servicos` (`cod_servico`, `descricao`, `nome`, `garantia`, `preco`, `user_cadastrante`) VALUES
@@ -285,17 +281,17 @@ INSERT INTO `servicos` (`cod_servico`, `descricao`, `nome`, `garantia`, `preco`,
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `telas`
+-- Estrutura da tabela `telas`
 --
 
-CREATE TABLE IF NOT EXISTS `telas` (
+CREATE TABLE `telas` (
   `cod_tela` int(11) NOT NULL,
   `url` varchar(50) NOT NULL,
   `descricao` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `telas`
+-- Extraindo dados da tabela `telas`
 --
 
 INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
@@ -337,15 +333,18 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (36, 'buscarCpfAdmin', 'Buscar Cliente por Cpf'),
 (37, 'removerServicoPedido', 'Remover Item Servico Pedido'),
 (38, 'pedidoServicoEtapa2', 'Pedido Servico 2º Fase'),
-(39, 'salvarPedidoServicoAdmin', 'Salvar Pedido Servico');
+(39, 'salvarPedidoServicoAdmin', 'Salvar Pedido Servico'),
+(40, 'pedidoProdutoAdmin', 'realiza pedido do produto sendo admin'),
+(41, 'pedidoProdutoAdd', 'realizar pedido sendo admin'),
+(42, 'removerProdutoPedidoAdmin', 'remover Produto do Pedido Admin');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuarios`
+-- Estrutura da tabela `usuarios`
 --
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
+CREATE TABLE `usuarios` (
   `cod_usuario` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
@@ -355,10 +354,10 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(50) NOT NULL,
   `nivel_usuario` int(11) NOT NULL,
   `user_cadastrante` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `usuarios`
+-- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `foto`, `email`, `nivel_usuario`, `user_cadastrante`) VALUES
@@ -368,17 +367,17 @@ INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `fo
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `valida_url`
+-- Estrutura da tabela `valida_url`
 --
 
-CREATE TABLE IF NOT EXISTS `valida_url` (
+CREATE TABLE `valida_url` (
   `cod_valida` int(11) NOT NULL,
   `cod_nivelUsuario` int(11) NOT NULL,
   `cod_telaUsuario` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Fazendo dump de dados para tabela `valida_url`
+-- Extraindo dados da tabela `valida_url`
 --
 
 INSERT INTO `valida_url` (`cod_valida`, `cod_nivelUsuario`, `cod_telaUsuario`) VALUES
@@ -421,21 +420,24 @@ INSERT INTO `valida_url` (`cod_valida`, `cod_nivelUsuario`, `cod_telaUsuario`) V
 (45, 1, 36),
 (46, 1, 37),
 (47, 1, 38),
-(49, 1, 39);
+(49, 1, 39),
+(50, 1, 40),
+(51, 1, 41),
+(52, 1, 42);
 
 --
--- Índices de tabelas apagadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `cliente`
+-- Indexes for table `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`cod_cliente`),
   ADD UNIQUE KEY `cpf` (`cpf`);
 
 --
--- Índices de tabela `itens_produto`
+-- Indexes for table `itens_produto`
 --
 ALTER TABLE `itens_produto`
   ADD PRIMARY KEY (`cod_recno`),
@@ -443,7 +445,7 @@ ALTER TABLE `itens_produto`
   ADD KEY `cod_itemProduto` (`cod_itemProduto`);
 
 --
--- Índices de tabela `itens_servico`
+-- Indexes for table `itens_servico`
 --
 ALTER TABLE `itens_servico`
   ADD PRIMARY KEY (`cod_recno`),
@@ -451,45 +453,45 @@ ALTER TABLE `itens_servico`
   ADD KEY `item_servico` (`item_servico`);
 
 --
--- Índices de tabela `nivel_user`
+-- Indexes for table `nivel_user`
 --
 ALTER TABLE `nivel_user`
   ADD PRIMARY KEY (`cod_nivel`);
 
 --
--- Índices de tabela `pedido`
+-- Indexes for table `pedido`
 --
 ALTER TABLE `pedido`
   ADD PRIMARY KEY (`cod_pedido`),
   ADD KEY `cliente` (`cliente`);
 
 --
--- Índices de tabela `produtos`
+-- Indexes for table `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`cod_produto`);
 
 --
--- Índices de tabela `servicos`
+-- Indexes for table `servicos`
 --
 ALTER TABLE `servicos`
   ADD PRIMARY KEY (`cod_servico`);
 
 --
--- Índices de tabela `telas`
+-- Indexes for table `telas`
 --
 ALTER TABLE `telas`
   ADD PRIMARY KEY (`cod_tela`);
 
 --
--- Índices de tabela `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`cod_usuario`),
   ADD KEY `nivel_usuario` (`nivel_usuario`);
 
 --
--- Índices de tabela `valida_url`
+-- Indexes for table `valida_url`
 --
 ALTER TABLE `valida_url`
   ADD PRIMARY KEY (`cod_valida`),
@@ -497,91 +499,91 @@ ALTER TABLE `valida_url`
   ADD KEY `cod_telaUsuario` (`cod_telaUsuario`);
 
 --
--- AUTO_INCREMENT de tabelas apagadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `cliente`
+-- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de tabela `itens_produto`
+-- AUTO_INCREMENT for table `itens_produto`
 --
 ALTER TABLE `itens_produto`
   MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de tabela `itens_servico`
+-- AUTO_INCREMENT for table `itens_servico`
 --
 ALTER TABLE `itens_servico`
-  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
+  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
--- AUTO_INCREMENT de tabela `nivel_user`
+-- AUTO_INCREMENT for table `nivel_user`
 --
 ALTER TABLE `nivel_user`
-  MODIFY `cod_nivel` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `cod_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de tabela `pedido`
+-- AUTO_INCREMENT for table `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
--- AUTO_INCREMENT de tabela `produtos`
+-- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `cod_produto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `cod_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de tabela `servicos`
+-- AUTO_INCREMENT for table `servicos`
 --
 ALTER TABLE `servicos`
-  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de tabela `telas`
+-- AUTO_INCREMENT for table `telas`
 --
 ALTER TABLE `telas`
-  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
--- AUTO_INCREMENT de tabela `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de tabela `valida_url`
+-- AUTO_INCREMENT for table `valida_url`
 --
 ALTER TABLE `valida_url`
-  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
+  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
--- Restrições para dumps de tabelas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `itens_produto`
+-- Limitadores para a tabela `itens_produto`
 --
 ALTER TABLE `itens_produto`
   ADD CONSTRAINT `itens_produto_ibfk_1` FOREIGN KEY (`cod_pedidoProduto`) REFERENCES `pedido` (`cod_pedido`),
   ADD CONSTRAINT `itens_produto_ibfk_2` FOREIGN KEY (`cod_itemProduto`) REFERENCES `produtos` (`cod_produto`);
 
 --
--- Restrições para tabelas `itens_servico`
+-- Limitadores para a tabela `itens_servico`
 --
 ALTER TABLE `itens_servico`
   ADD CONSTRAINT `itens_servico_ibfk_1` FOREIGN KEY (`cod_pedidoServico`) REFERENCES `pedido` (`cod_pedido`),
   ADD CONSTRAINT `itens_servico_ibfk_2` FOREIGN KEY (`item_servico`) REFERENCES `servicos` (`cod_servico`);
 
 --
--- Restrições para tabelas `pedido`
+-- Limitadores para a tabela `pedido`
 --
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`cod_cliente`);
 
 --
--- Restrições para tabelas `usuarios`
+-- Limitadores para a tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`nivel_usuario`) REFERENCES `nivel_user` (`cod_nivel`);
 
 --
--- Restrições para tabelas `valida_url`
+-- Limitadores para a tabela `valida_url`
 --
 ALTER TABLE `valida_url`
   ADD CONSTRAINT `valida_url_ibfk_1` FOREIGN KEY (`cod_nivelUsuario`) REFERENCES `nivel_user` (`cod_nivel`),

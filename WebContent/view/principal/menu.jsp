@@ -15,6 +15,14 @@
 							<li><a href="#">Google+</a></li> 
 							<li><a href="#">Instagram</a></li> -->
 						</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown">Pedidos Peças</a>
+						<ul class="dropdown-menu">
+							<li><a href="realizarPedidoProdutoWeb">Pedido Peças</a></li>
+							<!--  <li><a href="realizarPedidoWeb">Servicos</a></li>
+							<li><a href="#">Google+</a></li> 
+							<li><a href="#">Instagram</a></li> -->
+						</ul></li>
 					<li><a href="#">About</a></li>
 					<li><a href="">Contatos</a></li>
 				</ul>

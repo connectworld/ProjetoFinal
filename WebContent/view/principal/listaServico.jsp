@@ -44,6 +44,7 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
+					<th>Selecionar<th>
 				</tr>
 			</thead> 
 			<c:forEach var="servico" items="${listaServico}" varStatus="id">
@@ -67,6 +68,7 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
+					<th>Remover<th>
 				</tr>
 			</thead> 
 			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">

@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listar Produto</title>
-	<link href="view/bootstrapHome/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<title>Produto Admin</title>
+	<link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 	<script src="view/bootstrap/js/bootstrap.min.js"></script>
 	<!-- DataTables CSS -->
@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="view/js/table.js"></script>
 </head>
 <body>
-<c:import url="/view/principal/menu.jsp"></c:import>
+<c:import url="../menu.jsp"></c:import>
 
 	
 	<div class="tabelas">
@@ -36,43 +36,51 @@
 			</div>
 		</c:when>
 	</c:choose>
-	<div  class="tabelas">
 	<div align="center"><h3 class="h3">Produtos</h3></div>
-		<table id="tableProdutoWeb" class="table">
+		<table id="tableProduto" class="table">
 			<thead>
 				<tr>
 					<th class="thMenor">COD</th>
 					<th class="tabelaGeral">NOME</th>
 					<th class="tabelaGeral">DESCRIÇÃO</th>
+					<th class="tabelaGeral">CADASTRANTE</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
 					<th class="tabelaGeral">QUANTIDADE</th>
 					<th class="tabelaGeral">IMAGEM</th>
 					<th>SELECIONAR</th>
+					
 				</tr>
 			</thead> 
 			<c:forEach var="produto" items="${listaProduto}" varStatus="id">
 					<tr bgcolor="#${id.count % 2 == 0 ? 'aaee88' : 'blue' }">
 						<td>${produto.cod }</td>
 						<td>${produto.nome}</td>
+						<td>${produto.usuario.nome}</td>
 						<td>${produto.descricao}</td>
 						<td>${produto.precoVenda}</td>
 						<td>${produto.quantidade}</td>
 						<td>
 							<img alt="img" src="view/img/${produto.imagem}" style="width: 30%;" />
 						</td>
-						<td><a href="retornaPedidoProdutoWeb?cod=${produto.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
+					<td><a href="pedidoProdutoAdd?cod=${produto.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
 					</tr>
+				
 			</c:forEach>	
 		</table>
+		
+		
+		<br><br>
+		<h3>Produto Selecionados</h3>
 		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
 					<th class="thMenor">COD</th>
 					<th class="tabelaGeral">NOME</th>
 					<th class="tabelaGeral">DESCRIÇÃO</th>
+					<th class="tabelaGeral">CADASTRANTE</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
+					<th class="tabelaGeral">QUANTIDADE</th>
 					<th class="tabelaGeral">IMAGEM</th>
-					<th>Remover</th>
 				</tr>
 			</thead> 
 			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">
@@ -81,18 +89,19 @@
 						<td>${produtoAdd.nome}</td>
 						<td>${produtoAdd.descricao}</td>
 						<td>${produtoAdd.precoVenda}</td>
+						<td>${produtoAdd.quantidade}</td>
 						<td>
 							<img alt="img" src="view/img/${produtoAdd.imagem}" style="width: 30%;" />
-						</td>
-						<td><a class="btn icon-btn btn-warning" href="removerProdutoPedidoWeb?cod=${produtoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
+						
+						<td><a class="btn icon-btn btn-warning" href="removerProdutoPedidoAdmin?cod=${produtoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
 					</tr>	
 			</c:forEach>	
 		</table>
 		<br>
 		<div align="center">
-				<a class="btn icon-btn btn-info" href="pedidoProdutoEtapa2Web"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próxima Etapa do Pedido</a>
+				<a class="btn icon-btn btn-info" href="pedidoProdutoEtapa2Admin"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próxima Etapa do Pedido</a>
+		
 		</div>
-	</div>
 	</div>
 </body>
 </html>

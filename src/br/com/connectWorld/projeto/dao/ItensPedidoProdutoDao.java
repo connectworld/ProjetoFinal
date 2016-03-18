@@ -38,4 +38,9 @@ public class ItensPedidoProdutoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public void fecharBanco() throws SQLException {
+		conexao.close();
+		System.out.println(2);
+
+	}
 }

@@ -199,26 +199,30 @@ function pesquisacep(valor) {
 	</form>
 	<a class="btn icon-btn btn-info" href="voltar"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
   <div class="tabelas">
-	<h3>Servicos Selecionados</h3>
-		<table class="table" id="servicoSelecionado" style="padding: 10%;">
+	<h3 align="center">Produto Selecionados</h3>
+		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
-					<th>COD</th>
-					<th>NOME</th>
-					<th>DESCRIÇÃO</th>
-					<th>PRECO</th>
-					<th>GARANTIA</th>
+					<th class="thMenor">COD</th>
+					<th class="tabelaGeral">NOME</th>
+					<th class="tabelaGeral">DESCRIÇÃO</th>
+					<th class="tabelaGeral">CADASTRANTE</th>
+					<th class="tabelaGeral">PRECO VENDA</th>
+					<th class="tabelaGeral">QUANTIDADE</th>
+					<th class="tabelaGeral">IMAGEM</th>
 				</tr>
 			</thead> 
-			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
+			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">
 					<tr>
-						<td>${servicoAdd.cod }</td>
-						<td>${servicoAdd.nome}</td>
-						<td>${servicoAdd.descricao}</td>
-						<td>${servicoAdd.preco}</td>
+						<td>${produtoAdd.cod }</td>
+						<td>${produtoAdd.nome}</td>
+						<td>${produtoAdd.descricao}</td>
+						<td>${produtoAdd.precoVenda}</td>
+						<td>${produtoAdd.quantidade}</td>
 						<td>
-							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
-						</td>
+							<img alt="img" src="view/img/${produtoAdd.imagem}" style="width: 30%;" />
+						
+						<td><a class="btn icon-btn btn-warning" href="removerProdutoPedidoAdmin?cod=${produtoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
 					</tr>	
 			</c:forEach>	
 		</table>

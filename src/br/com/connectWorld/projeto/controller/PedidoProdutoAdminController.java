@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.connectWorld.projeto.dao.ClienteDao;
 import br.com.connectWorld.projeto.dao.ItensPedidoProdutoDao;
-import br.com.connectWorld.projeto.dao.ItensPedidoServicoDao;
 import br.com.connectWorld.projeto.dao.PedidoDao;
 import br.com.connectWorld.projeto.dao.ProdutoDao;
-import br.com.connectWorld.projeto.dao.ServicoDao;
 import br.com.connectWorld.projeto.dao.UsuarioDao;
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
 import br.com.connectWorld.projeto.model.Produto;
-import br.com.connectWorld.projeto.model.Servico;
 import br.com.connectWorld.projeto.model.Usuario;
 
 @Controller

@@ -203,7 +203,6 @@
 					<th class="tabelaGeral">NOME</th>
 					<th class="tabelaGeral">DESCRIÇÃO</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
-					<th class="tabelaGeral">IMAGEM</th>
 				</tr>
 			</thead> 
 			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">
@@ -212,15 +211,12 @@
 						<td>${produtoAdd.nome}</td>
 						<td>${produtoAdd.descricao}</td>
 						<td>${produtoAdd.precoVenda}</td>
-						<td>
-							<img alt="img" src="view/img/${produtoAdd.imagem}" style="width: 30%;" />
-						</td>
 					</tr>	
 			</c:forEach>	
 		</table>
 		<br>
 		<div align="center">
-				<a class="btn icon-btn btn-info" href="voltarPedidoProdutoWeb"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próxima Etapa do Pedido</a>
+				<a class="btn icon-btn btn-info" href="voltarPedidoProdutoWeb"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar Pedido</a>
 		</div>
 	</div>
 	<script type="text/javascript">

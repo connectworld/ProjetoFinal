@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Mar-2016 às 01:50
+-- Generation Time: 18-Mar-2016 às 05:48
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -48,7 +48,8 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`cod_cliente`, `nome`, `cpf`, `email`, `contato1`, `contato2`, `cep`, `rua`, `bairro`, `uf`, `cidade`, `numero`, `ibge`, `exclusao_logica`) VALUES
-(3, 'LEANDRO BRITO CORREIA DA SILVA', '119.174.064-10', 'leandro@gmail.com', '(88)88888-8888', '(88)88888-8888', '54320-003', '3ª Travessa Gonçalves Dias', 'Jardim Jordão', 'PE', 'Jaboatão dos Guararapes', '280', 2607901, 0);
+(3, 'LEANDRO BRITO CORREIA DA SILVA', '119.174.064-10', 'leandro@gmail.com', '(88)88888-8888', '(88)88888-8888', '54320-003', '3ª Travessa Gonçalves Dias', 'Jardim Jordão', 'PE', 'Jaboatão dos Guararapes', '280', 2607901, 0),
+(4, 'jo', '013.916.024-80', 'jorge@gmail.com', '(33)33333-3333', '(33)33333-3333', '51345-810', 'Rua Padre Dias', 'COHAB', 'PE', 'Recife', '20', 2611606, 0);
 
 -- --------------------------------------------------------
 
@@ -60,9 +61,17 @@ CREATE TABLE `itens_produto` (
   `cod_recno` int(11) NOT NULL,
   `cod_pedidoProduto` int(11) NOT NULL,
   `cod_itemProduto` int(11) NOT NULL,
+  `nome_produto` varchar(50) NOT NULL,
   `quantidade` int(11) NOT NULL,
   `valor_unitario` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `itens_produto`
+--
+
+INSERT INTO `itens_produto` (`cod_recno`, `cod_pedidoProduto`, `cod_itemProduto`, `nome_produto`, `quantidade`, `valor_unitario`) VALUES
+(1, 38, 1, 'teste', 1, 5);
 
 --
 -- Acionadores `itens_produto`
@@ -228,7 +237,8 @@ INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor
 (34, 3, 'A', '2016-03-17', 5.24),
 (35, 3, 'A', '2016-03-17', 5.24),
 (36, 3, 'A', '2016-03-17', 5.24),
-(37, 3, 'A', '2016-03-17', 5.24);
+(37, 3, 'A', '2016-03-17', 5.24),
+(38, 4, 'A', '2016-03-18', 5);
 
 -- --------------------------------------------------------
 
@@ -336,7 +346,10 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (39, 'salvarPedidoServicoAdmin', 'Salvar Pedido Servico'),
 (40, 'pedidoProdutoAdmin', 'realiza pedido do produto sendo admin'),
 (41, 'pedidoProdutoAdd', 'realizar pedido sendo admin'),
-(42, 'removerProdutoPedidoAdmin', 'remover Produto do Pedido Admin');
+(42, 'removerProdutoPedidoAdmin', 'remover Produto do Pedido Admin'),
+(43, 'pedidoProdutoEtapa2Admin', 'pedido Produto Etapa2 Admin'),
+(44, 'salvarPedidoProdutoAdmin', 'salvar Pedido Produto Admin'),
+(45, 'retornarPedidoAdmin', 'retornar Pedido Admin');
 
 -- --------------------------------------------------------
 
@@ -423,7 +436,10 @@ INSERT INTO `valida_url` (`cod_valida`, `cod_nivelUsuario`, `cod_telaUsuario`) V
 (49, 1, 39),
 (50, 1, 40),
 (51, 1, 41),
-(52, 1, 42);
+(52, 1, 42),
+(53, 1, 43),
+(54, 1, 44),
+(55, 1, 45);
 
 --
 -- Indexes for dumped tables
@@ -506,12 +522,12 @@ ALTER TABLE `valida_url`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `itens_produto`
 --
 ALTER TABLE `itens_produto`
-  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `itens_servico`
 --
@@ -526,7 +542,7 @@ ALTER TABLE `nivel_user`
 -- AUTO_INCREMENT for table `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `produtos`
 --
@@ -541,7 +557,7 @@ ALTER TABLE `servicos`
 -- AUTO_INCREMENT for table `telas`
 --
 ALTER TABLE `telas`
-  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
@@ -551,7 +567,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `valida_url`
 --
 ALTER TABLE `valida_url`
-  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 --
 -- Constraints for dumped tables
 --

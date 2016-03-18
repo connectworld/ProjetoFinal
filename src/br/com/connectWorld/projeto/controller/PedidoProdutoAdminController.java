@@ -116,7 +116,7 @@ public class PedidoProdutoAdminController {
 			usuarioDao.fecharBanco();
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();
-			return "pedido/impressao";
+			return "pedido/impressaoProduto";
 		}
 		else {
 			clienteDao.salvar(cliente);
@@ -143,7 +143,14 @@ public class PedidoProdutoAdminController {
 			itens.fecharBanco();
 			return "pedido/impressaoProduto";
 		}
-		
-		
+	}
+	@RequestMapping("/retornarPedidoAdmin")
+	public String retornarPedidoAdmin(Model model) throws SQLException{
+		ProdutoDao dao = new ProdutoDao();
+		List<Produto> listaProduto = dao.listar();
+		model.addAttribute("listaProduto", listaProduto);
+		model.addAttribute("listaProdutoAdd", listaProdutoArray);
+		dao.fecharBanco();
+		return "pedido/pedidoProdutoAdmin";
 	}
 }

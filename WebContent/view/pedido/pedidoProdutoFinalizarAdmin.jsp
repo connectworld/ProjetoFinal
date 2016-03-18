@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pedido de Servico</title>
+<title>Pedido de Produto</title>
 	<link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen" />
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
@@ -125,7 +125,7 @@ function pesquisacep(valor) {
 			</form>
 		</div>
 	</div>
-	<form action="salvarPedidoServicoAdmin" method="post" id="contactFrm">
+	<form action="salvarPedidoProdutoAdmin" method="post" id="contactFrm">
 	<input type="hidden" name="codigo" value="${usuarioLogado.cod }">
 		<section
 			style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
@@ -135,7 +135,7 @@ function pesquisacep(valor) {
 					<div class="col-md-4">
 						<div class="form_main">
 							<h4 class="heading">
-								<strong>Pedido de Serviço</strong> <span></span>
+								<strong>Pedido de Produto</strong> <span></span>
 							</h4>
 							<div class="form">
 								<label for="nome"> Nome:</label> <input type="text" required=""
@@ -197,7 +197,7 @@ function pesquisacep(valor) {
 			<input type="submit" value="Enviar" name="submit" class="txt2">
 		</div>
 	</form>
-	<a class="btn icon-btn btn-info" href="voltar"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
+	<a class="btn icon-btn btn-info" href="retornarPedidoAdmin"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
   <div class="tabelas">
 	<h3 align="center">Produto Selecionados</h3>
 		<table class="table" id="servicoSelecionado">

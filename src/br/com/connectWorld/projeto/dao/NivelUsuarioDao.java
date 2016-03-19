@@ -24,7 +24,7 @@ public class NivelUsuarioDao {
 			throw new RuntimeException(e);
 		}
 	}
-	public void salvar(NivelUsuario nivelUsuario) {
+	public void salvar(NivelUsuario nivelUsuario, List<Telas> telas) {
 		// COMANDO SQL PARA SALVAR CONTATOS
 		String insert = "INSERT INTO nivel_user (nome,descricao,user_cadastrante) VALUES (?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
@@ -40,7 +40,7 @@ public class NivelUsuarioDao {
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			int codNivel = obterUltimoPerfil();
-			for (Telas tela : nivelUsuario.getTelas()) {
+			for (Telas tela : telas) {
 				salvarValidaUrl(codNivel, tela);
 			}
 			

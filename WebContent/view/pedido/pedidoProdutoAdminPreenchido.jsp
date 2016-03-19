@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pedido de Servico</title>
+<title>Pedido de Produto</title>
 	<link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	media="screen" />
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
@@ -107,7 +107,7 @@ function pesquisacep(valor) {
 	<br><br><br>
 	<div class="spacing">
 	<div align="center">
-	<form action="buscarCpfAdmin">
+	<form action="buscarCpfAdminProduto">
 		<h4>
 			Buscar Cliente por CFP
 		</h4>
@@ -118,21 +118,21 @@ function pesquisacep(valor) {
 	</div>
 	<br><br>
 	<div align="center">
-	<form action="buscarCliente">
+	<form action="buscarClienteAdmin">
 		<input type="submit" value="Selecionar Cliente" name="submit" class="button">
 	</form>
 	</div>
 	</div>
-	<form action="salvarPedidoServicoAdmin" method="post" id="contactFrm">
+	<form action="salvarPedidoProdutoAdmin" method="post" id="contactFrm">
 	<input type="hidden" name="codigo" value="${usuarioLogado.cod }">
-	<input type="hidden" name="tipo" value="0">
+	<input type="hidden" name="tipo" value="1">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 			<div style="float: left; width: 30%;">
 				<div class="container">
 					<div class="row">
     					<div class="col-md-4">
 							<div class="form_main">
-       							<h4 class="heading"><strong>Pedido de Serviço</strong>  <span></span></h4>
+       							<h4 class="heading"><strong>Pedido de Produto</strong>  <span></span></h4>
            						<div class="form">
                						<label for="nome"> Nome:</label>
                    					<input type="text" required="" placeholder="Nome Completo" name="nome" class="txt" value="${clienteConsultado.nome}" readonly="readonly">
@@ -183,29 +183,34 @@ function pesquisacep(valor) {
 	</div>
 	</form>
 	<div class="tabelas">
-	<h3>Servicos Selecionados</h3>
-		<table class="table" id="servicoSelecionado" style="padding: 10%;">
+		<div align="center"><h3 class="h3">Produtos Selecionados</h3></div>
+		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
-					<th>COD</th>
-					<th>NOME</th>
-					<th>DESCRIÇÃO</th>
-					<th>PRECO</th>
-					<th>GARANTIA</th>
+					<th class="thMenor">COD</th>
+					<th class="tabelaGeral">NOME</th>
+					<th class="tabelaGeral">DESCRIÇÃO</th>
+					<th class="tabelaGeral">PRECO VENDA</th>
+					<th class="tabelaGeral">QUANTIDADE</th>
+					<th class="tabelaGeral">IMAGEM</th>
 				</tr>
 			</thead> 
-			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
+			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">
 					<tr>
-						<td>${servicoAdd.cod }</td>
-						<td>${servicoAdd.nome}</td>
-						<td>${servicoAdd.descricao}</td>
-						<td>${servicoAdd.preco}</td>
+						<td>${produtoAdd.cod }</td>
+						<td>${produtoAdd.nome}</td>
+						<td>${produtoAdd.descricao}</td>
+						<td>${produtoAdd.precoVenda}</td>
+						<td>${produtoAdd.quantidade}</td>
 						<td>
-							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
-						</td>
+							<img alt="img" src="view/img/${produtoAdd.imagem}" style="width: 30%;" />
 					</tr>	
 			</c:forEach>	
 		</table>
+		
+		<div align="center">
+				<a class="btn icon-btn btn-info" href="retornarPedidoAdmin"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar pedido</a>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){

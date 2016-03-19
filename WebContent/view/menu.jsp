@@ -56,7 +56,7 @@
                         </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Produto<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="listarPedidoProduto">Realizar Pedido</a></li>
+                                <li><a href="pedidoProdutoAdmin">Realizar Pedido</a></li>
                                 <li><a href="listarPedidoProduto">Listar Pedidos</a></li>
                             </ul>
                         </li>

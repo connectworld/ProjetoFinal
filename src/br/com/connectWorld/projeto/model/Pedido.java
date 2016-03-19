@@ -10,7 +10,21 @@ public class Pedido {
 	private Cliente cliente;
 	private String situacao;
 	private double valor;
+	private int tipo;
+	private Usuario codigo;
 	
+	public Usuario getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Usuario codigo) {
+		this.codigo = codigo;
+	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 	public String getSituacao() {
 		return situacao;
 	}

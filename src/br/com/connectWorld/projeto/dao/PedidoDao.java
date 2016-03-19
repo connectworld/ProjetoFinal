@@ -9,10 +9,12 @@ import java.util.List;
 
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
+import br.com.connectWorld.projeto.model.Usuario;
 import br.com.connectWorld.projeto.util.ConexaoComBanco;
 
 public class PedidoDao {
 	private Connection conexao;
+	
 	// CRIANDO O METODO DA CONEXAO
 	public PedidoDao() {
 		try {
@@ -24,7 +26,7 @@ public class PedidoDao {
 	}
 	public void salvar(Pedido pedido) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO pedido (cliente,data_pedido,valor_total,situacao) VALUES (?,?,?,?)";
+		String insert = "INSERT INTO pedido (cliente,data_pedido,valor_total,situacao,flag_tipo,user_autor) VALUES (?,?,?,?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -35,6 +37,8 @@ public class PedidoDao {
 			stmt.setDate(2, new java.sql.Date(pedido.getData().getTime()));
 			stmt.setDouble(3, pedido.getValor());
 			stmt.setString(4, pedido.getSituacao());
+			stmt.setInt(5, pedido.getTipo());
+			stmt.setInt(6, pedido.getCodigo().getCod());
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			
@@ -69,6 +73,32 @@ public class PedidoDao {
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
 			Pedido pedido = null;
+			while (param.next()) {
+				pedido = montarObjeto(param);
+				listarPedido.add(pedido);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<Pedido> buscarPorSituacaoA(Pedido pedido) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ?");
+			stmt.setString(1, pedido.getSituacao());
+			stmt.setInt(1, 0);
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
 			while (param.next()) {
 				pedido = montarObjeto(param);
 				listarPedido.add(pedido);
@@ -201,6 +231,12 @@ public class PedidoDao {
 		Cliente cliente= dao.buscarPorCod(cod);
 		pedido.setCliente(cliente);	
 		dao.fecharBanco();
+		
+		int codi = rs.getInt("user_autor");
+		UsuarioDao dao2 = new UsuarioDao();
+		Usuario usuario= dao2.buscarPorCod(codi);
+		pedido.setCodigo(usuario);	
+		dao2.fecharBanco();
 		
 		return pedido;
 	}

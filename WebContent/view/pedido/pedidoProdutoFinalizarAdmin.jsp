@@ -109,7 +109,7 @@ function pesquisacep(valor) {
 	<br>
 	<div class="spacing">
 		<div align="center">
-			<form action="buscarCpfAdmin">
+			<form action="buscarCpfAdminProduto">
 				<h4>Buscar Cliente por CFP</h4>
 				<label for="CPF"> CPF:</label> <input type="text" required=""
 					placeholder="CPF" name="cpf" id="cpf2" maxlength="11"
@@ -119,14 +119,15 @@ function pesquisacep(valor) {
 		</div>
 		<br> <br>
 		<div align="center">
-			<form action="buscarCliente">
+			<form action="buscarClienteAdmin">
 				<input type="submit" value="Selecionar Cliente" name="submit"
 					class="button">
 			</form>
 		</div>
 	</div>
-	<form action="salvarPedidoProdutoAdmin" method="post" id="contactFrm">
+	<form action="salvarPedidoServicoAdmin" method="post" id="contactFrm">
 	<input type="hidden" name="codigo" value="${usuarioLogado.cod }">
+	<input type="hidden" name="tipo" value="1">
 		<section
 			style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 		<div style="float: left; width: 30%;">
@@ -135,7 +136,7 @@ function pesquisacep(valor) {
 					<div class="col-md-4">
 						<div class="form_main">
 							<h4 class="heading">
-								<strong>Pedido de Produto</strong> <span></span>
+								<strong>Pedido de Serviço</strong> <span></span>
 							</h4>
 							<div class="form">
 								<label for="nome"> Nome:</label> <input type="text" required=""
@@ -152,9 +153,6 @@ function pesquisacep(valor) {
 									class="txt"> <label for="Contato2"> Contato 2:</label>
 								<input type="text" required="" placeholder="Contato Alternativo"
 									name="contato2" id="contato2" class="txt">
-								<div align="center">
-									<input type="submit" value="Buscar Serviço" name="submit"   class="txt2">
-								</div>
 							</div>
 						</div>
 					</div>
@@ -197,16 +195,14 @@ function pesquisacep(valor) {
 			<input type="submit" value="Enviar" name="submit" class="txt2">
 		</div>
 	</form>
-	<a class="btn icon-btn btn-info" href="retornarPedidoAdmin"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
   <div class="tabelas">
-	<h3 align="center">Produto Selecionados</h3>
+	<div align="center"><h3 class="h3">Produtos Selecionados</h3></div>
 		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
 					<th class="thMenor">COD</th>
 					<th class="tabelaGeral">NOME</th>
 					<th class="tabelaGeral">DESCRIÇÃO</th>
-					<th class="tabelaGeral">CADASTRANTE</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
 					<th class="tabelaGeral">QUANTIDADE</th>
 					<th class="tabelaGeral">IMAGEM</th>
@@ -221,11 +217,13 @@ function pesquisacep(valor) {
 						<td>${produtoAdd.quantidade}</td>
 						<td>
 							<img alt="img" src="view/img/${produtoAdd.imagem}" style="width: 30%;" />
-						
-						<td><a class="btn icon-btn btn-warning" href="removerProdutoPedidoAdmin?cod=${produtoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
 					</tr>	
 			</c:forEach>	
 		</table>
+		<br>
+		<div align="center">
+				<a class="btn icon-btn btn-info" href="retornarPedidoAdmin"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar Pedido</a>		
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){

@@ -106,8 +106,8 @@ public class PedidoProdutoAdminController {
 			Pedido exibirPedido = pedidoDao.buscarPorcod(ultimoPedidoSalvo);
 			model.addAttribute("pedido", exibirPedido);
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("listaServicoAdd", listaProdutoArray);
-			//model.addAttribute("cliente", clientePesquisado);
+			model.addAttribute("listaProdutoAdd", listaProdutoArray);
+			model.addAttribute("cliente", clientePesquisado);
 			//pedidoDao.fecharBanco();
 			itens.fecharBanco();
 			usuarioDao.fecharBanco();
@@ -141,6 +141,23 @@ public class PedidoProdutoAdminController {
 			return "pedido/impressaoProduto";
 		}
 	}
+	
+	@RequestMapping("/buscarCpfAdminProduto")
+	public String buscarCpfAdminProduto(Model model,Cliente cliente) throws SQLException {
+		ClienteDao clienteDao = new ClienteDao();
+		Cliente clienteConsultado = clienteDao.buscarPorCpf(cliente);
+		clienteDao.fecharBanco();
+		if (clienteConsultado != null) {
+			model.addAttribute("listaProdutoAdd", listaProdutoArray);
+			model.addAttribute("clienteConsultado", clienteConsultado);
+			return "pedido/pedidoProdutoAdminPreenchido";
+		}
+		else {
+			model.addAttribute("listaProdutoAdd", listaProdutoArray);
+			model.addAttribute("mensagem", "Cliente não encontrado");
+			return "pedido/pedidoProdutoFinalizarAdmin";
+		}	
+	}
 	@RequestMapping("/retornarPedidoAdmin")
 	public String retornarPedidoAdmin(Model model) throws SQLException{
 		ProdutoDao dao = new ProdutoDao();
@@ -149,5 +166,23 @@ public class PedidoProdutoAdminController {
 		model.addAttribute("listaProdutoAdd", listaProdutoArray);
 		dao.fecharBanco();
 		return "pedido/pedidoProdutoAdmin";
+	}
+	
+	@RequestMapping("/buscarClienteAdmin")
+	public String buscarCliente (Model model) throws SQLException{
+		ClienteDao dao = new ClienteDao();
+		List<Cliente> listaCliente = dao.listar();
+		model.addAttribute("listaCliente", listaCliente);
+		dao.fecharBanco();
+		return "pedido/listarClienteAdminProduto";
+	}
+	@RequestMapping("/clienteSelecionadoAdmin")
+	public String clienteSelecionado(Model model, int cod ) throws SQLException{
+		ClienteDao dao = new ClienteDao();
+		Cliente clienteConsultado = dao.buscarPorCod(cod);
+		model.addAttribute("listaProdutoAdd", listaProdutoArray);
+		model.addAttribute("clienteConsultado", clienteConsultado);
+		dao.fecharBanco();
+		return "pedido/pedidoProdutoAdminPreenchido";
 	}
 }

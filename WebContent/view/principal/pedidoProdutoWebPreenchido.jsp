@@ -117,6 +117,7 @@
 		
 	</form> -->
 	<form action="salvarProdutoPedidoWeb" method="post" id="contactFrm">
+	<input type="hidden" name="tipo" value="1">
 		<section
 			style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
 		<div style="float: left; width: 30%;">

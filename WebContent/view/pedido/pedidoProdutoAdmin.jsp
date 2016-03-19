@@ -42,8 +42,8 @@
 				<tr>
 					<th class="thMenor">COD</th>
 					<th class="tabelaGeral">NOME</th>
-					<th class="tabelaGeral">DESCRIÇÃO</th>
 					<th class="tabelaGeral">CADASTRANTE</th>
+					<th class="tabelaGeral">DESCRIÇÃO</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
 					<th class="tabelaGeral">QUANTIDADE</th>
 					<th class="tabelaGeral">IMAGEM</th>
@@ -77,10 +77,10 @@
 					<th class="thMenor">COD</th>
 					<th class="tabelaGeral">NOME</th>
 					<th class="tabelaGeral">DESCRIÇÃO</th>
-					<th class="tabelaGeral">CADASTRANTE</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
 					<th class="tabelaGeral">QUANTIDADE</th>
 					<th class="tabelaGeral">IMAGEM</th>
+					<th class="tabelaGeral">SELECIONAR</th>
 				</tr>
 			</thead> 
 			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">

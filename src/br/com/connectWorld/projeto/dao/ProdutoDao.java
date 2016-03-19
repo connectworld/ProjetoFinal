@@ -76,7 +76,7 @@ public class ProdutoDao {
 	// METODO QUE ATUALIZA CONTATOS DO BANCO DE DADOS
 	public void atualizarProduto(Produto produto) {
 		String sql = "update produtos set descricao=?, nome=?, preco_venda=?, quantidade=?, imagem=?,user_cadastrante = ?"
-				+ "where cod_produto=?";
+				+ " where cod_produto=?";
 
 		try {
 			PreparedStatement param = conexao.prepareStatement(sql);

@@ -44,18 +44,20 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
-					<th>Selecionar<th>
+					<th>SELECIONAR</th>
 				</tr>
 			</thead> 
-			<c:forEach var="servico" items="${listaServico}" varStatus="id">
-					<tr bgcolor="#${id.count % 2 == 0 ? 'aaee88' : 'blue' }">
+			<c:forEach var="servico" items="${listaServico}">
+					<tr>
 						<td>${servico.nome}</td>
 						<td>${servico.descricao}</td>
 						<td>${servico.preco}</td>
 						<td>
 							<fmt:formatDate value="${servico.garantia}" pattern="dd/MM/yyyy" />
 						</td>
-						<td><a href="retornaPedidoServicoWeb?cod=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
+						<td>
+							<a href="retornaPedidoServicoWeb?cod=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a>
+						</td>
 					</tr>	
 			</c:forEach>	
 		</table>
@@ -68,7 +70,7 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
-					<th>Remover<th>
+					<th>REMOVER</th>
 				</tr>
 			</thead> 
 			<c:forEach var="servicoAdd" items="${listaServicoAdd}" varStatus="id">
@@ -79,7 +81,9 @@
 						<td>
 							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
 						</td>
-						<td><a class="btn icon-btn btn-warning" href="removerServicoPedidoWeb?cod=${servicoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
+						<td>
+							<a class="btn icon-btn btn-warning" href="removerServicoPedidoWeb?cod=${servicoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a>
+						</td>
 					</tr>	
 			</c:forEach>	
 		</table>

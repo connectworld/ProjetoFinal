@@ -11,7 +11,7 @@ public class ConexaoComBanco {
 		
 		String banco ="projeto_final";
 		String usuario= "root";
-		String password = "";
+		String password = "1234";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

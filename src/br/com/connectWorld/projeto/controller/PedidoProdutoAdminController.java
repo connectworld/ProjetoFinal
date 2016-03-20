@@ -72,7 +72,7 @@ public class PedidoProdutoAdminController {
 	@RequestMapping("/pedidoProdutoEtapa2Admin")
 	public String pedidoServicoEtapa2(Model model) throws SQLException{
 		if (listaProdutoArray.size() == 0) {
-			model.addAttribute("mensagem", "Você não Selecionou nenhum produto");
+			model.addAttribute("mensagem", "Vocï¿½ nï¿½o Selecionou nenhum produto");
 			return "forward: pedidoProdutoAdmin";
 		}
 		else{
@@ -96,6 +96,8 @@ public class PedidoProdutoAdminController {
 			pedido.setData(date);
 			pedido.setSituacao("A");
 			pedido.setValor(0);
+			pedido.setTipo(1);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoProdutoDao itens = new ItensPedidoProdutoDao();
@@ -122,6 +124,7 @@ public class PedidoProdutoAdminController {
 			Date date = new Date();
 			pedido.setData(date);
 			pedido.setSituacao("A");
+			pedido.setTipo(1);
 			pedido.setValor(0);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
@@ -154,7 +157,7 @@ public class PedidoProdutoAdminController {
 		}
 		else {
 			model.addAttribute("listaProdutoAdd", listaProdutoArray);
-			model.addAttribute("mensagem", "Cliente não encontrado");
+			model.addAttribute("mensagem", "Cliente nï¿½o encontrado");
 			return "pedido/pedidoProdutoFinalizarAdmin";
 		}	
 	}
@@ -169,10 +172,11 @@ public class PedidoProdutoAdminController {
 	}
 	
 	@RequestMapping("/buscarClienteAdmin")
-	public String buscarCliente (Model model) throws SQLException{
+	public String buscarCliente (Model model, Usuario usuario/*, @RequestParam("codigoUser") int codigUser*/)  throws SQLException{
 		ClienteDao dao = new ClienteDao();
 		List<Cliente> listaCliente = dao.listar();
 		model.addAttribute("listaCliente", listaCliente);
+		model.addAttribute("usuario", usuario);
 		dao.fecharBanco();
 		return "pedido/listarClienteAdminProduto";
 	}

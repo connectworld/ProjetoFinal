@@ -18,7 +18,8 @@
 <div align="left" style="border: 2px solid black"">
 	<div style="padding: 10px">
 		<p>
-			Autor: ${pedido.cliente.nome}
+		
+			Pedido Realizado por: ${pedido.codigo.nome}
 		</p>
 		<p>
 			Data : <fmt:formatDate value="${pedido.data}" pattern="dd/MM/yyyy" />

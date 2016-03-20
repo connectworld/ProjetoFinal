@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Mar-2016 às 05:48
+-- Generation Time: 20-Mar-2016 às 13:20
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -71,7 +71,18 @@ CREATE TABLE `itens_produto` (
 --
 
 INSERT INTO `itens_produto` (`cod_recno`, `cod_pedidoProduto`, `cod_itemProduto`, `nome_produto`, `quantidade`, `valor_unitario`) VALUES
-(1, 38, 1, 'teste', 1, 5);
+(1, 38, 1, 'teste', 1, 5),
+(2, 41, 2, 'teste2', 1, 5),
+(3, 42, 2, 'teste2', 1, 5),
+(4, 43, 2, 'teste2', 1, 5),
+(5, 44, 2, 'teste2', 1, 5),
+(6, 44, 2, 'teste2', 1, 5),
+(7, 45, 2, 'teste2', 1, 5),
+(8, 45, 2, 'teste2', 1, 5),
+(9, 46, 1, 'teste2', 1, 5),
+(10, 47, 1, 'teste2', 1, 5),
+(11, 47, 2, 'teste2', 1, 5),
+(12, 47, 1, 'teste2', 1, 5);
 
 --
 -- Acionadores `itens_produto`
@@ -144,7 +155,10 @@ INSERT INTO `itens_servico` (`cod_recno`, `cod_pedidoServico`, `item_servico`, `
 (35, 34, 1, 5.24),
 (36, 35, 1, 5.24),
 (37, 36, 1, 5.24),
-(38, 37, 1, 5.24);
+(38, 37, 1, 5.24),
+(39, 39, 1, 5.24),
+(40, 40, 3, 50),
+(41, 40, 3, 50);
 
 --
 -- Acionadores `itens_servico`
@@ -195,50 +209,60 @@ CREATE TABLE `pedido` (
   `cliente` int(11) NOT NULL,
   `situacao` varchar(1) NOT NULL,
   `data_pedido` date DEFAULT NULL,
-  `valor_total` double DEFAULT NULL
+  `valor_total` double DEFAULT NULL,
+  `flag_tipo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `pedido`
 --
 
-INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor_total`) VALUES
-(3, 3, 'A', '2016-03-10', 305.24),
-(4, 3, 'A', '2016-03-10', 305.24),
-(5, 3, 'A', '2016-03-11', 0),
-(6, 3, 'A', '2016-03-16', 5.24),
-(7, 3, 'A', '2016-03-16', 5.24),
-(8, 3, 'A', '2016-03-16', 5.24),
-(9, 3, 'A', '2016-03-16', 50),
-(10, 3, 'A', '2016-03-16', 300),
-(11, 3, 'A', '2016-03-16', 50),
-(12, 3, 'A', '2016-03-17', 5.24),
-(13, 3, 'A', '2016-03-17', 5.24),
-(14, 3, 'A', '2016-03-17', 5.24),
-(15, 3, 'A', '2016-03-17', 5.24),
-(16, 3, 'A', '2016-03-17', 5.24),
-(17, 3, 'A', '2016-03-17', 5.24),
-(18, 3, 'A', '2016-03-17', 5.24),
-(19, 3, 'A', '2016-03-17', 5.24),
-(20, 3, 'A', '2016-03-17', 5.24),
-(21, 3, 'A', '2016-03-17', 5.24),
-(22, 3, 'A', '2016-03-17', 5.24),
-(23, 3, 'A', '2016-03-17', 5.24),
-(24, 3, 'A', '2016-03-17', 5.24),
-(25, 3, 'A', '2016-03-17', 5.24),
-(26, 3, 'A', '2016-03-17', 5.24),
-(27, 3, 'A', '2016-03-17', 5.24),
-(28, 3, 'A', '2016-03-17', 5.24),
-(29, 3, 'A', '2016-03-17', 5.24),
-(30, 3, 'A', '2016-03-17', 5.24),
-(31, 3, 'A', '2016-03-17', 5.24),
-(32, 3, 'A', '2016-03-17', 5.24),
-(33, 3, 'A', '2016-03-17', 5.24),
-(34, 3, 'A', '2016-03-17', 5.24),
-(35, 3, 'A', '2016-03-17', 5.24),
-(36, 3, 'A', '2016-03-17', 5.24),
-(37, 3, 'A', '2016-03-17', 5.24),
-(38, 4, 'A', '2016-03-18', 5);
+INSERT INTO `pedido` (`cod_pedido`, `cliente`, `situacao`, `data_pedido`, `valor_total`, `flag_tipo`) VALUES
+(3, 3, 'A', '2016-03-10', 305.24, NULL),
+(4, 3, 'A', '2016-03-10', 305.24, NULL),
+(5, 3, 'A', '2016-03-11', 0, NULL),
+(6, 3, 'A', '2016-03-16', 5.24, NULL),
+(7, 3, 'A', '2016-03-16', 5.24, NULL),
+(8, 3, 'A', '2016-03-16', 5.24, NULL),
+(9, 3, 'A', '2016-03-16', 50, NULL),
+(10, 3, 'A', '2016-03-16', 300, NULL),
+(11, 3, 'A', '2016-03-16', 50, NULL),
+(12, 3, 'A', '2016-03-17', 5.24, NULL),
+(13, 3, 'A', '2016-03-17', 5.24, NULL),
+(14, 3, 'A', '2016-03-17', 5.24, NULL),
+(15, 3, 'A', '2016-03-17', 5.24, NULL),
+(16, 3, 'A', '2016-03-17', 5.24, NULL),
+(17, 3, 'A', '2016-03-17', 5.24, NULL),
+(18, 3, 'A', '2016-03-17', 5.24, NULL),
+(19, 3, 'A', '2016-03-17', 5.24, NULL),
+(20, 3, 'A', '2016-03-17', 5.24, NULL),
+(21, 3, 'A', '2016-03-17', 5.24, NULL),
+(22, 3, 'A', '2016-03-17', 5.24, NULL),
+(23, 3, 'A', '2016-03-17', 5.24, NULL),
+(24, 3, 'A', '2016-03-17', 5.24, NULL),
+(25, 3, 'A', '2016-03-17', 5.24, NULL),
+(26, 3, 'A', '2016-03-17', 5.24, NULL),
+(27, 3, 'A', '2016-03-17', 5.24, NULL),
+(28, 3, 'A', '2016-03-17', 5.24, NULL),
+(29, 3, 'A', '2016-03-17', 5.24, NULL),
+(30, 3, 'A', '2016-03-17', 5.24, NULL),
+(31, 3, 'A', '2016-03-17', 5.24, NULL),
+(32, 3, 'A', '2016-03-17', 5.24, NULL),
+(33, 3, 'A', '2016-03-17', 5.24, NULL),
+(34, 3, 'A', '2016-03-17', 5.24, NULL),
+(35, 3, 'A', '2016-03-17', 5.24, NULL),
+(36, 3, 'A', '2016-03-17', 5.24, NULL),
+(37, 3, 'A', '2016-03-17', 5.24, NULL),
+(38, 4, 'A', '2016-03-18', 5, NULL),
+(39, 4, 'A', '2016-03-19', 5.24, NULL),
+(40, 4, 'A', '2016-03-19', 100, NULL),
+(41, 4, 'A', '2016-03-19', 5, NULL),
+(42, 4, 'A', '2016-03-19', 5, NULL),
+(43, 4, 'A', '2016-03-19', 5, NULL),
+(44, 4, 'A', '2016-03-19', 10, NULL),
+(45, 4, 'A', '2016-03-19', 10, NULL),
+(46, 4, 'A', '2016-03-19', 5, NULL),
+(47, 3, 'A', '2016-03-19', 15, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,7 +285,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`cod_produto`, `nome`, `descricao`, `preco_venda`, `quantidade`, `imagem`, `user_cadastrante`) VALUES
-(1, 'teste', 'teste', 5, 5, '1.png', 3),
+(1, 'teste2', 'teste', 5, 5, '1.png', 3),
 (2, 'teste2', 'teste2', 5, 10, '2.png', 3);
 
 -- --------------------------------------------------------
@@ -286,7 +310,8 @@ CREATE TABLE `servicos` (
 INSERT INTO `servicos` (`cod_servico`, `descricao`, `nome`, `garantia`, `preco`, `user_cadastrante`) VALUES
 (1, 'manuntençã de Arcondiciona', 'Manuntenção', '2015-10-10', 5.24, NULL),
 (2, 'manuntençã de Arcondiciona', 'Manuntenção', '2017-01-12', 300, 2),
-(3, 'teste2', '2teste', '2016-06-06', 50, 2);
+(3, 'teste2', '2teste', '2016-06-06', 50, 2),
+(4, 'teste1', 'teste', '2015-05-05', 0.01, 3);
 
 -- --------------------------------------------------------
 
@@ -349,7 +374,11 @@ INSERT INTO `telas` (`cod_tela`, `url`, `descricao`) VALUES
 (42, 'removerProdutoPedidoAdmin', 'remover Produto do Pedido Admin'),
 (43, 'pedidoProdutoEtapa2Admin', 'pedido Produto Etapa2 Admin'),
 (44, 'salvarPedidoProdutoAdmin', 'salvar Pedido Produto Admin'),
-(45, 'retornarPedidoAdmin', 'retornar Pedido Admin');
+(45, 'retornarPedidoAdmin', 'retornar Pedido Admin'),
+(46, 'buscarCpfAdminProduto', 'buscar Cpf Admin Produto'),
+(47, 'buscarClienteAdmin', 'buscar Cliente Admin'),
+(48, 'clienteSelecionadoAdmin', 'cliente Selecionado Admin'),
+(49, 'exibirRelatorioServico', 'exibir relatorio servico');
 
 -- --------------------------------------------------------
 
@@ -374,8 +403,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`cod_usuario`, `nome`, `login`, `senha`, `telefone`, `foto`, `email`, `nivel_usuario`, `user_cadastrante`) VALUES
-(2, 'leandro', 'leandro', '81dc9bdb52d04dc20036dbd8313ed055', '8888', '888888', '888888', 1, NULL),
-(3, 'Jorge Batista202', 'jorge', '81dc9bdb52d04dc20036dbd8313ed055', '(081)98645-2028', 'Mon Mar 14 21:10:47 BRT 2016 - CEFTP.jpeg', 'jorgebatista_7@hotmail.com', 1, 2);
+(3, 'Jorge Batista202', 'jorge', '81dc9bdb52d04dc20036dbd8313ed055', '(081)98645-2028', 'Mon Mar 14 21:10:47 BRT 2016 - CEFTP.jpeg', 'jorgebatista_7@hotmail.com', 1, 2),
+(4, 'leandro', 'leandroBrito', '81dc9bdb52d04dc20036dbd8313ed055', '(081)98617-4918', '888888', 'leandro@gmail.com', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -439,7 +468,11 @@ INSERT INTO `valida_url` (`cod_valida`, `cod_nivelUsuario`, `cod_telaUsuario`) V
 (52, 1, 42),
 (53, 1, 43),
 (54, 1, 44),
-(55, 1, 45);
+(55, 1, 45),
+(56, 1, 46),
+(57, 1, 47),
+(58, 1, 48),
+(59, 1, 49);
 
 --
 -- Indexes for dumped tables
@@ -527,12 +560,12 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT for table `itens_produto`
 --
 ALTER TABLE `itens_produto`
-  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `itens_servico`
 --
 ALTER TABLE `itens_servico`
-  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cod_recno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `nivel_user`
 --
@@ -542,7 +575,7 @@ ALTER TABLE `nivel_user`
 -- AUTO_INCREMENT for table `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `produtos`
 --
@@ -552,22 +585,22 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT for table `servicos`
 --
 ALTER TABLE `servicos`
-  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cod_servico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `telas`
 --
 ALTER TABLE `telas`
-  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `cod_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `valida_url`
 --
 ALTER TABLE `valida_url`
-  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `cod_valida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 --
 -- Constraints for dumped tables
 --

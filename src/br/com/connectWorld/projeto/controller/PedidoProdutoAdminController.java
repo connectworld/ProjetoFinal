@@ -126,6 +126,7 @@ public class PedidoProdutoAdminController {
 			pedido.setSituacao("A");
 			pedido.setTipo(1);
 			pedido.setValor(0);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoProdutoDao itens = new ItensPedidoProdutoDao();
@@ -135,7 +136,7 @@ public class PedidoProdutoAdminController {
 			Pedido exibirPedido = pedidoDao.buscarPorcod(ultimoPedidoSalvo);
 			model.addAttribute("pedido", exibirPedido);
 			model.addAttribute("usuario", usuario);
-			model.addAttribute("listaServicoAdd", listaProdutoArray);
+			model.addAttribute("listaProdutoAdd", listaProdutoArray);
 			model.addAttribute("mensagem", "Pedido Realizado Com sucesso");
 			pedidoDao.fecharBanco();
 			clienteDao.fecharBanco();

@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4">
             <form method="post" action="salvarNivelUsuario" enctype="multipart/form-data">
-            <input type="hidden" name="usuario" value="${usuarioLogado.cod}">
+            <input type="hidden" name="usuario" value="${usuarioLogado.cod }">
             <h3 class="labelsEdit">Cadastro de Niveis de Usarios</h3>
 				<div class="form-group">
         			<label for="nome" class="labelsEdit">Nivel do Usuário</label>

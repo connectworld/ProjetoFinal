@@ -12,6 +12,14 @@
 <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 <script src="view/bootstrapHome/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
+<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.8/css/jquery.dataTables.css">
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.8/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="view/js/table.js"></script>
+	<script type="text/javascript">
 <script type="text/javascript">
 	function limpa_formulário_cep() {
 		//Limpa valores do formulário de cep.

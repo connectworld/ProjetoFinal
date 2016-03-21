@@ -36,7 +36,6 @@
 			</div>
 		</c:when>
 	</c:choose>
-	<div  class="tabelas">
 	<div align="center"><h3 class="h3">Produtos</h3></div>
 		<table id="tableProdutoWeb" class="table">
 			<thead>
@@ -64,6 +63,7 @@
 					</tr>
 			</c:forEach>	
 		</table>
+		<h3 class="h3">Produtos Selecionados</h3>
 		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
@@ -72,7 +72,7 @@
 					<th class="tabelaGeral">DESCRIÇÃO</th>
 					<th class="tabelaGeral">PRECO VENDA</th>
 					<th class="tabelaGeral">IMAGEM</th>
-					<th>Remover</th>
+					<th class="tabelaGeral">Remover</th>
 				</tr>
 			</thead> 
 			<c:forEach var="produtoAdd" items="${listaProdutoAdd}" varStatus="id">
@@ -92,7 +92,6 @@
 		<div align="center">
 				<a class="btn icon-btn btn-info" href="pedidoProdutoEtapa2Web"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próxima Etapa do Pedido</a>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

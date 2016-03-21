@@ -23,6 +23,7 @@
 </head>
 <body>
 <c:import url="../menu.jsp"></c:import>
+<div class="tabelas">
 	<c:choose>
 		<c:when test="${not empty mensagem}">
 			<div class="alert alert-success">
@@ -40,7 +41,7 @@
 	  		<button type="submit"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Add</button>
   		</form>
 	</div>
-	<div class="tabelas">
+	<br>
 	<div align="center"><h3 class="h3">PEDIDO DE SERVICO</h3></div>
 	<div align="center"><h3 class="h3">SELECIONE O SERVICO</h3></div>
 		<table id="tableProduto" class="table">
@@ -51,6 +52,7 @@
 					<th>DESCRIÇÃO</th>
 					<th>PRECO</th>
 					<th>GARANTIA</th>
+					<th>REMOVER</th>
 				</tr>
 			</thead> 
 			<c:forEach var="servico" items="${listaServico}" varStatus="id">
@@ -66,7 +68,6 @@
 					</tr>	
 			</c:forEach>	
 		</table>
-		<a class="btn icon-btn btn-info" href="pedidoServicoEtapa2"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próximo</a>
 		<br><br>
 		<h3>Servicos Selecionados</h3>
 		<table class="table" id="servicoSelecionado">
@@ -92,6 +93,10 @@
 					</tr>	
 			</c:forEach>	
 		</table>
+		<br>
+		<div align="center">
+			<a class="btn icon-btn btn-info" href="pedidoServicoEtapa2"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Próxima Etapa</a>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){

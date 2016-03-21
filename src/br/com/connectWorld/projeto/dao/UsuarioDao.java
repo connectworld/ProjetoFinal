@@ -28,7 +28,7 @@ public class UsuarioDao {
 
 	public void salvar(Usuario usuario) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO usuarios (nome,login,email,telefone,senha,nivel_usuario,foto,user_cadastrante) VALUES (?,?,?,?,md5(?),?,?,?)";
+		String insert = "INSERT INTO usuarios (nome,login,email,telefone,senha,nivel_usuario,foto,user_cadastrante,exclusao_logica) VALUES (?,?,?,?,md5(?),?,?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -43,6 +43,8 @@ public class UsuarioDao {
 			stmt.setInt(6, usuario.getNivelUsuario().getCod());
 			stmt.setString(7, usuario.getFoto());
 			stmt.setInt(8, usuario.getUsuario().getCod());
+			stmt.setInt(9, 1);
+
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
@@ -57,7 +59,8 @@ public class UsuarioDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Usuario> listarUsuario = new ArrayList<Usuario>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from usuarios");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from usuarios where lower(nome) <> 'cliente' and login <> 'padrao' and exclusao_logica = ?");
+			stmt.setInt(1, 1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO

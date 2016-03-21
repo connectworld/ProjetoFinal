@@ -11,6 +11,14 @@ public class RelatorioPedido {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataFinal;
 	private String situacao;
+	private int codigoPedido;
+	
+	public int getCodigoPedido() {
+		return codigoPedido;
+	}
+	public void setCodigoPedido(int codigoPedido) {
+		this.codigoPedido = codigoPedido;
+	}
 	public Date getDataInicial() {
 		return dataInicial;
 	}

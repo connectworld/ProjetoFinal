@@ -198,10 +198,9 @@ function pesquisacep(valor) {
 			<input type="submit" value="Enviar" name="submit" class="txt2">
 		</div>
 	</form>
-	<a class="btn icon-btn btn-info" href="voltar"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Voltar</a>
   <div class="tabelas">
 	<h3>Servicos Selecionados</h3>
-		<table class="table" id="servicoSelecionado" style="padding: 10%;">
+		<table class="table" id="servicoSelecionado">
 			<thead>
 				<tr>
 					<th>COD</th>
@@ -223,6 +222,9 @@ function pesquisacep(valor) {
 					</tr>	
 			</c:forEach>	
 		</table>
+		<div align="center">
+			<a class="btn icon-btn btn-info" href="voltar"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar Pedido</a>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){

@@ -19,42 +19,30 @@
 <c:import url="../menu.jsp"></c:import>
 <div class="spacing">
 <div class="container">
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
-            <form method="post" action="salvarServico" enctype="multipart/form-data">
-            <input type="hidden" name="usuario" value="${usuarioLogado.cod }">
-            <input type="hidden" name="compara" value="salvar">
-            <h3 class="labelsEdit">Listar Pedido de Serviço Cadastrado</h3>
-				<div class="form-group">
-        			<label for="datainicial" class="labelsEdit">Data Inicial:</label>
-					<div class="input-group">
-						<input type="text" class="form-control" name="dataInicial" id="dataInicial" placeholder="Data Inicial" required>
-						<span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
-					</div>
-				</div>
-				<div class="form-group">
-        			<label for="dataFinal" class="labelsEdit">Data Final:</label>
-					<div class="input-group">
-						<input type="text" class="form-control" name="dataFinal" id="dataFinal" placeholder="Data Final" required>
-						<span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
-					</div>
-				</div>
-    			<div class="form-group">
-        			<label for="preco" class="labelsEdit">Selecionar Situação:</label>
-					<div class="input-group">
-						  <select class="form-control" name="situacao" id="validate-select"  required>
-                 			<option value="">Selecione</option>
-								<option value="A">Serviço Aberto</option>
-								<option value="B">Serviço Baixado</option>
-								<option value="C">Serviço Cancelado</option>
-                        </select>
-						<span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
-					</div>
-				</div>
-                <button class="btn btn-lg btn-success btn-block" type="submit">Listar Serviço</button>
-            </form>
-        </div>
-    </div>
+	<div class="row">
+    <div class="col-md-4">
+		<div class="form_main">
+                <h4 class="heading"><strong>Listar Pedidos </strong> </h4>
+                <div class="form">
+                <form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">
+                	<label for="Data Inicial"> Data Inicial:</label>
+                    <input type="text" placeholder="Data Inicial" name="dataInicial" class="txt">
+                    <label for="Data Final"> Data Final:</label>
+                    <input type="text" placeholder="Data Final" name="dataFinal" class="txt">
+                    <label for="Codigo Pedido"> Codigo Pedido:</label>
+                    <input type="text" placeholder="Numero do Pedido" name="codigoPedido" class="txt">
+                    <label for="situacao"> Situacao:</label>
+                    <select class="txt">
+                    	<option value="A">A</option>
+                    	<option value="A">B</option>
+                    	<option value="A">C</option>
+                    </select>
+                     <input type="submit" value="submit" name="submit" class="txt2">
+                </form>
+            </div>
+            </div>
+            </div>
+	</div>
 </div>
 </div>
 <script type="text/javascript">

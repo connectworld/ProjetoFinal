@@ -17,6 +17,7 @@ import br.com.connectWorld.projeto.dao.ProdutoDao;
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
 import br.com.connectWorld.projeto.model.Produto;
+import br.com.connectWorld.projeto.model.Usuario;
 
 
 
@@ -110,13 +111,16 @@ public class PedidoProdutoWebController {
 		Pedido pedido = new Pedido();
 		ClienteDao clienteDao = new ClienteDao();
 		Cliente clientePesquisado = clienteDao.buscarPorCpf(cliente);
-		
+		Usuario usuario = new Usuario();
+		usuario.setCod(5);
 		if (clientePesquisado != null) {
 			pedido.setCliente(clientePesquisado);
 			Date date = new Date();
 			pedido.setData(date);
 			pedido.setSituacao("A");
 			pedido.setValor(0);
+			pedido.setTipo(1);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoProdutoDao itens = new ItensPedidoProdutoDao();
@@ -142,6 +146,8 @@ public class PedidoProdutoWebController {
 			pedido.setData(date);
 			pedido.setSituacao("A");
 			pedido.setValor(0);
+			pedido.setTipo(1);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoProdutoDao itens = new ItensPedidoProdutoDao();

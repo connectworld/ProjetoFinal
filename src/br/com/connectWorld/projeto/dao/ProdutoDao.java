@@ -25,7 +25,7 @@ public class ProdutoDao {
 	}
 	public void salvar(Produto produto) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO produtos (nome,descricao,preco_venda,quantidade,imagem,user_cadastrante) VALUES (?,?,?,?,?,?)";
+		String insert = "INSERT INTO produtos (nome,descricao,preco_venda,quantidade,imagem,user_cadastrante,exclusao_logica) VALUES (?,?,?,?,?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -37,7 +37,8 @@ public class ProdutoDao {
 			stmt.setDouble(3, produto.getPrecoVenda());
 			stmt.setInt(4, produto.getQuantidade());
 			stmt.setString(5, produto.getImagem());
-			stmt.setInt(6, produto.getUsuario().getCod());
+			stmt.setInt(8, produto.getUsuario().getCod());
+			stmt.setInt(7, 1);
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
@@ -54,7 +55,8 @@ public class ProdutoDao {
 			// SER APRESENTADOS
 			List<Produto> listarProduto = new ArrayList<Produto>();
 			PreparedStatement stmt = this.conexao
-					.prepareStatement("select * from produtos");
+					.prepareStatement("select * from produtos where exlusao_logica = ?");
+			stmt.setInt(1,1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -101,8 +103,9 @@ public class ProdutoDao {
 	public void deletar(Produto produto) {
 		try {
 			PreparedStatement stmt = conexao
-					.prepareStatement("DELETE FROM produtos WHERE cod_produto = ?");
-			stmt.setInt(1, produto.getCod());
+					.prepareStatement("update produtos set exclusao_logica = ? where cod_produto = ?");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, produto.getCod());
 			stmt.execute();
 			stmt.close();
 			
@@ -125,8 +128,9 @@ public class ProdutoDao {
 	public Produto buscarPorCod(int cod) {
 		try {
 			PreparedStatement stmt = conexao
-					.prepareStatement("SELECT * FROM produtos WHERE cod_produto = ?");
+					.prepareStatement("SELECT * FROM produtos WHERE cod_produto = ? and exclusao_logica = ?");
 			stmt.setInt(1, cod);
+			stmt.setInt(1, 1);
 			ResultSet rs = stmt.executeQuery();
 
 			Produto produto = null;

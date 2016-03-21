@@ -144,6 +144,8 @@ public class PedidoAdminController {
 			pedido.setData(date);
 			pedido.setSituacao("A");
 			pedido.setValor(0);
+			pedido.setTipo(0);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();
@@ -171,6 +173,8 @@ public class PedidoAdminController {
 			pedido.setData(date);
 			pedido.setSituacao("A");
 			pedido.setValor(0);
+			pedido.setTipo(0);
+			pedido.setCodigo(usuario);
 			pedidoDao.salvar(pedido);
 			Pedido ultimoPedidoSalvo = pedidoDao.obterUltimoPedido();
 			ItensPedidoServicoDao itens = new ItensPedidoServicoDao();

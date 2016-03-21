@@ -26,7 +26,7 @@ public class PedidoDao {
 	}
 	public void salvar(Pedido pedido) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO pedido (cliente,data_pedido,valor_total,situacao,flag_tipo,user_autor) VALUES (?,?,?,?,?,?)";
+		String insert = "INSERT INTO pedido (cliente,data_pedido,valor_total,situacao,flag_tipo,user_autor,exclusao_logica) VALUES (?,?,?,?,?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -39,6 +39,7 @@ public class PedidoDao {
 			stmt.setString(4, pedido.getSituacao());
 			stmt.setInt(5, pedido.getTipo());
 			stmt.setInt(6, pedido.getCodigo().getCod());
+			stmt.setInt(7, 1);
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			
@@ -68,7 +69,8 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao = ?");
+			stmt.setInt(1, 1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -92,16 +94,69 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ?");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
 			stmt.setString(1, pedido.getSituacao());
-			stmt.setInt(1, 0);
+			stmt.setInt(2, 0);
+			stmt.setInt(3, 1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
 			Pedido pedidoConsultado = null;
 			while (param.next()) {
-				pedido = montarObjeto(param);
-				listarPedido.add(pedido);
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Pedido> buscarPorSituacaoB(Pedido pedido) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
+			stmt.setString(1, pedido.getSituacao());
+			stmt.setInt(2, 0);
+			stmt.setInt(3, 1);
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Pedido> buscarPorSituacaoC(Pedido pedido) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
+			stmt.setString(1, pedido.getSituacao());
+			stmt.setInt(2, 0);
+			stmt.setInt(3, 1);
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
 			}
 			param.close();
 			stmt.close();
@@ -114,8 +169,9 @@ public class PedidoDao {
 	}
 	public Pedido buscarPorCod(int cod) {
 		try {
-			PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM pedido WHERE cod_pedido= ?");
+			PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM pedido WHERE cod_pedido= ? e exclusao_logica = ?");
 			stmt.setInt(1, cod);
+			stmt.setInt(1, 1);
 			ResultSet rs = stmt.executeQuery();
 
 			Pedido pedido = null;
@@ -151,8 +207,9 @@ public class PedidoDao {
 	}
 	public void deletar(Pedido pedido) {
 		try {
-			PreparedStatement stmt = conexao.prepareStatement("DELETE FROM pedido WHERE cod_pedido= ?");
-			stmt.setInt(1, pedido.getCod());
+			PreparedStatement stmt = conexao.prepareStatement("update pedido set exclusao_logica = ? where cod_pedido = ?");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, pedido.getCod());
 			stmt.execute();
 			stmt.close();
 			
@@ -180,8 +237,9 @@ public class PedidoDao {
 	}
 	public Pedido buscarPorcod(Pedido pedido) {
 		try {
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where cod_pedido=?");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where cod_pedido=? and exclusao_logica = ?");
 			stmt.setInt(1, pedido.getCod());
+			stmt.setInt(1, 1);
 			ResultSet rs = stmt.executeQuery();
 			Pedido pedidoConsu = null;
 			if (rs.next()) {

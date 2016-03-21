@@ -22,16 +22,24 @@ public class RelatorioController {
 		return "relatorio/buscarPedidoServico";
 	}
 	@RequestMapping("/listarPedidoServico")
-	public String listarPedidoServico(Model model, RelatorioPedido relatorio) {
+	public String listarPedidoServico(Model model, RelatorioPedido relatorio) throws SQLException {
 		PedidoDao dao = new PedidoDao();
 		Pedido pedido = new Pedido();
 		pedido.setSituacao(relatorio.getSituacao()); 
 				List<Pedido> listaPedidoServico = null;
 		if (relatorio.getSituacao().equals("A")) {
 			listaPedidoServico = dao.buscarPorSituacaoA(pedido);
+			dao.fecharBanco();
+			return "relatorio/listarRelatorioServico";
 		}
-		List<Pedido> listaPedidoServico = dao.listar();
-		model.addAttribute("listaPedidoServico",listaPedidoServico);
-		return "relatorio/listarRelatorioServico";
+		else if (relatorio.getSituacao().equals("B")) {
+			listaPedidoServico = dao.buscarPorSituacaoB(pedido);
+			dao.fecharBanco();
+			return "relatorio/listarRelatorioServico";
+		}
+		else{
+			listaPedidoServico = dao.buscarPorSituacaoC(pedido);
+			return "relatorio/listarRelatorioServico";
+		}
 	}
 }

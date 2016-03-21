@@ -27,7 +27,7 @@ public class ServicoDao {
 
 	public void salvar(Servico servico) {
 		// COMANDO SQL PARA SALVAR CONTATOS
-		String insert = "INSERT INTO servicos (nome,descricao,preco,garantia,user_cadastrante) VALUES (?,?,?,?,?)";
+		String insert = "INSERT INTO servicos (nome,descricao,preco,garantia,user_cadastrante,exclusao_logica) VALUES (?,?,?,?,?,?)";
 		// CRIANDO VAIRAVEL QUE VAI RESPONSALVEL PELO COMANDO ACIMA
 		PreparedStatement stmt;
 		try {
@@ -39,6 +39,7 @@ public class ServicoDao {
 			stmt.setDouble(3, servico.getPreco());
 			stmt.setDate(4, new java.sql.Date(servico.getGarantia().getTime()));
 			stmt.setInt(5, servico.getUsuario().getCod());
+			stmt.setInt(6, 1);
 			// EXUCUTANDO O SQL
 			stmt.execute();
 			// FECHANDO CONEXAO
@@ -56,7 +57,8 @@ public class ServicoDao {
 			// SER APRESENTADOS
 			List<Servico> listarServico = new ArrayList<Servico>();
 			PreparedStatement stmt = this.conexao
-					.prepareStatement("select * from servicos");
+					.prepareStatement("select * from servicos where exclusao_logica = ?");
+			stmt.setInt(1,1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -99,9 +101,9 @@ public class ServicoDao {
 	public void deletar(Servico servico) {
 		try {
 			PreparedStatement stmt = conexao
-					.prepareStatement("DELETE FROM servicos WHERE cod_servico = ? or nome = ?");
-			stmt.setInt(1, servico.getCod());
-			stmt.setString(2, servico.getNome());
+					.prepareStatement("update servicos set exclusao_logica = ? where cod_servico = ?");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, servico.getCod());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -112,8 +114,9 @@ public class ServicoDao {
 	public Servico buscarPorCod(int cod) {
 		try {
 			PreparedStatement stmt = conexao
-					.prepareStatement("SELECT * FROM servicos WHERE cod_servico = ?");
+					.prepareStatement("SELECT * FROM servicos WHERE cod_servico = ? and exclusao_logica = ?");
 			stmt.setInt(1, cod);
+			stmt.setInt(1, 1);
 			ResultSet rs = stmt.executeQuery();
 
 			Servico servico = null;

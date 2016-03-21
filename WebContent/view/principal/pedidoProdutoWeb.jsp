@@ -104,6 +104,7 @@ function pesquisacep(valor) {
 			</div>
 		</c:when>
 	</c:choose>
+	<div align="center">
 	<form action="buscarCpfProdutoWeb">
 		<h4>
 			Caso ja seja cliente, digite seu cpf para fazer pedido
@@ -114,6 +115,7 @@ function pesquisacep(valor) {
 		<input type="submit" value="Buscar" name="submit">
 		
 	</form>
+	</div>
 	<form action="salvarProdutoPedidoWeb" method="post" id="contactFrm">
 	<input type="hidden" name="tipo" value="1">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">

@@ -12,6 +12,13 @@
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 	<script src="view/bootstrapHome/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.8/css/jquery.dataTables.css">
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.8/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="view/js/table.js"></script>
 	<script type="text/javascript">
 	function limpa_formulário_cep() {
         //Limpa valores do formulário de cep.
@@ -97,6 +104,7 @@ function pesquisacep(valor) {
 			</div>
 		</c:when>
 	</c:choose>
+	<div align="center">
 	<form action="buscarCpfWeb">
 		<h4>
 			Caso ja seja cliente, digite seu cpf para fazer pedido
@@ -107,6 +115,7 @@ function pesquisacep(valor) {
 		<input type="submit" value="Buscar" name="submit">
 		
 	</form>
+	</div>
 	<form action="salvarServicoPedidoWeb" method="post" id="contactFrm">
 	<input type="hidden" name="tipo" value="0">
 	<section style=" min-height: 680px; width: 920px; margin: 20px auto; background: #ccc; box-shadow: 0 0 3px #000;">
@@ -190,7 +199,6 @@ function pesquisacep(valor) {
 		<br>
 		<div align="center">
 				<a class="btn icon-btn btn-info" href="voltarPedidoWeb"><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Alterar Pedido</a>
-		
 		</div>
 	</div>
 	<script type="text/javascript">

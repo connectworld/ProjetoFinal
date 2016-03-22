@@ -26,16 +26,16 @@
                 <div class="form">
                 <form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">
                 	<label for="Data Inicial"> Data Inicial:</label>
-                    <input type="text" placeholder="Data Inicial" name="dataInicial" class="txt">
+                    <input type="text" placeholder="Data Inicial" name="dataInicial" class="txt" required="required">
                     <label for="Data Final"> Data Final:</label>
-                    <input type="text" placeholder="Data Final" name="dataFinal" class="txt">
+                    <input type="text" placeholder="Data Final" name="dataFinal" class="txt" required="required">
                     <label for="Codigo Pedido"> Codigo Pedido:</label>
                     <input type="text" placeholder="Numero do Pedido" name="codigoPedido" class="txt">
                     <label for="situacao"> Situacao:</label>
                     <select class="txt">
-                    	<option value="A">A</option>
-                    	<option value="A">B</option>
-                    	<option value="A">C</option>
+                    	<option value="A">A - Pedidos Aberto</option>
+                    	<option value="A">B - Pedidos Baixado</option>
+                    	<option value="A">C - Pedidos Cancelados</option>
                     </select>
                      <input type="submit" value="submit" name="submit" class="txt2">
                 </form>

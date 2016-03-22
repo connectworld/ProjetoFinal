@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
+import br.com.connectWorld.projeto.model.RelatorioPedido;
 import br.com.connectWorld.projeto.model.Usuario;
 import br.com.connectWorld.projeto.util.ConexaoComBanco;
 
@@ -89,15 +90,17 @@ public class PedidoDao {
 		}
 	}
 	
-	public List<Pedido> buscarPorSituacaoA(Pedido pedido) {
+	public List<Pedido> buscarPorSituacaoA(RelatorioPedido relatorio) {
 		try {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
-			stmt.setString(1, pedido.getSituacao());
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -115,15 +118,17 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Pedido> buscarPorSituacaoB(Pedido pedido) {
+	public List<Pedido> buscarPorSituacaoB(RelatorioPedido relatorio) {
 		try {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
-			stmt.setString(1, pedido.getSituacao());
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -141,15 +146,44 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
-	public List<Pedido> buscarPorSituacaoC(Pedido pedido) {
+	public List<Pedido> buscarPorSituacaoC(RelatorioPedido relatorio) {
 		try {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ?");
-			stmt.setString(1, pedido.getSituacao());
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Pedido> buscarPorData(RelatorioPedido relatorio) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, 1);
+			stmt.setDate(3, new java.sql.Date(relatorio.getDataInicial().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataFinal().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -303,6 +337,7 @@ public class PedidoDao {
 		System.out.println(2);
 
 	}
+	
 }
 
 

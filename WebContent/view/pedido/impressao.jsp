@@ -92,7 +92,7 @@
 	</div>
 	<br><br><br><br><br>
 	<button id="btn" class="btn btn-primary">Imprimir</button> &nbsp;
-	<a href="pedidoProdutoAdmin"><button class="btn btn-primary">Fechar</button></a>
+	<a href="chamaHomeAdmin"><button class="btn btn-primary">Fechar</button></a>
 	
 </div>
 </div>

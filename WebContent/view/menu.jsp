@@ -51,7 +51,7 @@
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Servico<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="pesquisarServico">Realizar Pedido</a></li>
-                                <li><a href="listarPedidoServico">Listar Pedido</a></li>
+                                <li><a href="exibirRelatorioServico">Listar Pedido</a></li>
                             </ul>
                         </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Produto<span class="caret"></span></a>

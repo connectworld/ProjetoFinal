@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.javafx.scene.layout.region.Margins.Converter;
+
 
 import br.com.connectWorld.projeto.model.Cliente;
 import br.com.connectWorld.projeto.model.Pedido;
@@ -99,8 +97,10 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			
+			System.out.println(new java.sql.Date(relatorio.getDataInicial().getTime()));
+			
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between " );
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)" );
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);

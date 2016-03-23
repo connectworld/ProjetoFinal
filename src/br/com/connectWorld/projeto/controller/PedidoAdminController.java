@@ -211,4 +211,46 @@ public class PedidoAdminController {
 			return "principal/pedidoServicoAdmin";
 		}	
 	}
+	@RequestMapping("/baixaPedidoServico")
+	public String baixaPedidoServico (Model model ){
+		PedidoDao dao = new PedidoDao();
+		List<Pedido> listaPedido = dao.listarBaixa();
+		model.addAttribute("listaPedido", listaPedido);
+		return "principal/baixarPedidoServico";
+	}
+	@RequestMapping("/deletarPedidoServico")
+	public String baixarPedidoServico (Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.baixarPedidoServico(pedido);
+		model.addAttribute("mensagem", "Pedido Baixado com Sucesso");
+		return "principal/baixarPedidoServico";
+	}
+	@RequestMapping("/cancelarPedidoServico")
+	public String cancelarPedidoServico(Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.cancelarPedidoServico(pedido);
+		model.addAttribute("mensagem", "Pedido cancelado com Sucesso");
+		return "principal/baixarPedidoServico";
+	}
+	@RequestMapping("/baixaPedidoProduto")
+	public String baixaPedidoProduto (Model model ){
+		PedidoDao dao = new PedidoDao();
+		List<Pedido> listaPedido = dao.listarBaixa();
+		model.addAttribute("listaPedido", listaPedido);
+		return "principal/baixarPedidoServico";
+	}
+	@RequestMapping("/deletarPedidoProduto")
+	public String baixarPedidoProduto(Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.baixarPedidoServico(pedido);
+		model.addAttribute("mensagem", "Pedido Baixado com Sucesso");
+		return "principal/baixarPedidoServico";
+	}
+	@RequestMapping("/cancelarPedidoProduto")
+	public String cancelarPedidoProduto(Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.cancelarPedidoServico(pedido);
+		model.addAttribute("mensagem", "Pedido cancelado com Sucesso");
+		return "principal/baixarPedidoServico";
+	}
 }

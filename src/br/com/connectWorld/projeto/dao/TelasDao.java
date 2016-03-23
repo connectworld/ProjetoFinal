@@ -51,7 +51,7 @@ public class TelasDao {
 			// SER APRESENTADOS
 			List<Telas> listarTelas = new ArrayList<Telas>();
 			PreparedStatement stmt = this.conexao
-					.prepareStatement("select * from telas");
+					.prepareStatement("select * from telas where cod_tela <> 56");
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO

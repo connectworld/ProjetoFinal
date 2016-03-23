@@ -91,6 +91,31 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Pedido> listarBaixa() {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao = ? and situacao = ?");
+			stmt.setInt(1, 1);
+			stmt.setString(2, "A");
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedido = null;
+			while (param.next()) {
+				pedido = montarObjeto(param);
+				listarPedido.add(pedido);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	public List<Pedido> buscarPorSituacaoA(RelatorioPedido relatorio) {
 		try {
@@ -126,6 +151,40 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	public List<Pedido> buscarPedProPorSituacaoA(RelatorioPedido relatorio) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			
+			System.out.println(new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			System.out.println(new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
+			stmt.setString(1, relatorio.getSituacao());
+			stmt.setInt(2, 1);
+			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			System.out.println(stmt.toString());
+			
+			ResultSet param = stmt.executeQuery();
+			
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public List<Pedido> buscarPorSituacaoB(RelatorioPedido relatorio) {
 		try {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
@@ -134,6 +193,62 @@ public class PedidoDao {
 			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
+			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Pedido> buscarPedProPorSituacaoB(RelatorioPedido relatorio) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
+			stmt.setString(1, relatorio.getSituacao());
+			stmt.setInt(2, 1);
+			stmt.setInt(3, 1);
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedidoConsultado = null;
+			while (param.next()) {
+				pedidoConsultado = montarObjeto(param);
+				listarPedido.add(pedidoConsultado);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<Pedido> buscarPedProPorSituacaoC(RelatorioPedido relatorio) {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
+			stmt.setString(1, relatorio.getSituacao());
+			stmt.setInt(2, 1);
 			stmt.setInt(3, 1);
 			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
 			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
@@ -187,12 +302,12 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? flag_tipo = ? and exclusao_logica = ? and data_pedido between ? and ?");
-			stmt.setString(1, relatorio.getSituacao());
-			stmt.setInt(2, 0);
-			stmt.setInt(3, 1);
-			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
-			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
+			/*stmt.setString(1, relatorio.getSituacao());*/
+			stmt.setInt(1, 0);
+			stmt.setInt(2, 1);
+			stmt.setDate(3, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataFinal2().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -282,7 +397,7 @@ public class PedidoDao {
 		try {
 			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where cod_pedido=? and exclusao_logica = ?");
 			stmt.setInt(1, pedido.getCod());
-			stmt.setInt(1, 1);
+			stmt.setInt(2, 1);
 			ResultSet rs = stmt.executeQuery();
 			Pedido pedidoConsu = null;
 			if (rs.next()) {
@@ -347,7 +462,69 @@ public class PedidoDao {
 		System.out.println(2);
 
 	}
+	public void baixarPedidoServico(Pedido pedido) {
+		
+		String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+
+		try {
+			PreparedStatement param = conexao.prepareStatement(sql);
+			param.setString(1, "B");
+			param.setInt(2, 0);
+			param.setInt(3, 1);
+			param.setInt(3, pedido.getCod());
+			param.execute();
+			param.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+public void cancelarPedidoServico(Pedido pedido) {
+		String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+		try {
+			PreparedStatement param = conexao.prepareStatement(sql);
+			param.setString(1, "C");
+			param.setInt(2, 0);
+			param.setInt(3, 1);
+			param.setInt(3, pedido.getCod());
+			param.execute();
+			param.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+public void baixarPedidoProduto(Pedido pedido) {
 	
+	String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+
+	try {
+		PreparedStatement param = conexao.prepareStatement(sql);
+		param.setString(1, "B");
+		param.setInt(2, 1);
+		param.setInt(3, 1);
+		param.setInt(3, pedido.getCod());
+		param.execute();
+		param.close();
+	} catch (Exception e) {
+		throw new RuntimeException(e);
+	}
+
+}
+public void cancelarPedidoProduto(Pedido pedido) {
+	String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+	try {
+		PreparedStatement param = conexao.prepareStatement(sql);
+		param.setString(1, "C");
+		param.setInt(2, 0);
+		param.setInt(3, 1);
+		param.setInt(3, pedido.getCod());
+		param.execute();
+		param.close();
+	} catch (Exception e) {
+		throw new RuntimeException(e);
+	}
+}
 }
 
 

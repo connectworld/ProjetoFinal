@@ -220,5 +220,6 @@ public class PedidoWebControler {
 		model.addAttribute("clienteConsultado", clienteConsultado);
 		dao.fecharBanco();
 		return "pedido/pedidoServicoAdminPreenchido";
-	}	
+	}
+
 }

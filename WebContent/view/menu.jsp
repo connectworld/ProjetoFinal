@@ -48,6 +48,13 @@
                                 <li><a href="listarServico">Listar Servico</a></li>
                             </ul>
                         </li>
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Baixa de Peedido<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="baixarPedidoServico">Baixar Pedidos de Servico</a></li>
+                                <li><a href="baixarPedidoProduto">Baixar Pedidos de Produto</a></li>
+                                <li><a href="listarCliente">Clientes</a></li>
+                            </ul>
+                        </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Servico<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="pesquisarServico">Realizar Pedido</a></li>
@@ -57,7 +64,7 @@
                         <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedido Produto<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="pedidoProdutoAdmin">Realizar Pedido</a></li>
-                                <li><a href="listarPedidoProduto">Listar Pedidos</a></li>
+                                <li><a href="exibirRelatorioProduto">Listar Pedidos</a></li>
                             </ul>
                         </li>
                         <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Produtos<span class="caret"></span></a>

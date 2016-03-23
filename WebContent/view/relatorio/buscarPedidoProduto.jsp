@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Listar Pedidos Servicos</title>
+    <title>Listar Pedidos Produtos</title>
     <link href="view/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <script type="text/javascript" src="view/js/jquery-2.1.4.js"></script>
 	<script src="view/bootstrap/js/bootstrap.min.js"></script>
@@ -24,7 +24,7 @@
             <div class="col-sm-8">
 
                 <h3 class="page-header">Listar Pedido</h3>
-                <form role="form" action="listarPedidoServico" method="post">
+                <form role="form" action="listarPedidoProduto" method="post">
                     <div class="form-group float-label-control">
                         <label for="Data Inicial">Data Inicial</label>
                         <input type="text" class="form-control" placeholder="Data Inicia" id="dataInicial" name="dataInicial" size="10" required="required">

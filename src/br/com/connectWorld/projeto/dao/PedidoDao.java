@@ -97,17 +97,20 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			
-			System.out.println(new java.sql.Date(relatorio.getDataInicial().getTime()));
+			System.out.println(new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			System.out.println(new java.sql.Date(relatorio.getDataFinal2().getTime()));
 			
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)" );
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
-			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
-			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
+			System.out.println(stmt.toString());
+			
 			ResultSet param = stmt.executeQuery();
-
+			
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
 			Pedido pedidoConsultado = null;
 			while (param.next()) {
@@ -128,12 +131,12 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
-			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
-			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -156,12 +159,12 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between '?' and '?'");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where situacao = ? and flag_tipo = ? and exclusao_logica = ? and data_pedido between (?) and (?)");
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
-			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
-			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -188,8 +191,8 @@ public class PedidoDao {
 			stmt.setString(1, relatorio.getSituacao());
 			stmt.setInt(2, 0);
 			stmt.setInt(3, 1);
-			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial().getTime()));
-			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal().getTime()));
+			stmt.setDate(4, new java.sql.Date(relatorio.getDataInicial2().getTime()));
+			stmt.setDate(5, new java.sql.Date(relatorio.getDataFinal2().getTime()));
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -322,6 +325,7 @@ public class PedidoDao {
 		pedido.setCod(rs.getInt("cod_pedido"));
 		pedido.setValor(rs.getDouble("valor_total"));
 		pedido.setData(rs.getDate("data_pedido"));
+		pedido.setSituacao(rs.getString("situacao"));
 		
 		// MONTANODO O NIVEL USUÃ�RIO
 		int cod = rs.getInt("cliente");

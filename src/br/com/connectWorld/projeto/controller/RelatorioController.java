@@ -1,14 +1,14 @@
 package br.com.connectWorld.projeto.controller;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.connectWorld.projeto.dao.PedidoDao;
 import br.com.connectWorld.projeto.model.Pedido;
@@ -22,14 +22,13 @@ public class RelatorioController {
 		return "relatorio/buscarPedidoServico";
 	}
 	@RequestMapping("/listarPedidoServico")
-	public String listarPedidoServico(Model model, RelatorioPedido relatorio) throws SQLException {
+	public String listarPedidoServico(Model model, RelatorioPedido relatorio) throws SQLException, ParseException {
 		PedidoDao dao = new PedidoDao();
-		//Pedido pedido = new Pedido();
-		//pedido.setTipo(0);
-		//pedido.setTipo(0);
+		relatorio.setDataInicial2(new SimpleDateFormat("dd/MM/yyyy").parse(relatorio.getDataInicial()));
+		relatorio.setDataFinal2(new SimpleDateFormat("dd/MM/yyyy").parse(relatorio.getDataFinal()));
 				List<Pedido> listaPedidoServico = null;
 		if (relatorio.getSituacao().equals("A") && relatorio.getDataInicial() != null && relatorio.getDataFinal() != null) {
-			System.out.println(relatorio.getDataFinal()+""+relatorio.getDataInicial());
+			//System.out.println(relatorio.getDataFinal()+""+relatorio.getDataInicial());
 			listaPedidoServico = dao.buscarPorSituacaoA(relatorio);
 			Date date = new Date();
 			model.addAttribute("data", date);
@@ -61,5 +60,13 @@ public class RelatorioController {
 			dao.fecharBanco();
 			return "relatorio/listarRelatorioServico";
 		}
+	}
+	@RequestMapping("/buscarPedidoPorCod")
+	public String buscarPedidoPorCod(Pedido pedido, Model model) throws SQLException {
+		PedidoDao dao = new PedidoDao();
+		Pedido pedidoConsultado = dao.buscarPorcod(pedido);
+		model.addAttribute("pedidoConsultado", pedidoConsultado);
+		dao.fecharBanco();
+		return "relatorio/buscarPedidoServico";
 	}
 }

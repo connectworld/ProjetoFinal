@@ -2,7 +2,7 @@ package br.com.connectWorld.projeto.model;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+//import org.springframework.format.annotation.DateTimeFormat;//
 
 public class Servico {
 	private int cod;
@@ -11,10 +11,23 @@ public class Servico {
 	private double preco;
 	private Usuario usuario;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date garantia;
+	//@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date garantia2;
 	
+	public Date getGarantia2() {
+		return garantia2;
+	}
+	public void setGarantia2(Date garantia2) {
+		this.garantia2 = garantia2;
+	}
+	private String garantia;
 	
+	public String getGarantia() {
+		return garantia;
+	}
+	public void setGarantia(String garantia) {
+		this.garantia = garantia;
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -22,12 +35,6 @@ public class Servico {
 		this.usuario = usuario;
 	}
 	
-	public Date getGarantia() {
-		return garantia;
-	}
-	public void setGarantia(Date garantia) {
-		this.garantia = garantia;
-	}
 	public int getCod() {
 		return cod;
 	}

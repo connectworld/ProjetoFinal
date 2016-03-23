@@ -37,7 +37,7 @@ public class ProdutoDao {
 			stmt.setDouble(3, produto.getPrecoVenda());
 			stmt.setInt(4, produto.getQuantidade());
 			stmt.setString(5, produto.getImagem());
-			stmt.setInt(8, produto.getUsuario().getCod());
+			stmt.setInt(6, produto.getUsuario().getCod());
 			stmt.setInt(7, 1);
 			// EXUCUTANDO O SQL
 			stmt.execute();
@@ -55,7 +55,7 @@ public class ProdutoDao {
 			// SER APRESENTADOS
 			List<Produto> listarProduto = new ArrayList<Produto>();
 			PreparedStatement stmt = this.conexao
-					.prepareStatement("select * from produtos where exlusao_logica = ?");
+					.prepareStatement("select * from produtos where exclusao_logica = ?");
 			stmt.setInt(1,1);
 			ResultSet param = stmt.executeQuery();
 
@@ -130,7 +130,7 @@ public class ProdutoDao {
 			PreparedStatement stmt = conexao
 					.prepareStatement("SELECT * FROM produtos WHERE cod_produto = ? and exclusao_logica = ?");
 			stmt.setInt(1, cod);
-			stmt.setInt(1, 1);
+			stmt.setInt(2, 1);
 			ResultSet rs = stmt.executeQuery();
 
 			Produto produto = null;

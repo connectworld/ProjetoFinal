@@ -37,7 +37,8 @@ public class ServicoDao {
 			stmt.setString(1, servico.getNome());
 			stmt.setString(2, servico.getDescricao());
 			stmt.setDouble(3, servico.getPreco());
-			stmt.setDate(4, new java.sql.Date(servico.getGarantia().getTime()));
+			//stmt.setString(2, servico.getGarantia());
+			stmt.setDate(4, new java.sql.Date(servico.getGarantia2().getTime()));
 			stmt.setInt(5, servico.getUsuario().getCod());
 			stmt.setInt(6, 1);
 			// EXUCUTANDO O SQL
@@ -85,7 +86,7 @@ public class ServicoDao {
 			param.setString(1, servico.getDescricao());
 			param.setString(2, servico.getNome());
 			param.setDouble(3, servico.getPreco());
-			param.setDate(4, new java.sql.Date(servico.getGarantia().getTime()));
+			param.setDate(4, new java.sql.Date(servico.getGarantia2().getTime()));
 			param.setInt(5, servico.getUsuario().getCod());
 			param.setInt(6, servico.getCod());
 
@@ -116,7 +117,7 @@ public class ServicoDao {
 			PreparedStatement stmt = conexao
 					.prepareStatement("SELECT * FROM servicos WHERE cod_servico = ? and exclusao_logica = ?");
 			stmt.setInt(1, cod);
-			stmt.setInt(1, 1);
+			stmt.setInt(2, 1);
 			ResultSet rs = stmt.executeQuery();
 
 			Servico servico = null;
@@ -162,7 +163,7 @@ public class ServicoDao {
 		servico.setNome(rs.getString("nome"));
 		servico.setDescricao(rs.getString("descricao"));
 		servico.setPreco(rs.getDouble("preco"));
-		servico.setGarantia(rs.getDate("garantia"));
+		servico.setGarantia2(rs.getDate("garantia"));
 
 		// MONTANODO USUÁRIO
 		int cod = rs.getInt("user_cadastrante");

@@ -55,7 +55,7 @@
 						<td>${servico.descricao}</td>
 						<td>${servico.preco}</td>
 						<td>
-							<fmt:formatDate value="${servico.garantia}" pattern="dd/MM/yyyy" />
+							<fmt:formatDate value="${servico.garantia2}" pattern="dd/MM/yyyy" />
 						</td>
 						<td>${servico.usuario.nome}</td>
 						<td><a href="editarServico?cod=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Editar</a></td>

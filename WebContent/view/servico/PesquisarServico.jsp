@@ -62,7 +62,7 @@
 						<td>${servico.descricao}</td>
 						<td>${servico.preco}</td>
 						<td>
-							<fmt:formatDate value="${servico.garantia}" pattern="dd/MM/yyyy" />
+							<fmt:formatDate value="${servico.garantia2}" pattern="dd/MM/yyyy" />
 						</td>
 						<td><a href="retornapedidoServicoAdmin?cod=${servico.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Selecionar</a></td>
 					</tr>	
@@ -87,7 +87,7 @@
 						<td>${servicoAdd.descricao}</td>
 						<td>${servicoAdd.preco}</td>
 						<td>
-							<fmt:formatDate value="${servicoAdd.garantia}" pattern="dd/MM/yyyy" />
+							<fmt:formatDate value="${servicoAdd.garantia2}" pattern="dd/MM/yyyy" />
 						</td>
 						<td><a class="btn icon-btn btn-warning" href="removerServicoPedido?cod=${servicoAdd.cod}"><span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-warning"></span>Remove</a></td>
 					</tr>	

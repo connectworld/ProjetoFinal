@@ -124,8 +124,9 @@ public class UsuarioDao {
 	public void deletar(Usuario usuario) {
 
 		try {
-			PreparedStatement stmt = conexao.prepareStatement("DELETE FROM usuarios WHERE cod_usuario = ?");
-			stmt.setInt(1, usuario.getCod());
+			PreparedStatement stmt = conexao.prepareStatement("update usuarios set exclusao_logica = ? where cod_usuario = ?");
+			stmt.setInt(1, 0);
+			stmt.setInt(2, usuario.getCod());
 			stmt.execute();
 			stmt.close();
 			

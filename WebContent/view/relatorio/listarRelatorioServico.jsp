@@ -57,7 +57,9 @@
 				<td style="padding: 10px">${pedido.cod}</td>
 				<td style="padding: 10px">${pedido.cliente.nome}</td>
 				<td style="padding: 10px">${pedido.cliente.cpf}</td>
-				<td style="padding: 10px">${pedido.data}</td>
+				<td style="padding: 10px">
+					<fmt:formatDate value="${pedido.data}" pattern="dd/MM/yyyy" />
+				</td>
 				<td style="padding: 10px">${pedido.codigo.nome}</td>
 				<td style="padding: 10px">${pedido.situacao}</td>
 				<td style="padding: 10px">${pedido.valor}</td>

@@ -1,6 +1,8 @@
 package br.com.connectWorld.projeto.controller;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,9 @@ public class ServicoController {
 		}
 	@RequestMapping("salvarServico")
 	public String salvarServico(Servico servico, Model model)
-			throws SQLException {
+			throws SQLException, ParseException {
 			ServicoDao dao = new ServicoDao();
+			servico.setGarantia2(new SimpleDateFormat("dd/MM/yyyy").parse(servico.getGarantia()));
 			dao.salvar(servico);
 			model.addAttribute("mensagem", "Serviço Incluido com Sucesso");
 			dao.fecharBanco();
@@ -39,14 +42,15 @@ public class ServicoController {
 
 	@RequestMapping("/editarServico")
 	public String editarServico(int cod, Model model) throws SQLException {
-		
+			
 			ServicoDao dao = new ServicoDao();
 			model.addAttribute("servico", dao.buscarPorCod(cod));
 			dao.fecharBanco();
 			return "servico/editarServico";
 	}
 	@RequestMapping("/atualizarServico")
-	public String atualizarServico(Servico servico, Model model) throws SQLException {
+	public String atualizarServico(Servico servico, Model model) throws SQLException, ParseException {
+		servico.setGarantia2(new SimpleDateFormat("dd/MM/yyyy").parse(servico.getGarantia()));
 		ServicoDao dao = new ServicoDao();
 		dao.atualizarServico(servico);
 		model.addAttribute("mensagem", "Serviço atualizado com Sucesso");

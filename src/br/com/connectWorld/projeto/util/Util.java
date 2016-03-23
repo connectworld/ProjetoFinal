@@ -17,7 +17,7 @@ public class Util {
 			// Criando o diret�rio para armazenar o arquivo
 			//COLOCAR File.separator PARA CADA / QUE ENCONTRAR
 			// C:\Users\Suporte\git\connectwolrd
-			String workspaceProjeto = File.separator +"home" + File.separator + "ifpe" + File.separator + "git" + File.separator + "Projeto_Final";
+			String workspaceProjeto = File.separator +"opt" + File.separator + "apache-tomcat-8.0.32" + File.separator + "webapps" + File.separator + "Projeto_Final";
 			//String workspaceProjeto = "C:" + File.separator + "Users" + File.separator +"Suporte" + File.separator+ "git" + File.separator + "connectwolrd";
 			File dir = new File(workspaceProjeto + File.separator+ "WebContent" + File.separator+ "view" + File.separator +"img");
 			

@@ -50,8 +50,8 @@
                         </li>
                         <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Baixa de Peedido<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="baixarPedidoServico">Baixar Pedidos de Servico</a></li>
-                                <li><a href="baixarPedidoProduto">Baixar Pedidos de Produto</a></li>
+                                <li><a href="baixaPedidoServico">Baixar Pedidos de Servico</a></li>
+                                <li><a href="baixaPedidoProduto">Baixar Pedidos de Produto</a></li>
                                 <li><a href="listarCliente">Clientes</a></li>
                             </ul>
                         </li>

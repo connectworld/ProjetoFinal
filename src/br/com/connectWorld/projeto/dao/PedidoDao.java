@@ -72,7 +72,7 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao = ?");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao_logica = ?");
 			stmt.setInt(1, 1);
 			ResultSet param = stmt.executeQuery();
 
@@ -96,9 +96,37 @@ public class PedidoDao {
 			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
 			// SER APRESENTADOS
 			List<Pedido> listarPedido = new ArrayList<Pedido>();
-			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao = ? and situacao = ?");
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao_logica = ? and situacao = ? and flag_tipo = ?");
 			stmt.setInt(1, 1);
 			stmt.setString(2, "A");
+			stmt.setInt(3, 0);
+			ResultSet param = stmt.executeQuery();
+
+			// PECORRENDO O ARRAY E MONTADO O OBJETO
+			Pedido pedido = null;
+			while (param.next()) {
+				pedido = montarObjeto(param);
+				listarPedido.add(pedido);
+			}
+			param.close();
+			stmt.close();
+			
+			return listarPedido;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<Pedido> listarBaixaProduto() {
+		try {
+			// CRIANDO UM ARRAY LISTA PARA GUARDAR OS DADOS PARA PODEREM
+			// SER APRESENTADOS
+			List<Pedido> listarPedido = new ArrayList<Pedido>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from pedido where exclusao_logica = ? and situacao = ? and flag_tipo = ?");
+			stmt.setInt(1, 1);
+			stmt.setString(2, "A");
+			stmt.setInt(3, 1);
 			ResultSet param = stmt.executeQuery();
 
 			// PECORRENDO O ARRAY E MONTADO O OBJETO
@@ -471,7 +499,25 @@ public class PedidoDao {
 			param.setString(1, "B");
 			param.setInt(2, 0);
 			param.setInt(3, 1);
-			param.setInt(3, pedido.getCod());
+			param.setInt(4, pedido.getCod());
+			param.execute();
+			param.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+	
+public void baixarPedidoProdutoRealizado(Pedido pedido) {
+		
+		String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+
+		try {
+			PreparedStatement param = conexao.prepareStatement(sql);
+			param.setString(1, "B");
+			param.setInt(2, 1);
+			param.setInt(3, 1);
+			param.setInt(4, pedido.getCod());
 			param.execute();
 			param.close();
 		} catch (Exception e) {
@@ -486,7 +532,7 @@ public void cancelarPedidoServico(Pedido pedido) {
 			param.setString(1, "C");
 			param.setInt(2, 0);
 			param.setInt(3, 1);
-			param.setInt(3, pedido.getCod());
+			param.setInt(4, pedido.getCod());
 			param.execute();
 			param.close();
 		} catch (Exception e) {
@@ -494,16 +540,17 @@ public void cancelarPedidoServico(Pedido pedido) {
 		}
 	}
 
+
 public void baixarPedidoProduto(Pedido pedido) {
 	
-	String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ? ";
+	String sql = "update pedido set situacao = ? where flag_tipo = ? and exclusao_logica = ? and cod_pedido = ?";
 
 	try {
 		PreparedStatement param = conexao.prepareStatement(sql);
 		param.setString(1, "B");
 		param.setInt(2, 1);
 		param.setInt(3, 1);
-		param.setInt(3, pedido.getCod());
+		param.setInt(4, pedido.getCod());
 		param.execute();
 		param.close();
 	} catch (Exception e) {
@@ -516,9 +563,9 @@ public void cancelarPedidoProduto(Pedido pedido) {
 	try {
 		PreparedStatement param = conexao.prepareStatement(sql);
 		param.setString(1, "C");
-		param.setInt(2, 0);
+		param.setInt(2, 1);
 		param.setInt(3, 1);
-		param.setInt(3, pedido.getCod());
+		param.setInt(4, pedido.getCod());
 		param.execute();
 		param.close();
 	} catch (Exception e) {

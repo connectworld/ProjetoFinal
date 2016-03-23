@@ -60,8 +60,8 @@
 						<td>${pedido.codigo.nome}</td>
 						<td>${pedido.situacao}</td>
 						<td>${pedido.valor}</td>
-						<td><a href="baixaPedidoServicoRealizado?cod=${pedido.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Baixar</a></td>
-						<td><a class="btn icon-btn btn-danger" href="cancelarPedidoServico?cod=${pedido.cod}"><span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Cancelar</a></td>
+						<td><a href="baixaPedidoProdutoRealizado?cod=${pedido.cod}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>Baixar</a></td>
+						<td><a class="btn icon-btn btn-danger" href="cancelarPedidoProduto?cod=${pedido.cod}"><span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger"></span>Cancelar</a></td>
 					</tr>
 			</c:forEach>	
 		</table>

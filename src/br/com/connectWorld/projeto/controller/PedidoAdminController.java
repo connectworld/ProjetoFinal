@@ -212,45 +212,62 @@ public class PedidoAdminController {
 		}	
 	}
 	@RequestMapping("/baixaPedidoServico")
-	public String baixaPedidoServico (Model model ){
+	public String baixaPedidoServico(Model model ){
 		PedidoDao dao = new PedidoDao();
 		List<Pedido> listaPedido = dao.listarBaixa();
 		model.addAttribute("listaPedido", listaPedido);
-		return "principal/baixarPedidoServico";
+		return "pedido/listaPedido";
 	}
-	@RequestMapping("/deletarPedidoServico")
-	public String baixarPedidoServico (Model model, Pedido pedido ){
+	
+
+	@RequestMapping("/baixaPedidoServicoRealizado")
+	public String baixaPedidoServicoRealizado(Model model, Pedido pedido ){
 		PedidoDao dao = new PedidoDao();
 		dao.baixarPedidoServico(pedido);
-		model.addAttribute("mensagem", "Pedido Baixado com Sucesso");
-		return "principal/baixarPedidoServico";
+		model.addAttribute("mensagem", "Pedido baixado com sucesso");
+		return "forward:baixaPedidoServico";
+	}
+	@RequestMapping("/baixaPedidoProdutoRealizado")
+	public String baixaPedidoProdutoRealizado(Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.baixarPedidoProduto(pedido);
+		model.addAttribute("mensagem", "Pedido baixado com sucesso");
+		return "forward:baixaPedidoProduto";
+	}
+	
+	@RequestMapping("/deletarPedidoServico")
+	public String deletarPedidoServico (Model model, Pedido pedido ){
+		PedidoDao dao = new PedidoDao();
+		dao.deletar(pedido);
+		model.addAttribute("mensagem", "Pedido deletado com Sucesso");
+		return "forward:baixaPedidoServico";
 	}
 	@RequestMapping("/cancelarPedidoServico")
 	public String cancelarPedidoServico(Model model, Pedido pedido ){
 		PedidoDao dao = new PedidoDao();
 		dao.cancelarPedidoServico(pedido);
 		model.addAttribute("mensagem", "Pedido cancelado com Sucesso");
-		return "principal/baixarPedidoServico";
+		return "forward:baixaPedidoServico";
 	}
 	@RequestMapping("/baixaPedidoProduto")
 	public String baixaPedidoProduto (Model model ){
 		PedidoDao dao = new PedidoDao();
-		List<Pedido> listaPedido = dao.listarBaixa();
+		List<Pedido> listaPedido = dao.listarBaixaProduto();
 		model.addAttribute("listaPedido", listaPedido);
-		return "principal/baixarPedidoServico";
+		return "pedido/listaPedidoProduto";
 	}
 	@RequestMapping("/deletarPedidoProduto")
-	public String baixarPedidoProduto(Model model, Pedido pedido ){
+	public String deletarPedidoProduto(Model model, Pedido pedido ){
 		PedidoDao dao = new PedidoDao();
-		dao.baixarPedidoServico(pedido);
-		model.addAttribute("mensagem", "Pedido Baixado com Sucesso");
-		return "principal/baixarPedidoServico";
+		dao.deletar(pedido);
+		model.addAttribute("mensagem", "Pedido deletado com Sucesso");
+		return "forward:baixaPedidoProduto";
 	}
 	@RequestMapping("/cancelarPedidoProduto")
 	public String cancelarPedidoProduto(Model model, Pedido pedido ){
 		PedidoDao dao = new PedidoDao();
-		dao.cancelarPedidoServico(pedido);
+		dao.cancelarPedidoProduto(pedido);
 		model.addAttribute("mensagem", "Pedido cancelado com Sucesso");
-		return "principal/baixarPedidoServico";
+		return "forward:baixaPedidoProduto";
 	}
 }
